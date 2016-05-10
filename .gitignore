@@ -46,7 +46,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-/.htaccess
-/application/config/database.php
-/index.php
-/assets/images/
+.htaccess
+application/config/database.php
+index.php
+assets/images/
