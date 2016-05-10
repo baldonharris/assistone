@@ -1,5 +1,2 @@
-.htaccess
 application/config/database.php
-index.php
-assets/images/
 application/config/database.php
