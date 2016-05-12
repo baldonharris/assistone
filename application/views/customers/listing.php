@@ -88,7 +88,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-9 col-sm-12 col-xs-12" style="padding-left: 10px; padding-right: 10px;">
+</div>
+<div class="row">
+	<div class="col-md-9 col-md-offset-3 col-sm-12 col-xs-12" style="padding-left: 10px; padding-right: 10px;">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">
