@@ -21,6 +21,8 @@
 	</div>
 
 	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="assets/js/jqueryform.js"></script>
+	<?php for($x=0; $x<count($js); $x++) echo '<script src="'.base_url().'assets/js/'.$js[$x].'"></script>'; ?>
 
 	<!-- gauge js -->
 	<script type="text/javascript" src="assets/js/gauge/gauge.min.js"></script>
@@ -268,7 +270,6 @@
 	<script>
 		NProgress.done();
 	</script>
-	<?php for($x=0; $x<count($js); $x++) echo '<script src="'.base_url().'assets/js/'.$js[$x].'"></script>'; ?>
 	<!-- /datepicker -->
 	<!-- /footer content -->
 </body>
