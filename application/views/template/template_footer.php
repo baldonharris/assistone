@@ -20,37 +20,37 @@
 		<div id="notif-group" class="tabbed_notifications"></div>
 	</div>
 
-	<script src="assets/js/bootstrap.min.js"></script>
-	<script src="assets/js/jqueryform.js"></script>
+	<script src="<?=base_url()?>assets/js/bootstrap.min.js"></script>
+	<script src="<?=base_url()?>assets/js/jqueryform.js"></script>
 	<?php for($x=0; $x<count($js); $x++) echo '<script src="'.base_url().'assets/js/'.$js[$x].'"></script>'; ?>
 
 	<!-- gauge js -->
-	<script type="text/javascript" src="assets/js/gauge/gauge.min.js"></script>
-	<script type="text/javascript" src="assets/js/gauge/gauge_demo.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>assets/js/gauge/gauge.min.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>assets/js/gauge/gauge_demo.js"></script>
 	<!-- chart js -->
-	<script src="assets/js/chartjs/chart.min.js"></script>
+	<script src="<?=base_url()?>assets/js/chartjs/chart.min.js"></script>
 	<!-- bootstrap progress js -->
-	<script src="assets/js/progressbar/bootstrap-progressbar.min.js"></script>
-	<script src="assets/js/nicescroll/jquery.nicescroll.min.js"></script>
+	<script src="<?=base_url()?>assets/js/progressbar/bootstrap-progressbar.min.js"></script>
+	<script src="<?=base_url()?>assets/js/nicescroll/jquery.nicescroll.min.js"></script>
 	<!-- icheck -->
-	<script src="assets/js/icheck/icheck.min.js"></script>
+	<script src="<?=base_url()?>assets/js/icheck/icheck.min.js"></script>
 	<!-- daterangepicker -->
-	<script type="text/javascript" src="assets/js/moment/moment.min.js"></script>
-	<script type="text/javascript" src="assets/js/datepicker/daterangepicker.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>assets/js/moment/moment.min.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>assets/js/datepicker/daterangepicker.js"></script>
 
-	<script src="assets/js/custom.js"></script>
+	<script src="<?=base_url()?>assets/js/custom.js"></script>
 
 	<!-- flot js -->
 	<!--[if lte IE 8]><script type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
-	<script type="text/javascript" src="assets/js/flot/jquery.flot.js"></script>
-	<script type="text/javascript" src="assets/js/flot/jquery.flot.pie.js"></script>
-	<script type="text/javascript" src="assets/js/flot/jquery.flot.orderBars.js"></script>
-	<script type="text/javascript" src="assets/js/flot/jquery.flot.time.min.js"></script>
-	<script type="text/javascript" src="assets/js/flot/date.js"></script>
-	<script type="text/javascript" src="assets/js/flot/jquery.flot.spline.js"></script>
-	<script type="text/javascript" src="assets/js/flot/jquery.flot.stack.js"></script>
-	<script type="text/javascript" src="assets/js/flot/curvedLines.js"></script>
-	<script type="text/javascript" src="assets/js/flot/jquery.flot.resize.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>assets/js/flot/jquery.flot.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>assets/js/flot/jquery.flot.pie.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>assets/js/flot/jquery.flot.orderBars.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>assets/js/flot/jquery.flot.time.min.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>assets/js/flot/date.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>assets/js/flot/jquery.flot.spline.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>assets/js/flot/jquery.flot.stack.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>assets/js/flot/curvedLines.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>assets/js/flot/jquery.flot.resize.js"></script>
 	<script>
 		$(document).ready(function() {
 			// [17, 74, 6, 39, 20, 85, 7]
@@ -129,12 +129,12 @@
 	</script>
 
 	<!-- worldmap -->
-	<script type="text/javascript" src="js/maps/jquery-jvectormap-2.0.3.min.js"></script>
-	<script type="text/javascript" src="js/maps/gdp-data.js"></script>
-	<script type="text/javascript" src="js/maps/jquery-jvectormap-world-mill-en.js"></script>
-	<script type="text/javascript" src="js/maps/jquery-jvectormap-us-aea-en.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>/assets/js/maps/jquery-jvectormap-2.0.3.min.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>/assets/js/maps/gdp-data.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>/assets/js/maps/jquery-jvectormap-world-mill-en.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>/assets/js/maps/jquery-jvectormap-us-aea-en.js"></script>
 	<!-- pace -->
-	<script src="js/pace/pace.min.js"></script>
+	<script src="<?=base_url()?>/assets/js/pace/pace.min.js"></script>
 	<script>
 		$(function() {
 			$('#world-map-gdp').vectorMap({
@@ -155,7 +155,7 @@
 		});
 	</script>
 	<!-- skycons -->
-	<script src="js/skycons/skycons.min.js"></script>
+	<script src="<?=base_url()?>/assets/js/skycons/skycons.min.js"></script>
 	<script>
 		var icons = new Skycons({
 				"color": "#73879C"

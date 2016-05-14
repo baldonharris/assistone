@@ -1,29 +1,65 @@
-<div class="row">
-	<div class="col-md-3 col-sm-12 col-xs-12" style="padding-left:10px; padding-right: 10px;">
-		<div class="panel panel-primary">
+<div class="row" id="base_url" url="<?=base_url('customers/listing')?>">
+	<div class="col-md-7 col-sm-12 col-xs-12" style="padding-left:10px; padding-right: 10px;">
+		<div class="panel panel-primary" style="padding-bottom:8px;">
 			<div class="panel-heading">
 				<h3 class="panel-title">Customers</h3>
 			</div>
 			<div class="panel-body">
-				<center><div class="btn-group" role="group" aria-label="...">
-					<button type="button" class="btn btn-success btn-sm" id="btn-add" data-toggle="modal" data-target="#myModal">
-						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
-					</button>
-					<button type="button" class="btn btn-info btn-sm">
-						<span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
-					</button>
-				</div></center><br/>
-				<div class="list-group" get-url="<?=base_url('customers/get_customer')?>">
-					<?php
-						foreach($data['customers'] as $customer){
-							echo '<a href="#" customer_id="'.$customer['id'].'" class="list-group-item customers"><table><tr><td>'.$customer['customer_id'].'</td><td>&nbsp;|&nbsp;</td><td>'.$customer['firstname'].' '.$customer['lastname'].'</td></tr></table></a>';
-						}
-					?>
+				<div class="row">
+					<div class="col-md-3">
+						<button type="button" class="btn btn-success" id="btn-add" data-toggle="modal" data-target="#myModal">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+						</button>
+					</div>
+					<div class="input-group col-md-3 col-md-offset-3 pull-right">
+						<form class="form-inline" method="post" action="<?=base_url('customers/search')?>">
+							<div class="form-group">
+								<label class="sr-only" for="exampleInputAmount">Search</label>
+								<div class="input-group">
+									<div class="input-group-addon">Search</div>
+									<input type="text" name="search_" class="form-control" id="exampleInputAmount" placeholder="">
+								</div>
+							</div>
+							<input type="submit" class="hidden"/>
+						</form>
+					</div><!-- /input-group -->
+				</div>
+				<div class="row" id="curr_page" page="<?= $page['curr_page'] ?>">
+					<a id="dummy_list_item" href="#" customer_id="" class="hidden list-group-item customers"><table><td id="dummy-cust-id"></td><td>&nbsp;|&nbsp;</td><td id="dummy-cust-name"></td></table></a>
+					<div class="list-group" id="customer_list" get-url="<?=base_url('customers/get_customer')?>">
+						<?php
+							foreach($data['customers'] as $customer){
+								echo '<a href="#" customer_id="'.$customer['id'].'" class="list-group-item customers"><table><tr><td>'.$customer['customer_id'].'</td><td>&nbsp;|&nbsp;</td><td>'.$customer['firstname'].' '.$customer['lastname'].'</td></tr></table></a>';
+							}
+						?>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<div class="btn-group" role="group" aria-label="...">
+							<button type="button" id="btn-update" class="disabled btn btn-warning btn-sm" data-toggle="modal" data-target="#myModal">
+								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Update
+							</button>
+							<a base-url="<?=base_url('customers/delete_customer/')?>" href="#" id="btn-delete" class="disabled btn btn-danger btn-sm">
+								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
+							</a>
+						</div>
+					</div>
+					<div class="col-md-5 col-md-offset-4">
+						<div class="btn-group pull-right" role="group" aria-label="...">
+							<a href="<?= base_url('customers/listing/'.($page['curr_page']-1)) ?>" class="<?= ($page['status']['prev']==0) ? 'disabled' : '' ?> btn btn-default btn-sm">
+								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Prev
+							</a>
+							<a href="<?= base_url('customers/listing/'.($page['curr_page']+1)) ?>" class="<?= ($page['status']['next']==0) ? 'disabled' : '' ?> btn btn-default btn-sm">
+								Next <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> 
+							</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="col-md-9 col-sm-12 col-xs-12" style="padding-left: 10px; padding-right: 10px;">
+	<div class="col-md-5 col-sm-12 col-xs-12" style="padding-left: 10px; padding-right: 10px;">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">
@@ -32,9 +68,9 @@
 			</div>
 			<div class="panel-body">
 				<div class="row">
-					<div class="col-md-offset-4 col-md-4 col-xs-12 col-sm-12 thumbnail" style="height:210px;">
+					<div class="col-md-offset-4 col-md-4 col-xs-12 col-sm-12 thumbnail" style="height:165px;">
 						<a href="#">
-							<img id="display_picture" source="<?=base_url('assets/images/')?>" alt="..." style="height:200px; width:200px;">
+							<img id="display_picture" source="<?=base_url('assets/images/')?>" alt="..." style="height:156px; width:156px;">
 						</a>
 					</div>
 					<div class="col-md-12">
@@ -72,10 +108,14 @@
 								<td><b>Guarantor Name:</b></td>
 								<td id="guarantor_name"></td>
 							</tr>
+							<tr>
+								<td><b>Deleted at:</b></td>
+								<td id="deleted_at"></td>
+							</tr>
 						</table>
 					</div>
 				</div>
-				<div class="row">
+<!-- 				<div class="row">
 					<center><div class="btn-group" role="group" aria-label="...">
 						<button type="button" id="btn-update" class="disabled btn btn-warning btn-sm" data-toggle="modal" data-target="#myModal">
 							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Update
@@ -84,13 +124,13 @@
 							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
 						</button>
 					</div></center>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>
 </div>
 <div class="row">
-	<div class="col-md-9 col-md-offset-3 col-sm-12 col-xs-12" style="padding-left: 10px; padding-right: 10px;">
+	<div class="col-md-12 col-sm-12 col-xs-12" style="padding-left: 10px; padding-right: 10px;">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">
@@ -191,7 +231,7 @@
 						<input type="file" name="dp" id="dp">
 						<p class="help-block">Example block-level help text here.</p>
 					</div>
-				
+					<input type="hidden" value="" name="id"/>
 			</div>
 			<div class="modal-footer">
 				<button type="submit" class="btn btn-success pull-left">Save</button>

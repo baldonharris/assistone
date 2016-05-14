@@ -11,13 +11,45 @@ class Customers extends MY_Controller {
 		$this->load->model('m_customers');
 	}
 
-	public function index()
-	{
-		$data['customers'] = $this->m_customers->get_customers_names();
+	public function index(){
+		redirect(base_url('customers/listing'));
+	}
+
+	public function listing($page = 0){
+		$next = $this->m_customers->get_next( ($page+1)*10 );
+		if($page!=0){
+			$prev = $this->m_customers->get_prev( ($page-1)*10 );
+			$status['prev'] = (!$prev) ? 0 : 1;
+		}else{
+			$status['prev'] = 0;
+		}
+
+		$status['next'] = (!$next) ? 0 : 1;
+
+		if($page == 0){
+			$data['customers'] = $this->m_customers->get_customers_names();
+		}else{
+			$data['customers'] = $this->m_customers->get_customers_names(10, ($page*10));
+		}
+		
 		$this->generate_page('customers/listing', [
 			'title'		=>'assistone | customers listing',
 			'header'	=>'Customers',
 			'subheader'	=>'Listing',
+			'page'		=>array('curr_page'=>$page, 'status'=>$status),
+			'data'		=>$data,
+			'js'		=>array('customers.js')]);
+	}
+
+	public function search($page = 0){
+		$status['prev'] = $status['next'] = 0;
+		$data['customers'] = $this->m_customers->search($this->input->post('search_'));
+		
+		$this->generate_page('customers/listing', [
+			'title'		=>'assistone | customers listing',
+			'header'	=>'Customers',
+			'subheader'	=>'Listing',
+			'page'		=>array('curr_page'=>0, 'status'=>$status),
 			'data'		=>$data,
 			'js'		=>array('customers.js')]);
 	}
@@ -27,14 +59,37 @@ class Customers extends MY_Controller {
 		echo json_encode($this->m_customers->get(['c1.id'=>$id]));
 	}
 
+	public function delete_customer($id){
+		$this->m_customers->delete($id);
+		redirect('customers/listing');
+	}
+
+	public function update_customer(){
+		$errors = $this->validate();
+		if(!empty($errors)){
+			$toReturn = array('status'=>0, 'data'=>$errors);
+		}else{
+			$inputs = $this->format();
+			$id = $inputs['id'];
+			unset($inputs['id']);
+			$added = $this->m_customers->update($id, $inputs);
+			$added['name'] = $inputs['firstname']." ".$inputs['lastname'];
+			$toReturn = array('status'=>1, 'data'=>$added);
+		}	
+		echo json_encode($toReturn);
+	}
+
 	public function add_customer(){
 		$errors = $this->validate();
 		if(!empty($errors)){
-			echo json_encode($errors);
-			return;
-		}
-		$added = $this->m_customers->add($this->format());
-		echo json_encode($added);
+			$toReturn = array('status'=>0, 'data'=>$errors);
+		}else{
+			$inputs = $this->format();
+			$added = $this->m_customers->add($inputs);
+			$added['name'] = $inputs['firstname']." ".$inputs['lastname'];
+			$toReturn = array('status'=>1, 'data'=>$added);
+		}	
+		echo json_encode($toReturn);
 	}
 
 	public function validate(){
@@ -62,13 +117,15 @@ class Customers extends MY_Controller {
 		}
 	}
 
-	public function format(){
+	public function format($mode = 'create'){
 		$input = $this->input->post();
 		$input['firstname'] = ucwords($input['firstname']);
 		$input['middlename'] = ucwords($input['middlename']);
 		$input['lastname'] = ucwords($input['lastname']);
 		$input['address'] = ucwords($input['address']);
-		$input['display_picture'] = $this->filename;
+		if($this->filename != NULL){
+			$input['display_picture'] = $this->filename;
+		}
 		unset($input['dp']);
 		return $input;
 	}

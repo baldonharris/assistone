@@ -12,21 +12,21 @@
 
 	<!-- Bootstrap core CSS -->
 
-	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<?=base_url()?>assets/css/bootstrap.min.css" rel="stylesheet">
 
-	<link href="assets/fonts/css/font-awesome.min.css" rel="stylesheet">
-	<link href="assets/css/animate.min.css" rel="stylesheet">
+	<link href="<?=base_url()?>assets/fonts/css/font-awesome.min.css" rel="stylesheet">
+	<link href="<?=base_url()?>assets/css/animate.min.css" rel="stylesheet">
 
 	<!-- Custom styling plus plugins -->
-	<link href="assets/css/custom.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="assets/css/maps/jquery-jvectormap-2.0.3.css" />
-	<link href="assets/css/icheck/flat/green.css" rel="stylesheet" />
-	<link href="assets/css/floatexamples.css" rel="stylesheet" type="text/css" />
+	<link href="<?=base_url()?>assets/css/custom.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/css/maps/jquery-jvectormap-2.0.3.css" />
+	<link href="<?=base_url()?>assets/css/icheck/flat/green.css" rel="stylesheet" />
+	<link href="<?=base_url()?>assets/css/floatexamples.css" rel="stylesheet" type="text/css" />
 
 	<?php for($x=0; $x<count($css); $x++) echo '<link href="'.base_url().'assets/css/'.$css[$x].'" rel="stylesheet">'; ?>
 
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/nprogress.js"></script>
+	<script src="<?=base_url()?>assets/js/jquery.min.js"></script>
+	<script src="<?=base_url()?>assets/js/nprogress.js"></script>
 
 	<!--[if lt IE 9]>
 	<script src="../assets/js/ie8-responsive-file-warning.js"></script>
@@ -56,7 +56,7 @@
 					<!-- menu prile quick info -->
 					<div class="profile">
 						<div class="profile_pic">
-							<img src="assets/images/<?= ($this->session->userdata('display_picture') != NULL) ? $this->session->userdata('display_picture') : 'user.png' ?>" alt="..." class="img-circle profile_img">
+							<img src="<?=base_url()?>assets/images/<?= ($this->session->userdata('display_picture') != NULL) ? $this->session->userdata('display_picture') : 'user.png' ?>" alt="..." class="img-circle profile_img">
 						</div>
 						<div class="profile_info">
 							<span>Welcome,</span>
@@ -72,7 +72,7 @@
 						<div class="menu_section">
 							<h3 <?= $this->uri->segment(0) ?>>&nbsp;</h3>
 							<ul class="nav side-menu">
-								<li class=""><a href="<?=base_url('customers')?>"><i class="fa fa-users"></i> Customers <!-- <span class="fa fa-chevron-down"></span> --></a>
+								<li class=""><a href="<?=base_url('customers/listing')?>"><i class="fa fa-users"></i> Customers <!-- <span class="fa fa-chevron-down"></span> --></a>
 									<!-- <ul class="nav child_menu" style="display: none">
 										<li><a href="empty.html">Sub1.1</a>
 										</li>
@@ -124,7 +124,7 @@
 						<ul class="nav navbar-nav navbar-right">
 							<li class="">
 								<a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-									<img src="assets/images/<?= ($this->session->userdata('display_picture') != NULL) ? $this->session->userdata('display_picture') : 'user.png' ?>" alt=""><?= $this->session->userdata('username') ?>
+									<img src="<?=base_url()?>assets/images/<?= ($this->session->userdata('display_picture') != NULL) ? $this->session->userdata('display_picture') : 'user.png' ?>" alt=""><?= $this->session->userdata('username') ?>
 									<span class=" fa fa-angle-down"></span>
 								</a>
 								<ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
