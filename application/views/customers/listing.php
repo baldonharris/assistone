@@ -15,6 +15,11 @@
 							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Customer
 						</button>
 					</div>
+					<div class="col-md-3 col-xs-12 col-sm-12">
+						<button type="button" class="btn btn-primary" id="btn-add" data-toggle="modal" data-target="#myModal">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Customer
+						</button>
+					</div>
 					<div class="input-group col-md-3 col-md-offset-3 col-xs-12 col-sm-12 pull-right">
 						<form class="form-inline" method="post" action="<?=base_url('customers/search')?>">
 							<div class="form-group top_search">
@@ -34,7 +39,11 @@
 					<div class="list-group" id="customer_list" get-url="<?=base_url('customers/get_customer')?>">
 						<?php
 							foreach($data['customers'] as $customer){
-								echo '<a href="#" customer_id="'.$customer['id'].'" class="list-group-item customers"><table><tr><td>'.$customer['customer_id'].'</td><td>&nbsp;|&nbsp;</td><td>'.$customer['firstname'].' '.$customer['lastname'].'</td></tr></table></a>';
+								if(!$customer['deleted_at']){
+									echo '<a href="#" customer_id="'.$customer['id'].'" class="list-group-item customers"><table><tr><td>'.$customer['customer_id'].'</td><td>&nbsp;|&nbsp;</td><td>'.$customer['firstname'].' '.$customer['lastname'].'</td></tr></table></a>';
+								}else{
+									echo '<a href="#" customer_id="'.$customer['id'].'" class="list-group-item customers list-group-item-danger"><table><tr><td>'.$customer['customer_id'].'</td><td>&nbsp;|&nbsp;</td><td>'.$customer['firstname'].' '.$customer['lastname'].'</td></tr></table></a>';
+								}
 							}
 						?>
 					</div>
@@ -115,7 +124,7 @@
 								<td id="guarantor_name"></td>
 							</tr>
 							<tr>
-								<td><b>Deleted at:</b></td>
+								<td><b>Status:</b></td>
 								<td id="deleted_at"></td>
 							</tr>
 						</table>

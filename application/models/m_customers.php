@@ -19,7 +19,7 @@ class M_Customers extends CI_Model {
 
 	public function get_customers_names($n=0, $start=0){
 		$this->db->order_by('id', 'DESC');
-		$this->db->select('c1.id, c1.customer_id, c1.firstname, c1.middlename, c1.lastname', FALSE);
+		$this->db->select('c1.id, c1.customer_id, c1.firstname, c1.middlename, c1.lastname, c1.deleted_at', FALSE);
 		$this->db->where('c1.deleted_at IS NULL', FALSE, FALSE);
 		if($n==0 && $start==0){
 			return $this->db->get('customers as c1', 10)->result_array();
@@ -44,7 +44,7 @@ class M_Customers extends CI_Model {
 
 	public function search($where){
 		$this->db->order_by('id', 'DESC');
-		$this->db->select('c1.id, c1.customer_id, c1.firstname, c1.middlename, c1.lastname', FALSE);
+		$this->db->select('c1.id, c1.customer_id, c1.firstname, c1.middlename, c1.lastname, c1.deleted_at', FALSE);
 		$this->db->like('c1.firstname', $where);
 		$this->db->or_like('c1.middlename', $where);
 		$this->db->or_like('c1.lastname', $where);
