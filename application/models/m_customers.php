@@ -30,7 +30,7 @@ class M_Customers extends CI_Model {
 
 	public function get($all = FALSE, $where = NULL){
 		$this->db->order_by('id', 'DESC');
-		$this->db->select('c1.id, c1.customer_id, c1.firstname, c1.middlename, c1.lastname, c1.mobilenumber, c1.address, c1.registered, CONCAT(c2.firstname, " ", c2.lastname) as guarantor_name, c2.id as guarantor_id, c1.deleted_at, c1.display_picture, c1.complete_name', FALSE);
+		$this->db->select('c1.id, c1.customer_id, c1.firstname, c1.middlename, c1.lastname, c1.mobilenumber, c1.address, c1.registered, CONCAT(c2.customer_id, " | ", c2.firstname, " ", c2.lastname) as guarantor_name, c2.id as guarantor_id, c1.deleted_at, c1.display_picture, c1.complete_name', FALSE);
 		$this->db->join('customers as c2', 'c2.id=c1.guarantor_customers_id', 'left');
 		if(!$where){
 			if($all == FALSE){

@@ -112,7 +112,7 @@
 							</tr>
 							<tr>
 								<td><b>Guarantor Name:</b></td>
-								<td id="complete_name"></td>
+								<td id="guarantor_name"></td>
 							</tr>
 							<tr>
 								<td><b>Deleted at:</b></td>
