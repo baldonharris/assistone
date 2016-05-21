@@ -11,7 +11,6 @@
 	<title><?= $title ?></title>
 
 	<!-- Bootstrap core CSS -->
-
 	<link href="<?=base_url()?>assets/css/bootstrap.min.css" rel="stylesheet">
 
 	<link href="<?=base_url()?>assets/fonts/css/font-awesome.min.css" rel="stylesheet">
@@ -19,7 +18,7 @@
 
 	<!-- Custom styling plus plugins -->
 	<link href="<?=base_url()?>assets/css/custom.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/css/maps/jquery-jvectormap-2.0.3.css" />
+	<link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/css/maps/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
 	<link href="<?=base_url()?>assets/css/icheck/flat/green.css" rel="stylesheet" />
 	<link href="<?=base_url()?>assets/css/floatexamples.css" rel="stylesheet" type="text/css" />
 
@@ -143,15 +142,21 @@
 			<!-- page content -->
 			<div class="right_col" role="main">
 
-				<div class="row">
-					<div class="col-md-12 col-sm-12 col-xs-12">
-						<div class="dashboard_graph">
+				<div class>
 
-							<div class="row x_title">
-								<div class="col-md-6">
-									<h3><?= $header ?> <small><?= $subheader ?></small></h3>
+					<div class="page-title">
+						<div class="title_left">
+							<h3><?= $header ?> <small><?= $subheader ?></small></h3>
+						</div>
+<!-- 						<div class="title_right">
+							<div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+								<div class="input-group">
+									<input type="text" class="form-control" placeholder="Search for...">
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="button">Go!</button>
+									</span>
 								</div>
-								<div class="col-md-6"></div>
 							</div>
-
-							<div class="col-md-12 col-sm-12 col-xs-12">
+						</div> -->
+					</div>
+					<div class="clearfix"></div>

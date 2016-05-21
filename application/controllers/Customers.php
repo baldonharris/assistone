@@ -42,21 +42,28 @@ class Customers extends MY_Controller {
 	}
 
 	public function search($page = 0){
-		$status['prev'] = $status['next'] = 0;
-		$data['customers'] = $this->m_customers->search($this->input->post('search_'));
-		
-		$this->generate_page('customers/listing', [
-			'title'		=>'assistone | customers listing',
-			'header'	=>'Customers',
-			'subheader'	=>'Listing',
-			'page'		=>array('curr_page'=>0, 'status'=>$status),
-			'data'		=>$data,
-			'js'		=>array('customers.js')]);
+		if(empty($this->input->post('search_'))){
+			redirect(base_url('customers/listing'));
+		}else{
+			$status['prev'] = $status['next'] = 0;
+			$data['customers'] = $this->m_customers->search($this->input->post('search_'));
+			$this->generate_page('customers/listing', [
+				'title'		=>'assistone | customers listing',
+				'header'	=>'Customers',
+				'subheader'	=>'Listing',
+				'page'		=>array('curr_page'=>0, 'status'=>$status),
+				'data'		=>$data,
+				'js'		=>array('customers.js')]);
+		}
 	}
 
 	public function get_customer(){
 		$id = $this->input->post('id');
-		echo json_encode($this->m_customers->get(['c1.id'=>$id]));
+		if(empty($id)){
+			echo json_encode($this->m_customers->get(TRUE));
+		}else{
+			echo json_encode($this->m_customers->get(FALSE, ['c1.id'=>$id]));
+		}
 	}
 
 	public function delete_customer($id){
@@ -96,7 +103,7 @@ class Customers extends MY_Controller {
 		$this->form_validation->set_rules('firstname', 'Firstname', 'required');
 		$this->form_validation->set_rules('middlename', 'Middlename', 'required');
 		$this->form_validation->set_rules('lastname', 'Lastname', 'required');
-		$this->form_validation->set_rules('mobilenumber', 'Mobile Number', 'required|is_natural');
+		$this->form_validation->set_rules('mobilenumber', 'Mobile Number', 'required');
 		$this->form_validation->set_rules('address', 'Address', 'required');
 		if(isset($_FILES['dp'])){
 			$upload = $this->do_upload();
@@ -143,12 +150,7 @@ class Customers extends MY_Controller {
 		$errors = array();
 
 		if(!$this->upload->do_upload('dp')){
-			foreach(explode(',', $this->upload->display_errors('',',')) AS $err){
-				if($err){
-					$errors[] = $err;
-				}
-			}
-			return $errors;
+			return array('dp'=>'Please follow the specifications below.');
 		}
 		$file = $this->upload->data();
 		return $file['file_name'];
