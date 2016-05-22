@@ -43,6 +43,9 @@ $(document).ready(function(){
 						}else{
 							$('#'+index).attr('src', source+'/'+value);
 						}
+					}else if(index=='deleted_at'){
+						var text = (new_value.length==0) ? 'Active' : 'Inactive';
+						$('#'+index).text(text);
 					}else{
 						$('#'+index).text(new_value);
 					}
@@ -54,11 +57,12 @@ $(document).ready(function(){
 		}
 	});
 
-	$('#btn-add').click(function(e){
+	$('.add-btn').click(function(e){
 		e.preventDefault();
 		mode = 1;
 		url_action = $('#form_customer').attr('add-url');
 		$('.modal-body').find('form')[0].reset();
+		$('#myModal').modal('show');
 	});
 
 	$('#btn-update').click(function(e){

@@ -5,22 +5,23 @@
 				<h2>Customers</h2>
 				<ul class="nav navbar-right panel_toolbox">
 					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+					<li class="dropdown">
+						<a href="#"><i class="fa fa-wrench"></i></a>
+					</li>
+					<li class="dropdown hidden-lg add-btn">
+						<a href="#"><i class="fa fa-plus"></i></a>
+					</li>
 				</ul>
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
 				<div class="row">
-					<div class="col-md-3 col-xs-12 col-sm-12">
-						<button type="button" class="btn btn-primary" id="btn-add" data-toggle="modal" data-target="#myModal">
+					<div class="col-lg-3 col-xs-12 col-sm-12 hidden-md hidden-sm hidden-xs">
+						<button type="button" class="btn btn-primary add-btn">
 							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Customer
 						</button>
 					</div>
-					<div class="col-md-3 col-xs-12 col-sm-12">
-						<button type="button" class="btn btn-primary" id="btn-add" data-toggle="modal" data-target="#myModal">
-							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Customer
-						</button>
-					</div>
-					<div class="input-group col-md-3 col-md-offset-3 col-xs-12 col-sm-12 pull-right">
+					<div class="input-group col-lg-3 col-lg-offset-3 col-md-12 col-xs-12 col-sm-12 pull-right">
 						<form class="form-inline" method="post" action="<?=base_url('customers/search')?>">
 							<div class="form-group top_search">
 								<div class="input-group">
@@ -50,7 +51,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-3 col-sm-6 col-xs-6">
-						<div class="btn-group" role="group" aria-label="...">
+						<div class="btn-group hidden-sm hidden-xs hidden-md" role="group" aria-label="...">
 							<button type="button" id="btn-update" class="disabled btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
 								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Update
 							</button>
@@ -58,14 +59,30 @@
 								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
 							</a>
 						</div>
+						<div class="btn-group hidden-lg btn-group-xs" role="group" aria-label="...">
+							<button type="button" id="btn-update" class="disabled btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
+								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+							</button>
+							<a base-url="<?=base_url('customers/delete_customer/')?>" href="#" id="btn-delete" class="disabled btn btn-dark btn-sm">
+								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+							</a>
+						</div>
 					</div>
 					<div class="col-md-5 col-md-offset-4 col-sm-6 col-xs-6">
-						<div class="btn-group pull-right" role="group" aria-label="...">
+						<div class="btn-group pull-right hidden-sm hidden-xs hidden-md" role="group" aria-label="...">
 							<a href="<?= base_url('customers/listing/'.($page['curr_page']-1)) ?>" class="<?= ($page['status']['prev']==0) ? 'disabled' : '' ?> btn btn-default btn-sm">
 								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Prev
 							</a>
 							<a href="<?= base_url('customers/listing/'.($page['curr_page']+1)) ?>" class="<?= ($page['status']['next']==0) ? 'disabled' : '' ?> btn btn-default btn-sm">
 								Next <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> 
+							</a>
+						</div>
+						<div class="btn-group pull-right hidden-lg btn-group-xs" role="group" aria-label="...">
+							<a href="<?= base_url('customers/listing/'.($page['curr_page']-1)) ?>" class="<?= ($page['status']['prev']==0) ? 'disabled' : '' ?> btn btn-default btn-sm">
+								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+							</a>
+							<a href="<?= base_url('customers/listing/'.($page['curr_page']+1)) ?>" class="<?= ($page['status']['next']==0) ? 'disabled' : '' ?> btn btn-default btn-sm">
+								<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> 
 							</a>
 						</div>
 					</div>
