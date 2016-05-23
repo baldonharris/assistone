@@ -1,3 +1,4 @@
+<?= 'heyyy '.$this->uri->segment(3) ?>
 <div class="row" id="base_url" url="<?=base_url('customers/listing')?>" base-url="<?=base_url()?>">
 	<div class="col-md-7 col-sm-12 col-xs-12" style="padding-left:10px; padding-right: 10px;">
 		<div class="x_panel">
@@ -6,7 +7,7 @@
 				<ul class="nav navbar-right panel_toolbox">
 					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
 					<li class="dropdown">
-						<a href="#"><i class="fa fa-wrench"></i></a>
+						<a href="#" id="forCustomerSettings"><i class="fa fa-wrench"></i></a>
 					</li>
 					<li class="dropdown hidden-lg add-btn">
 						<a href="#"><i class="fa fa-plus"></i></a>
@@ -55,7 +56,7 @@
 							<button type="button" id="btn-update" class="disabled btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
 								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Update
 							</button>
-							<a base-url="<?=base_url('customers/delete_customer/')?>" href="#" id="btn-delete" class="disabled btn btn-dark btn-sm">
+							<a base-url="<?=base_url('customers/delete_customer/'.$page['curr_page'].'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>" href="#" id="btn-delete" class="disabled btn btn-dark btn-sm">
 								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
 							</a>
 						</div>
@@ -63,17 +64,17 @@
 							<button type="button" id="btn-update" class="disabled btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
 								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 							</button>
-							<a base-url="<?=base_url('customers/delete_customer/')?>" href="#" id="btn-delete" class="disabled btn btn-dark btn-sm">
+							<a base-url="<?=base_url('customers/delete_customer/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>" href="#" id="btn-delete" class="disabled btn btn-dark btn-sm">
 								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 							</a>
 						</div>
 					</div>
 					<div class="col-md-5 col-md-offset-4 col-sm-6 col-xs-6">
 						<div class="btn-group pull-right hidden-sm hidden-xs hidden-md" role="group" aria-label="...">
-							<a href="<?= base_url('customers/listing/'.($page['curr_page']-1)) ?>" class="<?= ($page['status']['prev']==0) ? 'disabled' : '' ?> btn btn-default btn-sm">
+							<a href="<?= base_url('customers/listing/'.($page['curr_page']-1).'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display) ?>" class="<?= ($page['status']['prev']==0) ? 'disabled' : '' ?> btn btn-default btn-sm">
 								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Prev
 							</a>
-							<a href="<?= base_url('customers/listing/'.($page['curr_page']+1)) ?>" class="<?= ($page['status']['next']==0) ? 'disabled' : '' ?> btn btn-default btn-sm">
+							<a href="<?= base_url('customers/listing/'.($page['curr_page']+1).'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display) ?>" class="<?= ($page['status']['next']==0) ? 'disabled' : '' ?> btn btn-default btn-sm">
 								Next <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> 
 							</a>
 						</div>
@@ -207,6 +208,60 @@
 						</table>
 					</div>
 				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="customerSettings" tabindex="-1" role="dialog" aria-labelledby="customerSettings" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Settings</h4>
+			</div>
+			<div class="modal-body">
+				<form action="<?=base_url('customers/listing')?>" method="post">
+					<div class="form-group">
+						<label for="sortby" class="control-label">Sort by:</label>
+						<select class="form-control" name="set_sortby">
+							<option value="1" <?= ($set_sortby==1) ? 'selected="selected"' : ''  ?>>Customer ID</option>
+							<option value="2" <?= ($set_sortby==2) ? 'selected="selected"' : ''  ?>>Firstname</option>
+							<option value="3" <?= ($set_sortby==3) ? 'selected="selected"' : ''  ?>>Lastname</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-6">
+								<label for="orderby" class="control-label">Order by:</label>
+								<div class="radio">
+									<label>
+										<input type="radio" name="set_orderby" id="orderbyasc" value="1" <?= ($set_orderby==1) ? 'checked' : ''  ?>>
+										ASC
+									</label>
+								</div>
+								<div class="radio">
+									<label>
+										<input type="radio" name="set_orderby" id="orderbydesc" value="2" <?= ($set_orderby==2) ? 'checked' : ''  ?>>
+										DESC
+									</label>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label for="display" class="control-label">Display:</label>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" value="1" id="display" name="set_display" <?= ($set_display==1) ? 'checked' : ''  ?>>
+										Display all
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-success btn-block">Go!</button>
+				</form>
 			</div>
 		</div>
 	</div>

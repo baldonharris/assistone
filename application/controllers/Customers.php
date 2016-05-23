@@ -15,10 +15,28 @@ class Customers extends MY_Controller {
 		redirect(base_url('customers/listing'));
 	}
 
-	public function listing($page = 0){
-		$next = $this->m_customers->get_next( ($page+1)*10 );
+	public function listing($page=0, $set_sortby_def=1, $set_orderby_def=2, $set_display_def=0){
+		if($this->input->post('set_sortby') != NULL){
+			$set_sortby = $this->input->post('set_sortby');
+		}else{
+			$set_sortby = $set_sortby_def;
+		}
+
+		if($this->input->post('set_orderby') != NULL){
+			$set_orderby = $this->input->post('set_orderby');
+		}else{
+			$set_orderby = $set_orderby_def;
+		}
+
+		if($this->input->post('set_display') != NULL){
+			$set_display = $this->input->post('set_display');
+		}else{
+			$set_display = $set_display_def;
+		}
+
+		$next = $this->m_customers->get_next( ($page+1)*10, $set_sortby, $set_orderby, $set_display);
 		if($page!=0){
-			$prev = $this->m_customers->get_prev( ($page-1)*10 );
+			$prev = $this->m_customers->get_prev( ($page-1)*10, $set_sortby, $set_orderby, $set_display );
 			$status['prev'] = (!$prev) ? 0 : 1;
 		}else{
 			$status['prev'] = 0;
@@ -27,18 +45,21 @@ class Customers extends MY_Controller {
 		$status['next'] = (!$next) ? 0 : 1;
 
 		if($page == 0){
-			$data['customers'] = $this->m_customers->get_customers_names();
+			$data['customers'] = $this->m_customers->get_customers_names(0, 0, $set_sortby, $set_orderby, $set_display);
 		}else{
-			$data['customers'] = $this->m_customers->get_customers_names(10, ($page*10));
+			$data['customers'] = $this->m_customers->get_customers_names(10, ($page*10), $set_sortby, $set_orderby, $set_display);
 		}
 		
 		$this->generate_page('customers/listing', [
-			'title'		=>'assistone | customers listing',
-			'header'	=>'Customers',
-			'subheader'	=>'Listing',
-			'page'		=>array('curr_page'=>$page, 'status'=>$status),
-			'data'		=>$data,
-			'js'		=>array('customers.js')]);
+			'set_sortby'	=>$set_sortby,
+			'set_orderby'	=>$set_orderby,
+			'set_display'	=>$set_display,
+			'title'			=>'assistone | customers listing',
+			'header'		=>'Customers',
+			'subheader'		=>'Listing',
+			'page'			=>array('curr_page'=>$page, 'status'=>$status),
+			'data'			=>$data,
+			'js'			=>array('customers.js')]);
 	}
 
 	public function search($page = 0){
@@ -66,9 +87,9 @@ class Customers extends MY_Controller {
 		}
 	}
 
-	public function delete_customer($id){
+	public function delete_customer($curr_page, $set_sortby, $set_orderby, $set_display, $id){
 		$this->m_customers->delete($id);
-		redirect('customers/listing');
+		redirect('customers/listing/'.$curr_page.'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display);
 	}
 
 	public function update_customer(){

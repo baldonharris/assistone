@@ -3,24 +3,54 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_Customers extends CI_Model {
 
-	public function get_next($page){
-		$this->db->order_by('id', 'DESC');
+	public function get_next($page, $set_sortby, $set_orderby, $set_display){
+		if($set_sortby==1){
+			$sort = 'c1.id';
+		}else if($set_sortby==2){
+			$sort = 'c1.firstname';
+		}else{
+			$sort = 'c1.lastname';
+		}
+		$order = ($set_orderby==1) ? 'ASC' : 'DESC';
+		if($set_display==0){
+			$this->db->where('c1.deleted_at IS NULL', FALSE, FALSE);
+		}
+		$this->db->order_by($sort, $order);
 		$this->db->select('c1.id', FALSE);
-		$this->db->where('c1.deleted_at IS NULL', FALSE, FALSE);
 		return $this->db->get('customers as c1', 10, $page)->num_rows();
 	}
 
-	public function get_prev($page){
-		$this->db->order_by('id', 'DESC');
+	public function get_prev($page, $set_sortby, $set_orderby, $set_display){
+		if($set_sortby==1){
+			$sort = 'c1.id';
+		}else if($set_sortby==2){
+			$sort = 'c1.firstname';
+		}else{
+			$sort = 'c1.lastname';
+		}
+		$order = ($set_orderby==1) ? 'ASC' : 'DESC';
+		if($set_display==0){
+			$this->db->where('c1.deleted_at IS NULL', FALSE, FALSE);
+		}
+		$this->db->order_by($sort, $order);
 		$this->db->select('c1.id', FALSE);
-		$this->db->where('c1.deleted_at IS NULL', FALSE, FALSE);
 		return $this->db->get('customers as c1', 10, $page)->num_rows();
 	}
 
-	public function get_customers_names($n=0, $start=0){
-		$this->db->order_by('id', 'DESC');
+	public function get_customers_names($n=0, $start=0, $set_sortby, $set_orderby, $set_display){
+		if($set_sortby==1){
+			$sort = 'c1.id';
+		}else if($set_sortby==2){
+			$sort = 'c1.firstname';
+		}else{
+			$sort = 'c1.lastname';
+		}
+		$order = ($set_orderby==1) ? 'ASC' : 'DESC';
+		if($set_display==0){
+			$this->db->where('c1.deleted_at IS NULL', FALSE, FALSE);
+		}
+		$this->db->order_by($sort, $order);
 		$this->db->select('c1.id, c1.customer_id, c1.firstname, c1.middlename, c1.lastname, c1.deleted_at', FALSE);
-		$this->db->where('c1.deleted_at IS NULL', FALSE, FALSE);
 		if($n==0 && $start==0){
 			return $this->db->get('customers as c1', 10)->result_array();
 		}else{
@@ -63,6 +93,8 @@ class M_Customers extends CI_Model {
 	}
 
 	public function update($id, $data){
+		$customer_id = date('y').'-'.str_pad($id, 4, "0", STR_PAD_LEFT);
+		$data['complete_name'] = $customer_id.' | '.$data['firstname'].' '.$data['middlename'].' '.$data['lastname'];
 		$this->db->where('id', $id);
 		$this->db->update('customers', $data);
 	}

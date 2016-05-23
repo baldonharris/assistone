@@ -15,7 +15,7 @@ $(document).ready(function(){
 		});
 		$('#search_customer').autocomplete({
 			lookup: customers,
-			width:280
+			width: 280
 		});
 	});
 
@@ -25,8 +25,8 @@ $(document).ready(function(){
 
 	$('.list-group').on('click', '.customers', function(e){
 		e.preventDefault();
-		$('#customer_id').text('Loading...');
 		if(customer_id != $(this).attr('customer_id')){
+			$('#customer_id').text('Loading...');
 			customer_id = $(this).attr('customer_id');
 			$('.customers').removeClass('active');
 			$('[customer_id='+customer_id+']').addClass('active');
@@ -119,6 +119,11 @@ $(document).ready(function(){
 				}
 			}
 		}});
+	});
+
+	$('#forCustomerSettings').click(function(e){
+		e.preventDefault();
+		$('#customerSettings').modal('show');
 	});
 
 });
