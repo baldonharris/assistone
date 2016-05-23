@@ -133,6 +133,7 @@ $(document).ready(function(){
 
 		var setting_url = $('#form_setting').attr('action');
 		setting_url = setting_url+"/"+set_page+"/"+set_sortby+"/"+set_orderby+"/"+set_display;
+		window.location.href = setting_url;
 	});
 
 });
