@@ -15,25 +15,7 @@ class Customers extends MY_Controller {
 		redirect(base_url('customers/listing'));
 	}
 
-	public function listing($page=0, $set_sortby_def=1, $set_orderby_def=2, $set_display_def=0){
-		if($this->input->post('set_sortby') != NULL){
-			$set_sortby = $this->input->post('set_sortby');
-		}else{
-			$set_sortby = $set_sortby_def;
-		}
-
-		if($this->input->post('set_orderby') != NULL){
-			$set_orderby = $this->input->post('set_orderby');
-		}else{
-			$set_orderby = $set_orderby_def;
-		}
-
-		if($this->input->post('set_display') != NULL){
-			$set_display = $this->input->post('set_display');
-		}else{
-			$set_display = $set_display_def;
-		}
-
+	public function listing($page=0, $set_sortby=1, $set_orderby=2, $set_display=0){
 		$next = $this->m_customers->get_next( ($page+1)*10, $set_sortby, $set_orderby, $set_display);
 		if($page!=0){
 			$prev = $this->m_customers->get_prev( ($page-1)*10, $set_sortby, $set_orderby, $set_display );
@@ -64,19 +46,23 @@ class Customers extends MY_Controller {
 			'js'			=>array('customers.js')]);
 	}
 
-	public function search($page = 0){
+	public function search($page=0, $set_sortby=1, $set_orderby=2, $set_display=0){
 		if(empty($this->input->post('search_'))){
-			redirect(base_url('customers/listing'));
+			redirect(base_url('customers/listing/0'.$set_sorby.'/'.$set_orderby.'/'.$set_display));
 		}else{
 			$status['prev'] = $status['next'] = 0;
 			$data['customers'] = $this->m_customers->search($this->input->post('search_'));
+			$data['guarantors'] = $this->m_customers->get_customers_names(0, 0, 1, 0, 0, 1);
 			$this->generate_page('customers/listing', [
-				'title'		=>'assistone | customers listing',
-				'header'	=>'Customers',
-				'subheader'	=>'Listing',
-				'page'		=>array('curr_page'=>0, 'status'=>$status),
-				'data'		=>$data,
-				'js'		=>array('customers.js')]);
+				'set_sortby'	=>$set_sortby,
+				'set_orderby'	=>$set_orderby,
+				'set_display'	=>$set_display,
+				'title'			=>'assistone | customers listing',
+				'header'		=>'Customers',
+				'subheader'		=>'Listing',
+				'page'			=>array('curr_page'=>0, 'status'=>$status),
+				'data'			=>$data,
+				'js'			=>array('customers.js')]);
 		}
 	}
 

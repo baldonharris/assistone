@@ -125,4 +125,14 @@ $(document).ready(function(){
 		$('#customerSettings').modal('show');
 	});
 
+	$('#btn-setting').click(function(e){
+		var set_page = $('[name=set_page]').val();
+		var set_sortby = $('[name=set_sortby]').val();
+		var set_orderby = $('[name=set_orderby]:checked').val();
+		var set_display = ($('[name=set_display]').is(':checked')) ? 1 : 0;
+
+		var setting_url = $('#form_setting').attr('action');
+		setting_url = setting_url+"/"+set_page+"/"+set_sortby+"/"+set_orderby+"/"+set_display;
+	});
+
 });

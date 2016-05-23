@@ -22,7 +22,7 @@
 						</button>
 					</div>
 					<div class="input-group col-lg-3 col-lg-offset-3 col-md-12 col-xs-12 col-sm-12 pull-right">
-						<form class="form-inline" method="post" action="<?=base_url('customers/search')?>">
+						<form class="form-inline" method="post" action="<?=base_url('customers/search/'.$page['curr_page'].'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>">
 							<div class="form-group top_search">
 								<div class="input-group">
 									<input type="text" name="search_" class="form-control" id="search_customer" placeholder="Search customer...">
@@ -220,7 +220,8 @@
 				<h4 class="modal-title" id="myModalLabel">Settings</h4>
 			</div>
 			<div class="modal-body">
-				<form action="<?=base_url('customers/listing')?>" method="post">
+				<form id="form_setting" action="<?=base_url('customers/'.$this->uri->segment(2))?>" method="post">
+					<input type="hidden" name="set_page" value="<?=$page['curr_page']?>"/>
 					<div class="form-group">
 						<label for="sortby" class="control-label">Sort by:</label>
 						<select class="form-control" name="set_sortby">
@@ -259,7 +260,7 @@
 					</div>
 			</div>
 			<div class="modal-footer">
-				<button type="submit" class="btn btn-success btn-block">Go!</button>
+				<button type="button" id="btn-setting" class="btn btn-success btn-block">Go!</button>
 				</form>
 			</div>
 		</div>
