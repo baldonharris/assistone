@@ -1,4 +1,3 @@
-<?= 'heyyy '.$this->uri->segment(3) ?>
 <div class="row" id="base_url" url="<?=base_url('customers/listing')?>" base-url="<?=base_url()?>">
 	<div class="col-md-7 col-sm-12 col-xs-12" style="padding-left:10px; padding-right: 10px;">
 		<div class="x_panel">
