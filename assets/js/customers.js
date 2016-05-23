@@ -100,8 +100,7 @@ $(document).ready(function(){
 			var response = JSON.parse(responseText);
 			if(mode==1){	// add
 				if(response.status){	// add success
-					$('#myModal').modal('hide');
-					window.location.href = $('#base_url').attr('url'); 
+					location.reload();
 				}else{						// add fail
 					$.each(response.data, function(index, value){
 						$('[errhandler='+index+']').html(value);

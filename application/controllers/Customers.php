@@ -49,6 +49,8 @@ class Customers extends MY_Controller {
 		}else{
 			$data['customers'] = $this->m_customers->get_customers_names(10, ($page*10), $set_sortby, $set_orderby, $set_display);
 		}
+
+		$data['guarantors'] = $this->m_customers->get_customers_names(0, 0, 1, 0, 0, 1);
 		
 		$this->generate_page('customers/listing', [
 			'set_sortby'	=>$set_sortby,

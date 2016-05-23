@@ -37,7 +37,7 @@ class M_Customers extends CI_Model {
 		return $this->db->get('customers as c1', 10, $page)->num_rows();
 	}
 
-	public function get_customers_names($n=0, $start=0, $set_sortby, $set_orderby, $set_display){
+	public function get_customers_names($n=0, $start=0, $set_sortby, $set_orderby, $set_display, $guarantors=0){
 		if($set_sortby==1){
 			$sort = 'c1.id';
 		}else if($set_sortby==2){
@@ -52,7 +52,7 @@ class M_Customers extends CI_Model {
 		$this->db->order_by($sort, $order);
 		$this->db->select('c1.id, c1.customer_id, c1.firstname, c1.middlename, c1.lastname, c1.deleted_at', FALSE);
 		if($n==0 && $start==0){
-			return $this->db->get('customers as c1', 10)->result_array();
+			return $this->db->get('customers as c1', ($guarantors) ? NULL : 10)->result_array();
 		}else{
 			return $this->db->get('customers as c1', $n, $start)->result_array();
 		}

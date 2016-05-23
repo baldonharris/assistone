@@ -300,7 +300,7 @@
 						<select class="form-control" id="in_guarantor" name="guarantor_customers_id">
 							<option value="0" selected="selected"></option>
 							<?php
-								foreach($data['customers'] as $customer){
+								foreach($data['guarantors'] as $customer){
 									echo '<option value="'.$customer['id'].'"><table><tr><td>'.$customer['customer_id'].'</td><td>&nbsp;|&nbsp;</td><td>'.$customer['firstname'].' '.$customer['lastname'].'</td></tr></table></option>';
 								}
 							?>
