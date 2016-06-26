@@ -26,14 +26,15 @@ $(document).ready(function(){
 	$('.list-group').on('click', '.customers', function(e){
 		e.preventDefault();
 		if(customer_id != $(this).attr('customer_id')){
-			$('#customer_id').text('Loading...');
+			$('.customer_id').html('<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="sr-only">Loading...</span>');
 			customer_id = $(this).attr('customer_id');
 			$('.customers').removeClass('active');
 			$('[customer_id='+customer_id+']').addClass('active');
 
 			$.post($('.list-group').attr('get-url'), {id:customer_id}, function(response){
 				var customer = JSON.parse(response);
-				customer_dup = customer[0];
+				var customer_status;
+				customer_dup = $.extend({}, customer[0]); // store to global for modal purposes.
 				$.each(customer[0], function(index, value){
 					var new_value = (value) ? value : '';
 					if(index=='display_picture'){
@@ -44,15 +45,28 @@ $(document).ready(function(){
 							$('#'+index).attr('src', source+'/'+value);
 						}
 					}else if(index=='deleted_at'){
-						var text = (new_value.length==0) ? 'Active' : 'Inactive';
-						$('#'+index).text(text);
+						customer_status = (new_value.length==0) ? 'Active' : 'Inactive';
+						$('#'+index).text(customer_status);
 					}else{
 						$('#'+index).text(new_value);
 					}
 				});
-				var del_url = $('#btn-delete').attr('base-url');
-				$('#btn-delete').attr('href', del_url+'/'+customer_id);
-				$('#btn-update, #btn-delete').removeClass('disabled');
+				var action_url = $('#del-btn-url-holder').attr('base-url');
+				if(customer_status=='Active'){
+					$('.btn-delete')
+						.attr('href', action_url+'/'+customer_id+'/'+0)
+						.removeClass('btn-success')
+						.addClass('btn-dark')
+						.html('<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Del');
+				}else{
+					$('.btn-delete')
+						.attr('href', action_url+'/'+customer_id+'/'+1)
+						.removeClass('btn-dark')
+						.addClass('btn-success')
+						.html('<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Und');
+				}
+				$('#btn-update, .btn-delete').removeClass('disabled');
+				$('.customer_id').addClass('hidden');
 			});
 		}
 	});

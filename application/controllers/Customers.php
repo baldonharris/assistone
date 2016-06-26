@@ -75,8 +75,8 @@ class Customers extends MY_Controller {
 		}
 	}
 
-	public function delete_customer($curr_page, $set_sortby, $set_orderby, $set_display, $id){
-		$this->m_customers->delete($id);
+	public function change_customer_status($curr_page, $set_sortby, $set_orderby, $set_display, $id, $status){
+		$this->m_customers->change_status($id, $status);
 		redirect('customers/listing/'.$curr_page.'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display);
 	}
 

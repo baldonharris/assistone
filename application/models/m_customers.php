@@ -104,4 +104,10 @@ class M_Customers extends CI_Model {
 		$this->db->where('id', $id);
 		$this->db->update('customers', ['deleted_at'=>date('Y-m-d G:i:s')]);
 	}
+
+	public function change_status($id, $status=0){
+		date_default_timezone_set('Asia/Manila');
+		$this->db->where('id', $id);
+		$this->db->update('customers', ['deleted_at'=> (!$status) ? date('Y-m-d G:i:s') : NULL ]);
+	}
 }

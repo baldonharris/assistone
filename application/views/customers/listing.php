@@ -51,19 +51,20 @@
 				</div>
 				<div class="row">
 					<div class="col-md-3 col-sm-6 col-xs-6">
+						<span class="hidden" id="del-btn-url-holder" base-url="<?=base_url('customers/change_customer_status/'.$page['curr_page'].'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>"></span>
 						<div class="btn-group hidden-sm hidden-xs hidden-md" role="group" aria-label="...">
 							<button type="button" id="btn-update" class="disabled btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
-								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Update
+								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Upd
 							</button>
-							<a base-url="<?=base_url('customers/delete_customer/'.$page['curr_page'].'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>" href="#" id="btn-delete" class="disabled btn btn-dark btn-sm">
-								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
+							<a base-url="<?=base_url('customers/delete_customer/'.$page['curr_page'].'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>" href="#" class="disabled btn btn-dark btn-sm btn-delete">
+								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Del
 							</a>
 						</div>
 						<div class="btn-group hidden-lg btn-group-xs" role="group" aria-label="...">
 							<button type="button" id="btn-update" class="disabled btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
 								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 							</button>
-							<a base-url="<?=base_url('customers/delete_customer/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>" href="#" id="btn-delete" class="disabled btn btn-dark btn-sm">
+							<a base-url="<?=base_url('customers/delete_customer/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>" href="#" class="disabled btn btn-dark btn-sm btn-delete">
 								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 							</a>
 						</div>
@@ -109,7 +110,7 @@
 					</div>
 					<div class="col-md-12">
 						<center>
-							<h4><span id="customer_id">Please select customer...</span></h4>
+							<h4><span class="customer_id">Please select customer...</span></h4>
 						</center>
 						<table class="table">
 							<tr>
@@ -165,46 +166,10 @@
 			</div>
 			<div class="x_content">
 				<div class="row">
-					<div class="col-md-12 col-xs-12 col-sm-12">
-						<a href="#" class="thumbnail">
-							<img src="" alt="...">
-						</a>
-					</div>
 					<div class="col-md-12">
-						<table class="table">
-							<tr>
-								<td width="35%"><b>Customer ID:</b></td>
-								<td>asd</td>
-							</tr>
-							<tr>
-								<td><b>Firstname:</b></td>
-								<td>asd</td>
-							</tr>
-							<tr>
-								<td><b>Middlename:</b></td>
-								<td>asd</td>
-							</tr>
-							<tr>
-								<td><b>Lastname:</b></td>
-								<td>asd</td>
-							</tr>
-							<tr>
-								<td><b>Mobile Number:</b></td>
-								<td>asd</td>
-							</tr>
-							<tr>
-								<td><b>Address:</b></td>
-								<td>asd</td>
-							</tr>
-							<tr>
-								<td><b>Registered:</b></td>
-								<td>asd</td>
-							</tr>
-							<tr>
-								<td><b>Guarantor Name:</b></td>
-								<td>asd</td>
-							</tr>
-						</table>
+						<center>
+							<h4><span class="customer_id">Please select customer...</span></h4>
+						</center>
 					</div>
 				</div>
 			</div>
