@@ -161,8 +161,8 @@
 				<h2>Account Overview</h2>
 				<ul class="nav navbar-right panel_toolbox">
 					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-					<li class="dropdown add-loan-btn hidden">
-						<a href="#"><i class="fa fa-plus"></i></a>
+					<li class="add-loan-btn hidden">
+						<a href="#" class="btn btn-default">Add Loan</a>
 					</li>
 				</ul>
 				<div class="clearfix"></div>
@@ -189,7 +189,7 @@
 											<th>Date of Release</th>
 											<th>Amount Loan</th>
 											<th>Interest Rate</th>
-											<th>Number of Terms</th>
+											<th>Number of Payments</th>
 											<th>Total Interest Amount</th>
 											<th>Balance</th>
 											<th>Action</th>
@@ -200,16 +200,13 @@
 											<td id="loan_id"></td>
 											<td id="date_of_application"></td>
 											<td id="date_of_release"></td>
-											<td id="amount_loan"></td>
-											<td id="interest_rate"></td>
+											<td id="amount_loan" data-affixes-stay="true" data-prefix="₱ " data-thousands="." data-decimal=","></td>
+											<td id="interest_rate" data-affixes-stay="true" data-suffix=" %" data-thousands="." data-decimal=","></td>
 											<td id="number_of_terms"></td>
-											<td id="total_interest_amount"></td>
-											<td id="balance"></td>
+											<td id="total_interest_amount" data-affixes-stay="true" data-prefix="₱ " data-thousands="." data-decimal=","></td>
+											<td id="balance" data-affixes-stay="true" data-prefix="₱ " data-thousands="." data-decimal=","></td>
 											<td>
-												<div class="btn-group" role="group" aria-label="...">
-													<button type="button" class="btn btn-default btn-xs btn-success">More</button>
-													<button type="button" class="btn btn-default btn-xs btn-danger">Delete</button>
-												</div>
+												<button type="button" class="btn btn-default btn-xs btn-success">More</button>
 											</td>
 										</tr>
 									</tbody>
@@ -362,8 +359,8 @@
 						<input type="text" name="interest_rate" class="form-control" id="in_interest_rate" placeholder="Interest Rate">
 					</div>
 					<div class="form-group">
-						<label class="control-label" for="in_number_of_terms">Number of Terms</label> <i><span class="control-label errhandler" errhandler="number_of_terms"></span></i>
-						<input type="text" name="number_of_terms" class="form-control" id="in_number_of_terms" placeholder="Number of Terms">
+						<label class="control-label" for="in_number_of_terms">Number of Payments</label> <i><span class="control-label errhandler" errhandler="number_of_terms"></span></i>
+						<input type="text" name="number_of_terms" class="form-control" id="in_number_of_terms" placeholder="Number of Payments">
 					</div>
 			</div>
 			<div class="modal-footer">

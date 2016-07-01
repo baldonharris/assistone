@@ -28,7 +28,7 @@ class Loans extends MY_Controller {
 		$inputs['amount_loan'] = str_replace("₱ ", "", $inputs['amount_loan']);
 		$inputs['amount_loan'] = str_replace(",", "", $inputs['amount_loan']);
 		$inputs['interest_rate'] = str_replace(" %", "", $inputs['interest_rate']);
-		$inputs['total_interest_amount'] = $inputs['number_of_terms'] * ($inputs['interest_rate']/100) * $inputs['amount_loan'];
+		$inputs['total_interest_amount'] = ($inputs['number_of_terms']/2) * ($inputs['interest_rate']/100) * $inputs['amount_loan'];
 		$inputs['total_payments'] = (!$mode) ? 0 : 1; // should change 1 later for the real total_payments
 		$inputs['balance'] = ($inputs['total_interest_amount'] + $inputs['amount_loan']) - $inputs['total_payments'];
 		return $inputs;

@@ -3,7 +3,7 @@ $(document).ready(function(){
 	var url_action_loan;
 	var data_serialize;
 
-	$('input[name=number_of_terms]').maskMoney({precision: 1});
+	$('input[name=number_of_terms]').maskMoney({precision: 0});
 	$('input[name=amount_loan]').maskMoney({prefix: '₱ '});
 	$('input[name=interest_rate]').maskMoney({suffix: ' %'});
 
@@ -42,11 +42,27 @@ $(document).ready(function(){
 						console.log(data_serialize);
 						var duplicate_row = $('#loan_row_dummy').clone();
 						$.each(data_serialize, function(index, value){
-							duplicate_row.find('#'+value.name).text(value.value);
+							duplicate_row.find('#'+value.name).text(value.value)
 						});
+						var options = new JsNumberFormatter.formatNumberOptions().specifyDecimalMask('00');
+						var new_interest_amount = JsNumberFormatter.formatNumber(parseFloat(response.data.total_interest_amount), options, true);
+						var new_balance = JsNumberFormatter.formatNumber(parseFloat(response.data.balance), options, true);
+						
+						if(new_interest_amount < 1){
+							new_interest_amount = "₱ 0"+new_interest_amount;
+						}else{
+							new_interest_amount = "₱ "+new_interest_amount;
+						}
+
+						if(new_balance < 1){
+							new_balance = "₱ 0"+new_balance;
+						}else{
+							new_balance = "₱ "+new_balance;
+						}
+
 						duplicate_row.find('#loan_id').text(response.data.loan_id);
-						duplicate_row.find('#total_interest_amount').text(response.data.total_interest_amount);
-						duplicate_row.find('#balance').text(response.data.balance);
+						duplicate_row.find('#total_interest_amount').text(new_interest_amount);
+						duplicate_row.find('#balance').text(new_balance);
 						$('#loan_body').prepend(duplicate_row);
 						duplicate_row.removeAttr('class id').addClass('loan_row');
 					}else{						// failed

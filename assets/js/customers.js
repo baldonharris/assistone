@@ -72,11 +72,25 @@ $(document).ready(function(){
 				$.each(loans, function(index, value){
 					var duplicate_row = $('#loan_row_dummy').clone();
 					$.each(value, function(index, value){
-						duplicate_row.find('#'+index).text(value);
+						if(index == 'amount_loan' || index == 'total_interest_amount' || index == 'balance'){
+							var options = new JsNumberFormatter.formatNumberOptions().specifyDecimalMask('00');
+							var new_value = JsNumberFormatter.formatNumber(parseFloat(value), options, true);
+							if(new_value < 1){
+								new_value = "₱ 0"+new_value;
+							}else{
+								new_value = "₱ "+new_value;
+							}
+							duplicate_row.find('#'+index).text(new_value);
+						}else if(index == 'interest_rate'){
+							duplicate_row.find('#'+index).text(value+" %");
+						}else{
+							duplicate_row.find('#'+index).text(value);
+						}
 					});
 					$('#loan_body').append(duplicate_row);
 					duplicate_row.removeAttr('class id').addClass('loan_row');
 				});
+
 				$('#btn-update, .btn-delete').removeClass('disabled');
 				$('#account_overview, .add-loan-btn').removeClass('hidden');
 				$('.customer_id').addClass('hidden');
