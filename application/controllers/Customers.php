@@ -9,6 +9,7 @@ class Customers extends MY_Controller {
 		parent::__construct();
 		if(!$this->session->userdata('username')) redirect(base_url());
 		$this->load->model('m_customers');
+		$this->load->model('m_loans');
 	}
 
 	public function index(){
@@ -43,7 +44,7 @@ class Customers extends MY_Controller {
 			'subheader'		=>'Listing',
 			'page'			=>array('curr_page'=>$page, 'status'=>$status),
 			'data'			=>$data,
-			'js'			=>array('customers.js')]);
+			'js'			=>array('maskmoney/src/jquery.maskMoney.js', 'customers.js', 'loans.js')]);
 	}
 
 	public function search($page=0, $set_sortby=1, $set_orderby=2, $set_display=0){
@@ -62,16 +63,22 @@ class Customers extends MY_Controller {
 				'subheader'		=>'Listing',
 				'page'			=>array('curr_page'=>0, 'status'=>$status),
 				'data'			=>$data,
-				'js'			=>array('customers.js')]);
+				'js'			=>array('maskmoney/src/jquery.maskMoney.js', 'customers.js', 'loans.js')]);
 		}
 	}
 
 	public function get_customer(){
 		$id = $this->input->post('id');
 		if(empty($id)){
-			echo json_encode($this->m_customers->get(TRUE));
+			echo json_encode(array(
+					'customer_detail'	=>	$this->m_customers->get(TRUE),
+					'loan_detail'		=>	$this->m_loans->get()
+				));
 		}else{
-			echo json_encode($this->m_customers->get(FALSE, ['c1.id'=>$id]));
+			echo json_encode(array(
+					'customer_detail'	=>	$this->m_customers->get(FALSE, ['c1.id'=>$id]),
+					'loan_detail'		=> $this->m_loans->get(['l.customer_id'=>$id])
+				));
 		}
 	}
 

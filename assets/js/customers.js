@@ -30,9 +30,12 @@ $(document).ready(function(){
 			customer_id = $(this).attr('customer_id');
 			$('.customers').removeClass('active');
 			$('[customer_id='+customer_id+']').addClass('active');
+			$('.loan_row').remove();
 
 			$.post($('.list-group').attr('get-url'), {id:customer_id}, function(response){
-				var customer = JSON.parse(response);
+				var customer_details_and_loans = JSON.parse(response);
+				var customer = customer_details_and_loans.customer_detail;
+				var loans = customer_details_and_loans.loan_detail;
 				var customer_status;
 				customer_dup = $.extend({}, customer[0]); // store to global for modal purposes.
 				$.each(customer[0], function(index, value){
@@ -65,8 +68,19 @@ $(document).ready(function(){
 						.addClass('btn-success')
 						.html('<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Und');
 				}
+				
+				$.each(loans, function(index, value){
+					var duplicate_row = $('#loan_row_dummy').clone();
+					$.each(value, function(index, value){
+						duplicate_row.find('#'+index).text(value);
+					});
+					$('#loan_body').append(duplicate_row);
+					duplicate_row.removeAttr('class id').addClass('loan_row');
+				});
 				$('#btn-update, .btn-delete').removeClass('disabled');
+				$('#account_overview, .add-loan-btn').removeClass('hidden');
 				$('.customer_id').addClass('hidden');
+				$('input[name=customer_id]').val(customer_dup.id);
 			});
 		}
 	});
@@ -87,7 +101,7 @@ $(document).ready(function(){
 
 	$('#myModal').on('show.bs.modal', function(e){
 		if(mode==1){
-			$('.modal-title').html('Add Customer');
+			$('#myModal .modal-title').html('Add Customer');
 		}else{
 			$('.modal-title').html('Update Customer - '+$('#firstname').text()+' '+$('#lastname').text());
 			$.each(customer_dup, function(index, value){

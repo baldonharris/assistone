@@ -21,7 +21,7 @@
 							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Customer
 						</button>
 					</div>
-					<div class="input-group col-lg-3 col-lg-offset-3 col-md-12 col-xs-12 col-sm-12 pull-right">
+					<div class="input-group col-lg-4 col-lg-offset-4 col-md-12 col-xs-12 col-sm-12 pull-right">
 						<form class="form-inline" method="post" action="<?=base_url('customers/search/'.$page['curr_page'].'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>">
 							<div class="form-group top_search">
 								<div class="input-group">
@@ -62,10 +62,10 @@
 						</div>
 						<div class="btn-group hidden-lg btn-group-xs" role="group" aria-label="...">
 							<button type="button" id="btn-update" class="disabled btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
-								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Upd
 							</button>
 							<a base-url="<?=base_url('customers/delete_customer/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>" href="#" class="disabled btn btn-dark btn-sm btn-delete">
-								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Del
 							</a>
 						</div>
 					</div>
@@ -161,6 +161,9 @@
 				<h2>Account Overview</h2>
 				<ul class="nav navbar-right panel_toolbox">
 					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+					<li class="dropdown add-loan-btn hidden">
+						<a href="#"><i class="fa fa-plus"></i></a>
+					</li>
 				</ul>
 				<div class="clearfix"></div>
 			</div>
@@ -168,8 +171,52 @@
 				<div class="row">
 					<div class="col-md-12">
 						<center>
-							<h4><span class="customer_id">Please select customer...</span></h4>
+							<h4 class="customer_id"><span>Please select customer...</span></h4>
 						</center>
+						<div id="account_overview" class="hidden table-responsive">
+							<!-- <div class="col-lg-3 col-xs-12 col-sm-12 hidden-md hidden-sm hidden-xs">
+								<button type="button" class="btn btn-primary add-loan-btn">
+									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Loan
+								</button>
+							</div> -->
+							
+							<div class="table-responsive">
+								<table class="table table-striped" id="loan_table">
+									<thead class="headings">
+										<tr>
+											<th>Loan ID</th>
+											<th>Date of Application</th>
+											<th>Date of Release</th>
+											<th>Amount Loan</th>
+											<th>Interest Rate</th>
+											<th>Number of Terms</th>
+											<th>Total Interest Amount</th>
+											<th>Balance</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody id="loan_body">
+										<tr class="hidden" id="loan_row_dummy">
+											<td id="loan_id"></td>
+											<td id="date_of_application"></td>
+											<td id="date_of_release"></td>
+											<td id="amount_loan"></td>
+											<td id="interest_rate"></td>
+											<td id="number_of_terms"></td>
+											<td id="total_interest_amount"></td>
+											<td id="balance"></td>
+											<td>
+												<div class="btn-group" role="group" aria-label="...">
+													<button type="button" class="btn btn-default btn-xs btn-success">More</button>
+													<button type="button" class="btn btn-default btn-xs btn-danger">Delete</button>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+						</div>
 					</div>
 				</div>
 			</div>
@@ -178,7 +225,7 @@
 </div>
 
 <div class="modal fade" id="customerSettings" tabindex="-1" role="dialog" aria-labelledby="customerSettings" aria-hidden="true">
-	<div class="modal-dialog modal-sm">
+	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -278,6 +325,46 @@
 						<p class="help-block">Max dimension: 1024x768 px | Max filesize: 2MB | Accepts only: jpeg,png,jpg</p>
 					</div>
 					<input type="hidden" value="" name="id"/>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-success pull-left">Save</button>
+				</form>
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="addLoan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Add Loan</h4>
+			</div>
+			<div class="modal-body">
+				<form id="form_loan" add-url="<?=base_url('loans/add_loan')?>" update-url="<?=base_url('customers/update_loan')?>" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="customer_id" value=""/>
+					<div class="form-group">
+						<label class="control-label" for="in_date_of_application">Date of Application</label> <i><span class="control-label errhandler" errhandler="date_of_application"></span></i>
+						<input type="text" name="date_of_application" class="form-control" id="in_date_of_application" placeholder="Date of Application">
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="in_date_of_release">Date of Release</label> <i><span class="control-label errhandler" errhandler="date_of_release"></span></i>
+						<input type="text" name="date_of_release" class="form-control" id="in_date_of_release" placeholder="Date of Release">
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="in_amount_loan">Amount Loan</label> <i><span class="control-label errhandler" errhandler="amount_loan"></span></i>
+						<input type="text" name="amount_loan" class="form-control" id="in_amount_loan" placeholder="Amount Loan">
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="in_interest_rate">Interest Rate</label> <i><span class="control-label errhandler" errhandler="interest_rate"></span></i>
+						<input type="text" name="interest_rate" class="form-control" id="in_interest_rate" placeholder="Interest Rate">
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="in_number_of_terms">Number of Terms</label> <i><span class="control-label errhandler" errhandler="number_of_terms"></span></i>
+						<input type="text" name="number_of_terms" class="form-control" id="in_number_of_terms" placeholder="Number of Terms">
+					</div>
 			</div>
 			<div class="modal-footer">
 				<button type="submit" class="btn btn-success pull-left">Save</button>
