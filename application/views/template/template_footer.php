@@ -15,6 +15,7 @@
 	</div>
 
 	<script src="<?=base_url()?>assets/js/bootstrap.min.js"></script>
+	<script src="<?=base_url()?>assets/js/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="<?=base_url()?>assets/js/jqueryform.js"></script>
 	<script src="<?=base_url()?>assets/js/input_mask/jquery.inputmask.js"></script>
 	<script src="<?=base_url()?>assets/js/autocomplete/jquery.autocomplete.js"></script>

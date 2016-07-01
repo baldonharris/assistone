@@ -14,11 +14,12 @@
 	<link href="<?=base_url()?>assets/css/bootstrap.min.css" rel="stylesheet">
 
 	<link href="<?=base_url()?>assets/fonts/css/font-awesome.min.css" rel="stylesheet">
+	<link href="<?=base_url()?>assets/css/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css"></head>
 	<link href="<?=base_url()?>assets/css/animate.min.css" rel="stylesheet">
 
 	<!-- Custom styling plus plugins -->
 	<link href="<?=base_url()?>assets/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" />
-	<link href="<?=base_url()?>assets/css/custom.css" rel="stylesheet">
+	<link href="<?=base_url()?>assets/css/custom.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/css/maps/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
 	<link href="<?=base_url()?>assets/css/icheck/flat/green.css" rel="stylesheet" />
 	<link href="<?=base_url()?>assets/css/floatexamples.css" rel="stylesheet" type="text/css" />
@@ -45,7 +46,7 @@
 
 	<div class="container body">
 		<div class="main_container">
-			<div class="col-md-3 left_col">
+			<div class="col-md-3 left_col menu_fixed">
 				<div class="left_col scroll-view">
 
 					<div class="navbar nav_title" style="border: 0;">
@@ -128,8 +129,10 @@
 									<span class=" fa fa-angle-down"></span>
 								</a>
 								<ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
-									<!-- <li><a href="javascript:;">  Profile</a></li> -->
-									<li><a href="<?= base_url('account/logout') ?>"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+									<li><a href="javascript:;"><i class="fa fa-users pull-right"></i>Add Admin</a></li>
+									<li role="separator" class="divider"></li>
+									<li><a href="javascript:;"><i class="fa fa-user pull-right"></i>Profile</a></li>
+									<li><a href="<?= base_url('account/logout') ?>"><i class="fa fa-sign-out pull-right"></i>Log Out</a></li>
 								</ul>
 							</li>
 						</ul>
