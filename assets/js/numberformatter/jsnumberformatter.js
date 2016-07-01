@@ -69,7 +69,7 @@ var JsNumberFormatter = {
         
         // check other params
         if (log) {
-            console.log('[' + numberString + '] Checking params...');
+            // console.log('[' + numberString + '] Checking params...');
         }
         if (typeof numberString != 'string') {
             throw new TypeError('Expecting a string as numberString param');
@@ -79,8 +79,8 @@ var JsNumberFormatter = {
         //     throw new TypeError('Options param expected=parseNumberSimpleOptions actual=' + typeof option);
         // }
         if (log) {
-            console.log('[' + numberString + '] Options=' + options.print());
-            console.log('[' + numberString + '] Params OK');
+            // console.log('[' + numberString + '] Options=' + options.print());
+            // console.log('[' + numberString + '] Params OK');
         }
         
         var newNumberString = numberString;
@@ -127,7 +127,7 @@ var JsNumberFormatter = {
         }
         
         if (log) {
-            console.log('Output: ' + result);
+            // // console.log('Output: ' + result);
         }
         
         return result;
@@ -319,21 +319,21 @@ var JsNumberFormatter = {
         
         // check other params
         if (log) {
-            console.log('[' + number + '] Checking params...');
+            // console.log('[' + number + '] Checking params...');
         }
         if (typeof number != 'number') {
             throw new TypeError('Expecting a number as number param');
         }
         options = typeof options !== 'undefined' ? options : new this.formatNumberOptions();
         if (log) {
-            console.log('[' + number + '] Options=' + options.print());
-            console.log('[' + number + '] Params OK');
+            // console.log('[' + number + '] Options=' + options.print());
+            // console.log('[' + number + '] Params OK');
         }
         
         // Compile masks
         if (!options.compiled) {
             if (log) {
-                console.log('Compiling options...');
+                // console.log('Compiling options...');
             }
             options.compile(new this.formatMaskCompiled(options.groupMaskStr), new this.formatMaskCompiled(options.decimalMaskStr), log);
         }
@@ -353,7 +353,7 @@ var JsNumberFormatter = {
         
         // break up number into 2 strings, 1 for the integer and 1 for the decimals
         if (log) {
-            console.log('Splitting number to parts...');
+            // console.log('Splitting number to parts...');
         }
         
         match = this.consts.numberRegex.exec(number);
@@ -370,18 +370,18 @@ var JsNumberFormatter = {
         }
         decimalLen = decimalPartStr.length;
         if (log) {
-            console.log('Parts=integer:' + integerPartStr + ',decimal:' + decimalPartStr);
+            // console.log('Parts=integer:' + integerPartStr + ',decimal:' + decimalPartStr);
         }
         
         // apply group mask
         if (log) {
-            console.log('Applying group mask...');
+            // console.log('Applying group mask...');
         }
         var formatterIntPartStr = options.groupMask.apply(integerPartStr);
         
         // apply decimal mask
         if (log) {
-            console.log('Applying decimal mask...');
+            // console.log('Applying decimal mask...');
         }
         var formatterDecPartStr = options.decimalMask.apply(decimalPartStr);
         
@@ -403,7 +403,7 @@ var JsNumberFormatter = {
         }
         
         if (log) {
-            console.log('Result=' + result);
+            // console.log('Result=' + result);
         }
         return result;
     },
@@ -538,19 +538,19 @@ var JsNumberFormatter = {
             pureNumericStr = '' + pureNumericStr;
             
             if (log) {
-                console.log('Applying mask:"' + this.maskStr + '",reversed=' + this.reversed + ',input="' + pureNumericStr + '"');
+                // console.log('Applying mask:"' + this.maskStr + '",reversed=' + this.reversed + ',input="' + pureNumericStr + '"');
             }
             var result = '';
             if (this.repeating) {
                 if (this.reversed) {
                     var strLen = pureNumericStr.length;
                     if (log) {
-                        console.log('length=' + strLen);
+                        // console.log('length=' + strLen);
                     }
                     for (var pos = strLen; pos >= 0; pos -= this.maskDigitSize) {    // FIXME going to truncate?
                         // break into the digits to format
                         if (log) {
-                            console.log('Pos:' + pos);
+                            // console.log('Pos:' + pos);
                         }
                         var bottomBound = pos - this.maskDigitSize < 0 ? 0 : pos - this.maskDigitSize;
                         var subDigits = strLen === 1 ? ('' + pureNumericStr).substring(bottomBound, pos) : pureNumericStr.substring(bottomBound, pos);
@@ -576,7 +576,7 @@ var JsNumberFormatter = {
             var match = this.maskStr.match(new RegExp('[0#]', 'g'));
             this.maskDigitSize = match.length;
             if (log) {
-                console.log('Compiled at length:' + this.maskDigitSize);
+                // console.log('Compiled at length:' + this.maskDigitSize);
             }
             this.compiled = true;
         };
@@ -607,12 +607,12 @@ var JsNumberFormatter = {
                 } else {
                     // no more numbers to insert
                     if (log) {
-                        console.log('Mask ch:' + maskCh);
+                        // console.log('Mask ch:' + maskCh);
                     }
                     if (maskCh === '0') {
                         // zero padding
                         if (log) {
-                            console.log('Zero pad');
+                            // console.log('Zero pad');
                         }
                         result += '0';
                     } else if (maskCh == '#') {
@@ -633,14 +633,14 @@ var JsNumberFormatter = {
             }
             
             if (log) {
-                console.log('Mask result=' + result);
+                // console.log('Mask result=' + result);
             }
             return result;
         };
         
         this._applyReverseMask = function(maskStr, pureNumericStr, areMore, log) {
             if (log) {
-                console.log('Applying reverse mask:"' + maskStr + '"areMore:' + areMore + ',str:"' + pureNumericStr + '"');
+                // console.log('Applying reverse mask:"' + maskStr + '"areMore:' + areMore + ',str:"' + pureNumericStr + '"');
             }
             var result = '';
             // sanity check
@@ -654,25 +654,25 @@ var JsNumberFormatter = {
             for (var i = maskStr.length - 1; i >= 0; i--) {
                 var maskCh = maskStr.charAt(i);
                 if (log) {
-                    console.log('Mask ch:' + maskCh);
+                    // console.log('Mask ch:' + maskCh);
                 }
                 
                 if (digitPos >= 0) {
                     if (log) {
-                        console.log('Digit Pos:' + digitPos);
+                        // console.log('Digit Pos:' + digitPos);
                     }
                     // still numbers to insert
                     if (maskCh === '0' || maskCh == '#') {
                         var digit = pureNumericStr.charAt(digitPos);
                         if (log) {
-                            console.log('Digit:' + digit);
+                            // console.log('Digit:' + digit);
                         }
                         digitPos--;
                         
                         // write out any held chars
                         if (holdChars !== null) {
                             if (log) {
-                                console.log('Writing hold chars:' + holdChars);
+                                // console.log('Writing hold chars:' + holdChars);
                             }
                             result = holdChars + result;
                             holdChars = null;
@@ -684,7 +684,7 @@ var JsNumberFormatter = {
                         // hold the char
                         holdChars = holdChars !== null ? maskCh + holdChars : maskCh;
                         if (log) {
-                            console.log('Held char:' + maskCh);
+                            // console.log('Held char:' + maskCh);
                         }
                     }
                 } else {
@@ -693,7 +693,7 @@ var JsNumberFormatter = {
                         // write out any held chars
                         if (null !== holdChars) {
                             if (log) {
-                                console.log('Writing hold chars:' + holdChars);
+                                // console.log('Writing hold chars:' + holdChars);
                             }
                             result = holdChars + result;
                             holdChars = null;
@@ -707,7 +707,7 @@ var JsNumberFormatter = {
                     } else {
                         holdChars = holdChars !== null ? maskCh + holdChars : maskCh;
                         if (log) {
-                            console.log('Held char:' + maskCh);
+                            // console.log('Held char:' + maskCh);
                         }
                     }
                 }
@@ -722,7 +722,7 @@ var JsNumberFormatter = {
             }
             
             if (log) {
-                console.log('Mask result=' + result);
+                // console.log('Mask result=' + result);
             }
             return result;
         };
@@ -744,7 +744,7 @@ var JsNumberFormatter = {
             }
             
             if (log) {
-                console.log('Rounding ' + value + ' using mode=' + mode);
+                // console.log('Rounding ' + value + ' using mode=' + mode);
             }
             
             var result;
@@ -775,7 +775,7 @@ var JsNumberFormatter = {
             }
             
             if (log) {
-                console.log('[' + value + '] Rounded to ' + result);
+                // console.log('[' + value + '] Rounded to ' + result);
             }
             return result;
         },
@@ -827,22 +827,22 @@ var JsNumberFormatter = {
                 // strip out the group occurrances
                 var groupSep = context.options.groupStr;
                 if (context.log) {
-                    console.log(groupSep);
+                    // console.log(groupSep);
                 }
                 groupSep = groupSep.replace(new RegExp('\\.', 'g'), '\\.');
                 if (context.log) {
-                    console.log(groupSep);
+                    // console.log(groupSep);
                 }
                 currentValue = currentValue.replace(new RegExp(groupSep, 'g'), '');
                 if (context.log) {
-                    console.log('[' + currentValue + '] Removed groups...');
+                    // console.log('[' + currentValue + '] Removed groups...');
                 }
                 
                 // replace the decimal separator (if needed)
                 if (context.options.decimalStr != '.') {
                     currentValue = currentValue.replace(new RegExp(context.options.decimalStr, 'g'), '.');
                     if (context.log) {
-                        console.log('[' + currentValue + '] Replaced decimal point(s)...');
+                        // console.log('[' + currentValue + '] Replaced decimal point(s)...');
                     }
                 }
                 
@@ -850,7 +850,7 @@ var JsNumberFormatter = {
                 if (context.options.strict) {
                     // check that there is 0 or 1 occurrances of the decimal point
                     if (context.log) {
-                        console.log('[' + currentValue + '] Counting decimal points...');
+                        // console.log('[' + currentValue + '] Counting decimal points...');
                     }
                     var count = currentValue.match(new RegExp('\\.', 'g')).length;
                     if (count > 1) {
@@ -860,7 +860,7 @@ var JsNumberFormatter = {
                     if (!context.options.removeBadCh) {
                         // flag any non numerics
                         if (context.log) {
-                            console.log('[' + currentValue + '] Counting disallowed chars...');
+                            // console.log('[' + currentValue + '] Counting disallowed chars...');
                         }
                         count = currentValue.match(new RegExp(context.nf.consts.regexStrNonNumeric, 'g')).length;
                         if (count > 0) {
@@ -879,11 +879,11 @@ var JsNumberFormatter = {
             this.parse = function(origValue, currentValue, context) {
                 if (context.options.removeBadCh) {
                     if (context.log) {
-                        console.log('[' + currentValue + '] Removing bad chars...');
+                        // console.log('[' + currentValue + '] Removing bad chars...');
                     }
                     currentValue = currentValue.replace(new RegExp(context.nf.consts.regexStrNonNumeric, 'g'), '');
                     if (context.log) {
-                        console.log('[' + currentValue + '] Removed bad chars...');
+                        // console.log('[' + currentValue + '] Removed bad chars...');
                     }
                 }
                 return currentValue;
@@ -901,7 +901,7 @@ var JsNumberFormatter = {
                 if (context.options.trim) {
                     currentValue = currentValue.replace(new RegExp('^\\s+|\\s+$', 'g'), '');
                     if (context.log) {
-                        console.log('[' + currentValue + '] Trimmed');
+                        // console.log('[' + currentValue + '] Trimmed');
                     }
                 }
                 return currentValue;
@@ -915,14 +915,14 @@ var JsNumberFormatter = {
                 // determine if a negative number string or not
                 if (context.options.negativeMatch) {
                     if (context.log) {
-                        console.log('[' + currentValue + '] Removing any negative signs...');
+                        // console.log('[' + currentValue + '] Removing any negative signs...');
                     }
                     var match = context.options.negativeMatch.exec(currentValue);
                     if (match) {
                         currentValue = match[1];
                         context.isNegative = true;
                         if (context.log) {
-                            console.log('[' + currentValue + '] Removed negative sign and any fixes');
+                            // console.log('[' + currentValue + '] Removed negative sign and any fixes');
                         }
                     }
                 }
@@ -950,7 +950,7 @@ var JsNumberFormatter = {
                         currentValue = match[1];
                         context.isPerc = true;
                         if (context.log) {
-                            console.log('[' + currentValue + '] is percentage');
+                            // console.log('[' + currentValue + '] is percentage');
                         }
                     }
                 }
@@ -975,7 +975,7 @@ var JsNumberFormatter = {
                     currentValue = JsNumberFormatter.util.round(currentValue, dpCount, context.log, context.isNegative);
                     
                     if (context.log) {
-                        console.log('[' + currentValue + '] Converted to percentage...');
+                        // console.log('[' + currentValue + '] Converted to percentage...');
                     }
                 }
                 return currentValue;
@@ -999,4 +999,4 @@ NaNError.prototype = Error.prototype;
 
 
 // export for RequireJS support (mainly to allow mocha to work)
-module.exports.nf = JsNumberFormatter;
+// module.exports.nf = JsNumberFormatter;

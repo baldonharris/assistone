@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+	PNotify.prototype.options.styling = "bootstrap3";
+
 	var customer_id; // must set to zero if customer is deleted
 	var counter=0;
 	var mode;
@@ -8,7 +10,8 @@ $(document).ready(function(){
 	var customers = [];
 
 	$.post($('#base_url').attr('base-url')+'customers/get_customer', function(response){
-		$.each(JSON.parse(response), function(index, value){
+		var customer_detail = JSON.parse(response);
+		$.each(customer_detail.customer_detail, function(index, value){
 			if(customers.indexOf(value.complete_name) == -1 && value.complete_name != null){
 				customers.push(value.complete_name);				
 			}
@@ -76,9 +79,7 @@ $(document).ready(function(){
 							var options = new JsNumberFormatter.formatNumberOptions().specifyDecimalMask('00');
 							var new_value = JsNumberFormatter.formatNumber(parseFloat(value), options, true);
 							if(new_value < 1){
-								new_value = "₱ 0"+new_value;
-							}else{
-								new_value = "₱ "+new_value;
+								new_value = "0"+new_value;
 							}
 							duplicate_row.find('#'+index).text(new_value);
 						}else if(index == 'interest_rate'){
@@ -142,21 +143,55 @@ $(document).ready(function(){
 			var response = JSON.parse(responseText);
 			if(mode==1){	// add
 				if(response.status){	// add success
+					new PNotify({
+						title:'Success!',
+						text:'Customer successfully added!',
+						type:"success",
+						delay:5000,
+						animation:"fade",
+						mobile:{swipe_dismiss:true,styling:true},
+						buttons:{closer:false,sticker:false},
+						desktop: {desktop: true,fallback: true}
+					});
 					location.reload();
 				}else{						// add fail
+					$('.form-group').removeClass('has-error');
+					$('.errhandler').html('');
 					$.each(response.data, function(index, value){
 						$('[errhandler='+index+']').html(value);
 						$('[name='+index+']').parent().addClass('has-error');
 					})
+					new PNotify({
+						title:'Oh no!',
+						text:'An error has occured!',
+						type:"error",
+						delay:5000,
+						animation:"fade",
+						mobile:{swipe_dismiss:true,styling:true},
+						buttons:{closer:false,sticker:false},
+						desktop: {desktop: true,fallback: true}
+					});
 				}
 			}else{			// update
 				if(response.status){	// update success
 					location.reload();
 				}else{						// update fail
+					$('.form-group').removeClass('has-error');
+					$('.errhandler').html('');
 					$.each(response.data, function(index, value){
 						$('[errhandler='+index+']').html(value);
 						$('[name='+index+']').parent().addClass('has-error');
 					})
+					new PNotify({
+						title:'Oh no!',
+						text:'An error has occured!',
+						type:"error",
+						delay:5000,
+						animation:"fade",
+						mobile:{swipe_dismiss:true,styling:true},
+						buttons:{closer:false,sticker:false},
+						desktop: {desktop: true,fallback: true}
+					});
 				}
 			}
 		}});

@@ -1,3 +1,7 @@
 #amount_loan, #interest_rate, #number_of_terms, #total_interest_amount, #balance{
 	text-align: right;
 }
+
+th{
+	text-align: center;
+}

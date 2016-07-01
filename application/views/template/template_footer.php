@@ -20,6 +20,7 @@
 	<script src="<?=base_url()?>assets/js/autocomplete/jquery.autocomplete.js"></script>
 	<script type="text/javascript" src="<?=base_url()?>assets/js/moment/moment.min.js"></script>
 	<script type="text/javascript" src="<?=base_url()?>assets/js/datepicker/daterangepicker.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>assets/js/notify/pnotify.custom.min.js"></script>
 	<script src="<?=base_url()?>assets/js/progressbar/bootstrap-progressbar.min.js"></script>
 	<script src="<?=base_url()?>assets/js/nicescroll/jquery.nicescroll.min.js"></script>
 	<script src="<?=base_url()?>assets/js/custom.js"></script>

@@ -168,52 +168,41 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
-				<div class="row">
-					<div class="col-md-12">
-						<center>
-							<h4 class="customer_id"><span>Please select customer...</span></h4>
-						</center>
-						<div id="account_overview" class="hidden table-responsive">
-							<!-- <div class="col-lg-3 col-xs-12 col-sm-12 hidden-md hidden-sm hidden-xs">
-								<button type="button" class="btn btn-primary add-loan-btn">
-									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Loan
-								</button>
-							</div> -->
-							
-							<div class="table-responsive">
-								<table class="table table-striped" id="loan_table">
-									<thead class="headings">
-										<tr>
-											<th>Loan ID</th>
-											<th>Date of Application</th>
-											<th>Date of Release</th>
-											<th>Amount Loan</th>
-											<th>Interest Rate</th>
-											<th>Number of Payments</th>
-											<th>Total Interest Amount</th>
-											<th>Balance</th>
-											<th>Action</th>
-										</tr>
-									</thead>
-									<tbody id="loan_body">
-										<tr class="hidden" id="loan_row_dummy">
-											<td id="loan_id"></td>
-											<td id="date_of_application"></td>
-											<td id="date_of_release"></td>
-											<td id="amount_loan" data-affixes-stay="true" data-prefix="₱ " data-thousands="." data-decimal=","></td>
-											<td id="interest_rate" data-affixes-stay="true" data-suffix=" %" data-thousands="." data-decimal=","></td>
-											<td id="number_of_terms"></td>
-											<td id="total_interest_amount" data-affixes-stay="true" data-prefix="₱ " data-thousands="." data-decimal=","></td>
-											<td id="balance" data-affixes-stay="true" data-prefix="₱ " data-thousands="." data-decimal=","></td>
-											<td>
-												<button type="button" class="btn btn-default btn-xs btn-success">More</button>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-
-						</div>
+				<center>
+					<h4 class="customer_id"><span>Please select customer...</span></h4>
+				</center>
+				<div id="account_overview" class="hidden">
+					<div class="table-responsive">
+						<table class="table table-bordered table-hover jambo_table" id="loan_table">
+							<thead class="headings">
+								<tr>
+									<th>Loan ID</th>
+									<th>Date of Application</th>
+									<th>Date of Release</th>
+									<th>Amount Loan</th>
+									<th>Interest Rate</th>
+									<th>Number of Payments</th>
+									<th>Total Interest Amount</th>
+									<th>Balance</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody id="loan_body">
+								<tr class="hidden" id="loan_row_dummy">
+									<th id="loan_id"></th>
+									<td id="date_of_application"></td>
+									<td id="date_of_release"></td>
+									<td id="amount_loan"></td>
+									<td id="interest_rate"></td>
+									<td id="number_of_terms"></td>
+									<td id="total_interest_amount"></td>
+									<td id="balance"></td>
+									<td id="button_more">
+										<button type="button" class="btn btn-default btn-xs btn-success">More</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
@@ -364,7 +353,7 @@
 					</div>
 			</div>
 			<div class="modal-footer">
-				<button type="submit" class="btn btn-success pull-left">Save</button>
+				<button type="button" class="btn btn-success pull-left" id="save_loan">Save</button>
 				</form>
 				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 			</div>

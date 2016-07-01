@@ -50,7 +50,7 @@ class Customers extends MY_Controller {
 
 	public function search($page=0, $set_sortby=1, $set_orderby=2, $set_display=0){
 		if(empty($this->input->post('search_'))){
-			redirect(base_url('customers/listing/0'.$set_sorby.'/'.$set_orderby.'/'.$set_display));
+			redirect(base_url('customers/listing/0/'.$set_sortby.'/'.$set_orderby.'/'.$set_display));
 		}else{
 			$status['prev'] = $status['next'] = 0;
 			$data['customers'] = $this->m_customers->search($this->input->post('search_'));
