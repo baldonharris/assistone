@@ -72,22 +72,20 @@
 						<div class="menu_section">
 							<h3 <?= $this->uri->segment(0) ?>>&nbsp;</h3>
 							<ul class="nav side-menu">
-								<li class=""><a href="<?=base_url('customers/listing/'.$page['curr_page'].'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>"><i class="fa fa-users"></i> Customers <!-- <span class="fa fa-chevron-down"></span> --></a>
-									<!-- <ul class="nav child_menu" style="display: none">
-										<li><a href="empty.html">Sub1.1</a>
-										</li>
-										<li><a href="empty.html">Sub1.2</a>
-										</li>
-									</ul> -->
+								<li class=""><a href="<?=base_url('customers/listing/'.$page['curr_page'].'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>"><i class="fa fa-chain"></i> Main</a>
 								</li>
-								<li><a><i class="fa fa-edit"></i> Loans <span class="fa fa-chevron-down"></span></a>
+								<li class=""><a href="#"><i class="fa fa-line-chart"></i> Reports</a>
+								</li>
+								<li class=""><a href="#"><i class="fa fa-gears"></i> Settings</a>
+								</li>
+								<!-- <li><a><i class="fa fa-edit"></i> Loans <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none">
 										<li><a href="empty.html">Menu2.1</a>
 										</li>
 										<li><a href="empty.html">Meny2.2s</a>
 										</li>
 									</ul>
-								</li>
+								</li> -->
 							</ul>
 						</div>
 					</div>
