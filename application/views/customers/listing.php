@@ -69,11 +69,6 @@
 							</a>
 						</div>
 					</div>
-					<div class="col-md-1 col-xs-12 col-sm-12">
-						<a href="#" class="btn btn-primary add-loan-btn btn-sm hidden">
-							Add Loan
-						</a>
-					</div>
 					<div class="col-md-3 col-md-offset-5 col-sm-6 col-xs-6">
 						<div class="btn-group pull-right hidden-sm hidden-xs hidden-md" role="group" aria-label="...">
 							<a href="<?= base_url('customers/listing/'.($page['curr_page']-1).'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display) ?>" class="<?= ($page['status']['prev']==0) ? 'disabled' : '' ?> btn btn-default btn-sm">
@@ -176,42 +171,51 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
-				<center>
-					<i class="fa fa-spinner fa-pulse fa-3x fa-fw hidden"></i><span class="sr-only">Loading...</span>
-					<h4 class="customer_id"><span>Please select customer...</span></h4>
-				</center>
-				<div id="account_overview" class="hidden">
-					<div class="table-responsive">
-						<table class="table table-bordered table-hover jambo_table" id="loan_table">
-							<thead class="headings">
-								<tr>
-									<th>Loan ID</th>
-									<th>Date of Application</th>
-									<th>Date of Release</th>
-									<th>Amount Loan</th>
-									<th>Interest Rate</th>
-									<th>Number of Payments</th>
-									<th>Total Interest Amount</th>
-									<th>Balance</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-							<tbody id="loan_body">
-								<tr class="hidden" id="loan_row_dummy">
-									<th id="loan_id"></th>
-									<td id="date_of_application"></td>
-									<td id="date_of_release"></td>
-									<td id="amount_loan"></td>
-									<td id="interest_rate"></td>
-									<td id="number_of_terms"></td>
-									<td id="total_interest_amount"></td>
-									<td id="balance"></td>
-									<td class="button_more">
-										<button type="button" class="btn btn-default btn-xs btn-success view_loan_btn" get-payment="<?=base_url('payments/get_payment')?>">Make Payments</button>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+				<div class="row">
+					<div class="col-lg-3 col-xs-12 col-sm-12 hidden-md hidden-sm hidden-xs">
+						<a href="#" class="btn btn-primary add-loan-btn btn-sm hidden">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Loan
+						</a>
+					</div>
+				</div>
+				<div class="row" style="padding-top:1%">
+					<center>
+						<i class="fa fa-spinner fa-pulse fa-3x fa-fw hidden"></i><span class="sr-only">Loading...</span>
+						<h4 class="customer_id"><span>Please select customer...</span></h4>
+					</center>
+					<div id="account_overview" class="hidden">
+						<div class="table-responsive">
+							<table class="table table-bordered table-hover jambo_table" id="loan_table">
+								<thead class="headings">
+									<tr>
+										<th>Loan ID</th>
+										<th>Date of Application</th>
+										<th>Date of Release</th>
+										<th>Amount Loan</th>
+										<th>Interest Rate</th>
+										<th>Number of Payments</th>
+										<th>Total Interest Amount</th>
+										<th>Balance</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody id="loan_body">
+									<tr class="hidden" id="loan_row_dummy">
+										<th id="loan_id"></th>
+										<td id="date_of_application"></td>
+										<td id="date_of_release"></td>
+										<td id="amount_loan"></td>
+										<td id="interest_rate"></td>
+										<td id="number_of_terms"></td>
+										<td id="total_interest_amount"></td>
+										<td id="balance"></td>
+										<td class="button_more">
+											<button type="button" class="btn btn-default btn-xs btn-success view_loan_btn" get-payment="<?=base_url('payments/get_payment')?>">Make Payments</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
