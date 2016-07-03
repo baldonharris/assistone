@@ -74,7 +74,13 @@
 							<ul class="nav side-menu">
 								<li class=""><a href="<?=base_url('customers/listing/'.$page['curr_page'].'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>"><i class="fa fa-chain"></i> Main</a>
 								</li>
-								<li class=""><a href="#"><i class="fa fa-line-chart"></i> Reports</a>
+								<li class=""><a><i class="fa fa-line-chart"></i> Reports <span class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu" style="display: none">
+										<li><a href="#">Next Collection</a></li>
+										<li><a href="#">Investments</a></li>
+										<li><a href="#">Gross</a></li>
+										<li><a href="#">Anual Report</a></li>
+									</ul>
 								</li>
 								<li class=""><a href="#"><i class="fa fa-gears"></i> Settings</a>
 								</li>
