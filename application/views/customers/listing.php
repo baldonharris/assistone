@@ -69,7 +69,12 @@
 							</a>
 						</div>
 					</div>
-					<div class="col-md-5 col-md-offset-4 col-sm-6 col-xs-6">
+					<div class="col-md-1 col-xs-12 col-sm-12">
+						<a href="#" class="btn btn-primary add-loan-btn btn-sm hidden">
+							Add Loan
+						</a>
+					</div>
+					<div class="col-md-3 col-md-offset-5 col-sm-6 col-xs-6">
 						<div class="btn-group pull-right hidden-sm hidden-xs hidden-md" role="group" aria-label="...">
 							<a href="<?= base_url('customers/listing/'.($page['curr_page']-1).'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display) ?>" class="<?= ($page['status']['prev']==0) ? 'disabled' : '' ?> btn btn-default btn-sm">
 								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Prev
@@ -167,9 +172,6 @@
 				<h2>Account Overview</h2>
 				<ul class="nav navbar-right panel_toolbox">
 					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-					<li class="add-loan-btn hidden">
-						<a href="#" class="btn btn-primary">Add Loan</a>
-					</li>
 				</ul>
 				<div class="clearfix"></div>
 			</div>
