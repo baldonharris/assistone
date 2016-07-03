@@ -135,6 +135,7 @@ $(document).ready(function(){
 			var payments = JSON.parse(response);
 			$.each(payments.data, function(index, value){
 				var duplicated_row = $('#view_loan_row_dummy').clone();
+				console.log(value);
 				$.each(value, function(index, value){
 					var new_value = value;
 					if(index=='due_amount' || index=='amount_paid' || index=='payment_balance' || index=='running_balance'){
@@ -143,6 +144,8 @@ $(document).ready(function(){
 						if(new_value < 1){
 							new_value = '0'+new_value;
 						}
+					}if(index=='id'){
+						duplicated_row.attr('payment-id', value);
 					}
 					duplicated_row.find('#'+index).text(new_value);
 				});
