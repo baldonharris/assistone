@@ -168,7 +168,7 @@
 				<ul class="nav navbar-right panel_toolbox">
 					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
 					<li class="add-loan-btn hidden">
-						<a href="#" class="btn btn-default">Add Loan</a>
+						<a href="#" class="btn btn-primary">Add Loan</a>
 					</li>
 				</ul>
 				<div class="clearfix"></div>
@@ -205,7 +205,7 @@
 									<td id="total_interest_amount"></td>
 									<td id="balance"></td>
 									<td class="button_more">
-										<button type="button" class="btn btn-default btn-xs btn-success view_loan_btn" get-payment="<?=base_url('payments/get_payment')?>">More</button>
+										<button type="button" class="btn btn-default btn-xs btn-success view_loan_btn" get-payment="<?=base_url('payments/get_payment')?>">Make Payments</button>
 									</td>
 								</tr>
 							</tbody>
@@ -373,7 +373,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">View Loan</h4>
+				<h4 class="modal-title" id="myModalLabel">Payments</h4>
 			</div>
 			<div class="modal-body">
 				<div class="table-responsive">
@@ -402,7 +402,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-success pull-left">Save</button>
+				<button type="button" class="btn btn-success pull-left">Confirm Payments</button>
 				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 			</div>
 		</div>

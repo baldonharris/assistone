@@ -34,15 +34,14 @@ class Loans extends MY_Controller {
 					$last_day = date('t', strtotime($base_date)) - $day;
 					$base_date = date('Y-m-d', strtotime($base_date.' + '.$last_day.' days'));
 				}
+				$due_amount = round(($inputs['amount_loan'] + $inputs['total_interest_amount']) / $inputs['number_of_terms']);
+				$due_amount_error = $due_amount - (($due_amount*$inputs['number_of_terms'])-($inputs['amount_loan']+$inputs['total_interest_amount']));
 				array_push($payments, array(
-						'loans_id'		 => $insert_loan['id'],
-						'due_date'		 => $base_date,
-						'due_amount'	 => round(($inputs['amount_loan'] + $inputs['total_interest_amount']) / $inputs['number_of_terms']),
-						'running_balance'=> (($x==0) ? $insert_loan['balance'] : 0.00)
-					));
-				// if(date('j', strtotime($base_date)) >= 28){
-				// 	$base_date = date('Y-m-d', strtotime($base_date.' + 5 days'));
-				// }
+					'loans_id'		 => $insert_loan['id'],
+					'due_date'		 => $base_date,
+					'due_amount'	 => (($x==($inputs['number_of_terms']-1)) ? $due_amount_error : $due_amount),
+					'running_balance'=> (($x==0) ? $insert_loan['balance'] : 0.00)
+				));
 			}
 			$this->m_payments->add($payments);
 			$toReturn = array('status'=>1, 'data'=>$insert_loan);
