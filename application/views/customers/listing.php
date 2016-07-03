@@ -103,13 +103,19 @@
 			</div>
 			<div class="x_content">
 				<div class="row">
-					<div class="col-md-offset-4 col-md-4 col-xs-12 col-sm-12 thumbnail" style="height:148px;">
-						<a href="#">
-							<img id="display_picture" source="<?=base_url('assets/images/')?>" alt="..." style="height:148px; width:156px;">
-						</a>
+					<div class="col-md-offset-3 col-md-6 col-xs-12 col-sm-12">
+						<div class="thumbnail">
+							<div class="image view view-first" style="height: 100%">
+								<img id="display_picture" style="width: 100%; height:100%; display: block;" source="<?=base_url('assets/images/')?>" alt="...">
+								<div class="mask">
+									<p>Please select customer...</p>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="col-md-12">
 						<center>
+							<i class="fa fa-spinner fa-pulse fa-3x fa-fw hidden"></i><span class="sr-only">Loading...</span>
 							<h4><span class="customer_id">Please select customer...</span></h4>
 						</center>
 						<table class="table">
@@ -169,6 +175,7 @@
 			</div>
 			<div class="x_content">
 				<center>
+					<i class="fa fa-spinner fa-pulse fa-3x fa-fw hidden"></i><span class="sr-only">Loading...</span>
 					<h4 class="customer_id"><span>Please select customer...</span></h4>
 				</center>
 				<div id="account_overview" class="hidden">

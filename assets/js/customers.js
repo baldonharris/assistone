@@ -1,7 +1,5 @@
 $(document).ready(function(){
 
-	PNotify.prototype.options.styling = "bootstrap3";
-
 	var customer_id; // must set to zero if customer is deleted
 	var counter=0;
 	var mode;
@@ -29,7 +27,7 @@ $(document).ready(function(){
 	$('.list-group').on('click', '.customers', function(e){
 		e.preventDefault();
 		if(customer_id != $(this).attr('customer_id')){
-			$('.customer_id').html('<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="sr-only">Loading...</span>');
+			$('.fa-spinner').removeClass('hidden');
 			customer_id = $(this).attr('customer_id');
 			$('.customers').removeClass('active');
 			$('[customer_id='+customer_id+']').addClass('active');
@@ -53,6 +51,8 @@ $(document).ready(function(){
 					}else if(index=='deleted_at'){
 						customer_status = (new_value.length==0) ? 'Active' : 'Inactive';
 						$('#'+index).text(customer_status);
+					}else if(index=='customer_id'){
+						$('.mask p').text('Customer ID: '+new_value);
 					}else{
 						$('#'+index).text(new_value);
 					}
@@ -94,7 +94,7 @@ $(document).ready(function(){
 
 				$('#btn-update, .btn-delete').removeClass('disabled');
 				$('#account_overview, .add-loan-btn').removeClass('hidden');
-				$('.customer_id').addClass('hidden');
+				$('.customer_id, .fa-spinner').addClass('hidden');
 				$('input[name=customer_id]').val(customer_dup.id);
 			});
 		}
@@ -147,7 +147,7 @@ $(document).ready(function(){
 						title:'Success!',
 						text:'Customer successfully added!',
 						type:"success",
-						delay:5000,
+						delay:3000,
 						animation:"fade",
 						mobile:{swipe_dismiss:true,styling:true},
 						buttons:{closer:false,sticker:false},
@@ -165,7 +165,7 @@ $(document).ready(function(){
 						title:'Oh no!',
 						text:'An error has occured!',
 						type:"error",
-						delay:5000,
+						delay:3000,
 						animation:"fade",
 						mobile:{swipe_dismiss:true,styling:true},
 						buttons:{closer:false,sticker:false},
@@ -186,7 +186,7 @@ $(document).ready(function(){
 						title:'Oh no!',
 						text:'An error has occured!',
 						type:"error",
-						delay:5000,
+						delay:3000,
 						animation:"fade",
 						mobile:{swipe_dismiss:true,styling:true},
 						buttons:{closer:false,sticker:false},

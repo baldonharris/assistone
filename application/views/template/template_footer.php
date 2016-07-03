@@ -14,6 +14,45 @@
 		<div id="notif-group" class="tabbed_notifications"></div>
 	</div>
 
+	<div class="modal fade" id="add_admin" tabindex="-1" role="dialog" aria-labelledby="add_admin" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="admin_modal_label">Add Admin</h4>
+				</div>
+				<div class="modal-body">
+					<input type="hidden" id="sess_fn" value="<?=$this->session->userdata('fullname')?>"/>
+					<input type="hidden" id="sess_us" value="<?=$this->session->userdata('username')?>"/>
+					<form id="form_add_admin" add-url="<?=base_url('account/add_admin')?>" update-url="<?=base_url('account/update_admin')?>" method="post" enctype="multipart/form-data">
+						<div class="form-group">
+							<label class="control-label" for="in_fullname">Fullname</label> <i><span class="control-label errhandler" errhandler="fullname"></span></i>
+							<input type="text" name="fullname" class="form-control" id="in_fullname" placeholder="Fullname">
+						</div>
+						<div class="form-group">
+							<label class="control-label" for="in_username">Username</label> <i><span class="control-label errhandler" errhandler="username"></span></i>
+							<input type="text" name="username" class="form-control" id="in_username" placeholder="Username">
+						</div>
+						<div class="form-group">
+							<label class="control-label" for="in_password">Password</label> <i><span class="control-label errhandler" errhandler="password"></span></i>
+							<input type="password" name="password" class="form-control" id="in_password" placeholder="Password">
+						</div>
+						<div class="form-group">
+							<label class="control-label" for="dp">Display Picture</label> <i><span class="control-label errhandler" errhandler="dp"></span></i>
+							<input type="file" name="dp" id="dp">
+							<p class="help-block">Max dimension: 1024x768 px | Max filesize: 2MB | Accepts only: jpeg,png,jpg</p>
+						</div>
+						<input type="hidden" value="<?=$this->session->userdata('id')?>" name="id"/>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-success pull-left">Save</button>
+					</form>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script src="<?=base_url()?>assets/js/bootstrap.min.js"></script>
 	<script src="<?=base_url()?>assets/js/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="<?=base_url()?>assets/js/jqueryform.js"></script>

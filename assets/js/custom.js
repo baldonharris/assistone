@@ -6,6 +6,8 @@
 
 /** ******  left menu  *********************** **/
 $(function () {
+    PNotify.prototype.options.styling = "bootstrap3";
+    
     $('#sidebar-menu li ul').slideUp();
     $('#sidebar-menu li').removeClass('active');
 

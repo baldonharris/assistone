@@ -20,6 +20,8 @@ class MY_Controller extends CI_Controller {
 		if(!isset($data['header'])) $data['header'] = "assistone";
 		if(!isset($data['subheader'])) $data['subheader'] = "lending corporation";
 		if(!$page) $page = 'template/template_body';
+
+		$data['js'] = array_merge($data['js'], array('admin.js'));
 		
 		$this->load->view('template/template_header', $data);
 		$this->load->view($page, $data);
