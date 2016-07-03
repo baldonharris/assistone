@@ -1,4 +1,4 @@
-#amount_loan, #interest_rate, #number_of_terms, #total_interest_amount, #balance{
+#due_amount, #amount_paid, #payment_balance, #running_balance, #amount_loan, #interest_rate, #number_of_terms, #total_interest_amount, #balance{
 	text-align: right;
 }
 

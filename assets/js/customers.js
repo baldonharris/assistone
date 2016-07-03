@@ -82,6 +82,8 @@ $(document).ready(function(){
 								new_value = "0"+new_value;
 							}
 							duplicate_row.find('#'+index).text(new_value);
+						}else if(index == 'id'){
+							duplicate_row.find('.view_loan_btn').attr('loan-id', value);
 						}else if(index == 'interest_rate'){
 							duplicate_row.find('#'+index).text(value+" %");
 						}else{

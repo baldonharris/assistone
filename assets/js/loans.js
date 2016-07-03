@@ -81,6 +81,7 @@ $(document).ready(function(){
 							duplicate_row.find('#loan_id').text(response.data.loan_id);
 							duplicate_row.find('#total_interest_amount').text(new_interest_amount);
 							duplicate_row.find('#balance').text(new_balance);
+							duplicate_row.find('.view_loan_btn').attr('loan-id', response.data.id);
 							$('#loan_body').prepend(duplicate_row);
 							duplicate_row.removeAttr('class id').addClass('loan_row');
 							$('#addLoan').modal('hide');
@@ -127,6 +128,33 @@ $(document).ready(function(){
 		$('.form-group').removeClass('has-error');
 		$('.errhandler').html('');
 		if(mode!=1) $('option[value='+customer_dup.id+']').unwrap();
+	});
+
+	$('#loan_table').on('click', '.view_loan_btn', function(){
+		$.post($(this).attr('get-payment'), {id:$(this).attr('loan-id')}, function(response){
+			var payments = JSON.parse(response);
+			$.each(payments.data, function(index, value){
+				var duplicated_row = $('#view_loan_row_dummy').clone();
+				$.each(value, function(index, value){
+					var new_value = value;
+					if(index=='due_amount' || index=='amount_paid' || index=='payment_balance' || index=='running_balance'){
+						var options = new JsNumberFormatter.formatNumberOptions().specifyDecimalMask('00');
+						var new_value = JsNumberFormatter.formatNumber(parseFloat(new_value), options, true);
+						if(new_value < 1){
+							new_value = '0'+new_value;
+						}
+					}
+					duplicated_row.find('#'+index).text(new_value);
+				});
+				duplicated_row.removeClass('hidden').addClass('view_loan_row');
+				$('#view_loan_body').append(duplicated_row);
+			});
+		});
+		$('#viewloan').modal('show');
+	});
+
+	$('#viewloan').on('hidden.bs.modal', function(e){
+		$('.view_loan_row').remove();
 	});
 
 });

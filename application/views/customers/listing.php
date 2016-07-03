@@ -204,8 +204,8 @@
 									<td id="number_of_terms"></td>
 									<td id="total_interest_amount"></td>
 									<td id="balance"></td>
-									<td id="button_more">
-										<button type="button" class="btn btn-default btn-xs btn-success">More</button>
+									<td class="button_more">
+										<button type="button" class="btn btn-default btn-xs btn-success view_loan_btn" get-payment="<?=base_url('payments/get_payment')?>">More</button>
 									</td>
 								</tr>
 							</tbody>
@@ -362,6 +362,47 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-success pull-left" id="save_loan">Save</button>
 				</form>
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="viewloan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">View Loan</h4>
+			</div>
+			<div class="modal-body">
+				<div class="table-responsive">
+					<table class="table table-bordered table-hover jambo_table" id="view_loan_table">
+						<thead class="headings">
+							<tr>
+								<th width="15%">Due Date</th>
+								<th>Due Amount</th>
+								<th>Actual Paid Date</th>
+								<th>Amount Paid</th>
+								<th>Payment Balance</th>
+								<th>Running Balance</th>
+							</tr>
+						</thead>
+						<tbody id="view_loan_body">
+							<tr class="hidden" id="view_loan_row_dummy">
+								<th id="due_date"></th>
+								<td id="due_amount"></td>
+								<td id="actual_paid_date"></td>
+								<td id="amount_paid"></td>
+								<td id="payment_balance"></td>
+								<td id="running_balance"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success pull-left">Save</button>
 				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 			</div>
 		</div>
