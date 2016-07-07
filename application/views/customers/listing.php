@@ -196,7 +196,7 @@
 										<th>Date of Release</th>
 										<th>Amount Loan</th>
 										<th>Interest Rate</th>
-										<th>Number of Payments</th>
+										<th>No. of Payments</th>
 										<th>Total Interest Amount</th>
 										<th>Balance</th>
 										<th>Action</th>
@@ -213,7 +213,7 @@
 										<td id="total_interest_amount"></td>
 										<td id="balance"></td>
 										<td class="button_more">
-											<button type="button" class="btn btn-default btn-xs btn-success view_loan_btn" get-payment="<?=base_url('payments/get_payment')?>">Make Payments</button>
+											<button type="button" class="btn btn-default btn-xs btn-success view_loan_btn" get-payment="<?=base_url('payments/get_payment')?>">Payments</button>
 										</td>
 									</tr>
 								</tbody>
@@ -394,7 +394,6 @@
 				<div class="row">
 					<div class="col-md-12 col-sm-12">
 						<form id="payment_form">
-							<input type="hidden" name="id" id="payment_id" value=""/>
 							<div class="form-group">
 								<label for="payment_actual_paid_date" class="control-label">Actual Paid Date</label>
 								<input type="text" class="form-control" name="payment_actual_paid_date" id="payment_actual_paid_date" placeholder="Actual Paid Date">
@@ -404,6 +403,9 @@
 								<input type="text" class="form-control" name="payment_amount_paid" id="payment_amount_paid" placeholder="Amount Paid">
 							</div>
 							<div class="form-group">
+								<input type="hidden" name="id" id="payment_id" value=""/>
+								<input type="hidden" name="payment_payment_balance" value=""/>
+								<input type="hidden" name="payment_running_balance" value=""/>
 								<button type="button" class="btn btn-success btn-block confirm_payment">Confirm Payment</button>
 							</div>
 						</form>
