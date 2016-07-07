@@ -23,10 +23,6 @@ $(document).ready(function(){
 		parentEl: '#payment_form .modal-body'
 	});
 
-	// $('input[name="date_of_application"], input[name="date_of_release"]').on('show.daterangepicker', function(ev, picker){
-	// 	$('.daterangepicker').addClass('picker_3');
-	// });
-
 	$('.add-loan-btn').click(function(e){
 		e.preventDefault();
 		$('#addLoan').modal('show');
@@ -206,7 +202,7 @@ $(document).ready(function(){
 
 	$('input[name=payment_amount_paid]').blur(function(){
 		var payment = parseFloat($(this).val().replace('₱ ', '').replace(',', ''));
-		console.log(parseFloat($(this).val().replace('₱ ', '').replace(',', ''))-1);
+		console.log(payment);
 	});
 
 });

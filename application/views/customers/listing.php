@@ -213,7 +213,9 @@
 										<td id="total_interest_amount"></td>
 										<td id="balance"></td>
 										<td class="button_more">
-											<button type="button" class="btn btn-default btn-xs btn-success view_loan_btn" get-payment="<?=base_url('payments/get_payment')?>">Payments</button>
+											<center>
+												<button type="button" class="btn btn-default btn-xs btn-success view_loan_btn" get-payment="<?=base_url('payments/get_payment')?>">Payments</button>
+											</center>
 										</td>
 									</tr>
 								</tbody>

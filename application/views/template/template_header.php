@@ -9,6 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<title><?= $title ?></title>
+	<link rel="icon" href="<?=base_url('assets/img/assistone/logo.png')?>">
 
 	<!-- Bootstrap core CSS -->
 	<link href="<?=base_url()?>assets/css/bootstrap.min.css" rel="stylesheet">
@@ -47,8 +48,10 @@
 			<div class="col-md-3 left_col menu_fixed">
 				<div class="left_col scroll-view">
 
-					<div class="navbar nav_title" style="margin-left: auto; margin-right: auto">
-						<a href="<?=base_url()?>" class="site_title"><img src="<?=base_url('assets/img/assistone/logo.png')?>"/> assist<span style="color:#fb8200">one</span></a>
+					<div class="navbar nav_title" style="text-align: center; margin-left: -6%">
+						<a href="<?=base_url()?>" class="site_title">
+							<img src="<?=base_url('assets/img/assistone/logo.png')?>"/> assist<span style="color:#fb8200">one</span>
+						</a>
 					</div>
 					<div class="clearfix"></div>
 
