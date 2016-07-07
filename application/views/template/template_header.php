@@ -47,7 +47,7 @@
 				<div class="left_col scroll-view">
 
 					<div class="navbar nav_title" style="border: 0; margin-left: auto; margin-right: auto">
-						<a href="<?=base_url()?>" class="site_title"><img src="<?=base_url('assets/img/assistone/logo.png')?>"/><span style="color:#1a75ff"> assist</span>one <small></a>
+						<a href="<?=base_url()?>" class="site_title"><img src="<?=base_url('assets/img/assistone/logo.png')?>"/><span style="color:#1a75ff"> assist</span>one</a>
 					</div>
 					<div class="clearfix"></div>
 
