@@ -21,6 +21,7 @@
 	<!-- Custom styling plus plugins -->
 	<link href="<?=base_url()?>assets/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" />
 	<link href="<?=base_url()?>assets/css/custom.min.css" rel="stylesheet">
+	<link href="<?=base_url()?>assets/css/super-custom.css" rel="stylesheet"/>
 
 	<?php for($x=0; $x<count($css); $x++) echo '<link href="'.base_url().'assets/css/'.$css[$x].'" rel="stylesheet">'; ?>
 
@@ -46,7 +47,7 @@
 			<div class="col-md-3 left_col menu_fixed">
 				<div class="left_col scroll-view">
 
-					<div class="navbar nav_title" style="border: 0; margin-left: auto; margin-right: auto">
+					<div class="navbar nav_title" style="margin-left: auto; margin-right: auto">
 						<a href="<?=base_url()?>" class="site_title"><img src="<?=base_url('assets/img/assistone/logo.png')?>"/> assist<span style="color:#fb8200">one</span></a>
 					</div>
 					<div class="clearfix"></div>
