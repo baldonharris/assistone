@@ -61,9 +61,9 @@
               <div class="clearfix"></div>
               <br />
               <div>
-                <h1><i class="fa fa-paw" style="font-size: 26px;"></i>
-                 <span style="color:#1a75ff">assist</span>one <small>lending corporation</small></h1>
-
+                <h1><!-- <i class="fa fa-paw" style="font-size: 26px;"></i> -->
+                <img src="<?=base_url('assets/images/assistone/logo.png')?>" style="height:26px; width:26px"/>
+                <span style="color:#1a75ff">assist</span>one <small>lending corporation</small></h1>
                 <p>©2016 All Rights Reserved.</p>
               </div>
             </div>
