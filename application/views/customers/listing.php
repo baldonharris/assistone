@@ -167,6 +167,9 @@
 				<h2>Account Overview</h2>
 				<ul class="nav navbar-right panel_toolbox">
 					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+					<li class="dropdown hidden-lg add-loan-btn">
+						<a href="#"><i class="fa fa-plus"></i></a>
+					</li>
 				</ul>
 				<div class="clearfix"></div>
 			</div>
@@ -358,7 +361,13 @@
 					</div>
 					<div class="form-group">
 						<label class="control-label" for="in_interest_rate">Interest Rate</label> <i><span class="control-label errhandler" errhandler="interest_rate"></span></i>
-						<input type="text" name="interest_rate" class="form-control" id="in_interest_rate" placeholder="Interest Rate">
+						<select name="interest_rate" class="form-control" id="in_interest_rate">
+							<option value="1.0">1.0 %</option>
+							<option value="2.0">2.0 %</option>
+							<option value="3.0">3.0 %</option>
+							<option value="4.0">4.0 %</option>
+							<option value="5.0">5.0 %</option>
+						</select>
 					</div>
 					<div class="form-group">
 						<label class="control-label" for="in_number_of_terms">Number of Payments</label> <i><span class="control-label errhandler" errhandler="number_of_terms"></span></i>
@@ -382,6 +391,24 @@
 				<h4 class="modal-title" id="myModalLabel">Payments</h4>
 			</div>
 			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12 col-sm-12">
+						<form id="payment_form">
+							<input type="hidden" name="id" id="payment_id" value=""/>
+							<div class="form-group">
+								<label for="payment_actual_paid_date" class="control-label">Actual Paid Date</label>
+								<input type="text" class="form-control" name="payment_actual_paid_date" id="payment_actual_paid_date" placeholder="Actual Paid Date">
+							</div>
+							<div class="form-group">
+								<label for="payment_amount_paid" class="control-label">Amount Paid</label>
+								<input type="text" class="form-control" name="payment_amount_paid" id="payment_amount_paid" placeholder="Amount Paid">
+							</div>
+							<div class="form-group">
+								<button type="button" class="btn btn-success btn-block confirm_payment">Confirm Payment</button>
+							</div>
+						</form>
+					</div>
+				</div>
 				<div class="table-responsive">
 					<table class="table table-bordered table-hover jambo_table" id="view_loan_table">
 						<thead class="headings">
@@ -408,8 +435,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-success pull-left">Confirm Payments</button>
-				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-success pull-left confirm_payment">Confirm Payment</button>
+				<button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>

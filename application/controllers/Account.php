@@ -81,6 +81,7 @@ class Account extends MY_Controller {
 
 		if($mode == 'create'){
 			$input['password'] = md5($input['password']);
+			unset($input['id']);
 		}else{
 			if(empty($input['password']) == false){
 				$input['password'] = md5($input['password']);
@@ -101,7 +102,7 @@ class Account extends MY_Controller {
 		$config['allowed_types'] = 'gif|jpg|png';
 		$config['max_size'] = '2048';
 		$config['max_width'] = '2047';
-		$config['max_height'] = '1536';
+		$config['max_height'] = '2047';
 		$config['encrypt_name'] = TRUE;
 
 		$this->load->library('upload', $config);

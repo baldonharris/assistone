@@ -4,7 +4,7 @@ $(document).ready(function(){
 	var data_serialize;
 
 	$('input[name=number_of_terms]').maskMoney({precision: 0});
-	$('input[name=amount_loan]').maskMoney({prefix: '₱ '});
+	$('input[name=amount_loan], input[name=payment_amount_paid]').maskMoney({prefix: '₱ '});
 	$('input[name=interest_rate]').maskMoney({suffix: ' %'});
 
 	$('input[name="date_of_application"], input[name="date_of_release"]').daterangepicker({
@@ -15,9 +15,17 @@ $(document).ready(function(){
 		parentEl: '#addLoan .modal-body'
 	});
 
-	$('input[name="date_of_application"], input[name="date_of_release"]').on('show.daterangepicker', function(ev, picker){
-		$('.daterangepicker').addClass('picker_3');
+	$('input[name="payment_actual_paid_date"]').daterangepicker({
+		singleDatePicker: true,
+		locale:{
+			format: 'YYYY-MM-DD'
+		},
+		parentEl: '#payment_form .modal-body'
 	});
+
+	// $('input[name="date_of_application"], input[name="date_of_release"]').on('show.daterangepicker', function(ev, picker){
+	// 	$('.daterangepicker').addClass('picker_3');
+	// });
 
 	$('.add-loan-btn').click(function(e){
 		e.preventDefault();
@@ -133,10 +141,11 @@ $(document).ready(function(){
 	$('#loan_table').on('click', '.view_loan_btn', function(){
 		$.post($(this).attr('get-payment'), {id:$(this).attr('loan-id')}, function(response){
 			var payments = JSON.parse(response);
-			$.each(payments.data, function(index, value){
+			var null_counter = 0;
+			$.each(payments.data, function(index, payment_value){
 				var duplicated_row = $('#view_loan_row_dummy').clone();
-				console.log(value);
-				$.each(value, function(index, value){
+				console.log(payment_value);
+				$.each(payment_value, function(index, value){
 					var new_value = value;
 					if(index=='due_amount' || index=='amount_paid' || index=='payment_balance' || index=='running_balance'){
 						var options = new JsNumberFormatter.formatNumberOptions().specifyDecimalMask('00');
@@ -144,8 +153,16 @@ $(document).ready(function(){
 						if(new_value < 1){
 							new_value = '0'+new_value;
 						}
-					}if(index=='id'){
+					}
+					if(index=='id'){
 						duplicated_row.attr('payment-id', value);
+					}
+					if(index=='actual_paid_date' && null_counter==0){
+						if(!value){
+							$('#payment_id').val(payment_value.id);
+							duplicated_row.addClass('warning');
+							null_counter++;
+						}
 					}
 					duplicated_row.find('#'+index).text(new_value);
 				});
@@ -158,6 +175,34 @@ $(document).ready(function(){
 
 	$('#viewloan').on('hidden.bs.modal', function(e){
 		$('.view_loan_row').remove();
+	});
+
+	$('#viewloan').on('click', '.confirm_payment', function(e){
+
+		new PNotify({
+				title: 'Confirmation Needed',
+				text: 'Adding this payment cannot be undone. Are you sure?',
+				icon: 'glyphicon glyphicon-question-sign',
+				hide: false,
+				confirm: {
+				confirm: true
+			},
+			buttons: {
+				closer: false,
+				sticker: false
+			},
+			history: {
+				history: false
+			},
+			addclass: 'stack-modal',
+			stack: {'dir1': 'down', 'dir2': 'right', 'modal': true}
+		})
+		.get().on('pnotify.confirm', function(){
+			
+		}).on('pnotify.cancel', function(){
+			return false;
+		});
+
 	});
 
 });

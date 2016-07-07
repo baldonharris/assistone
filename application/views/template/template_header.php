@@ -12,17 +12,15 @@
 
 	<!-- Bootstrap core CSS -->
 	<link href="<?=base_url()?>assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<?=base_url()?>assets/css/bootstrap-editable.css" rel="stylesheet">
 
 	<link href="<?=base_url()?>assets/fonts/css/font-awesome.min.css" rel="stylesheet">
 	<link href="<?=base_url()?>assets/css/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css"></head>
-	<link href="<?=base_url()?>assets/css/animate.min.css" rel="stylesheet">
+	<link href="<?=base_url()?>assets/css/animate/animate.min.css" rel="stylesheet">
 
 	<!-- Custom styling plus plugins -->
 	<link href="<?=base_url()?>assets/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" />
 	<link href="<?=base_url()?>assets/css/custom.min.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/css/maps/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
-	<link href="<?=base_url()?>assets/css/icheck/flat/green.css" rel="stylesheet" />
-	<link href="<?=base_url()?>assets/css/floatexamples.css" rel="stylesheet" type="text/css" />
 
 	<?php for($x=0; $x<count($css); $x++) echo '<link href="'.base_url().'assets/css/'.$css[$x].'" rel="stylesheet">'; ?>
 

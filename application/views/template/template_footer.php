@@ -64,6 +64,7 @@
 	<script src="<?=base_url()?>assets/js/progressbar/bootstrap-progressbar.min.js"></script>
 	<script src="<?=base_url()?>assets/js/nicescroll/jquery.nicescroll.min.js"></script>
 	<script src="<?=base_url()?>assets/js/custom.js"></script>
+	<script src="<?=base_url()?>assets/js/bootstrap-editable.min.js"></script>
 	<?php for($x=0; $x<count($js); $x++) echo '<script src="'.base_url().'assets/js/'.$js[$x].'"></script>'; ?>
 	<script>NProgress.done();</script>
 	<!-- /footer content -->
