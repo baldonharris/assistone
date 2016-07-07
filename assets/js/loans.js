@@ -144,7 +144,6 @@ $(document).ready(function(){
 			var null_counter = 0;
 			$.each(payments.data, function(index, payment_value){
 				var duplicated_row = $('#view_loan_row_dummy').clone();
-				console.log(payment_value);
 				$.each(payment_value, function(index, value){
 					var new_value = value;
 					if(index=='due_amount' || index=='amount_paid' || index=='payment_balance' || index=='running_balance'){
@@ -160,7 +159,7 @@ $(document).ready(function(){
 					if(index=='actual_paid_date' && null_counter==0){
 						if(!value){
 							$('#payment_id').val(payment_value.id);
-							duplicated_row.addClass('warning');
+							duplicated_row.addClass('info');
 							null_counter++;
 						}
 					}
@@ -203,6 +202,11 @@ $(document).ready(function(){
 			return false;
 		});
 
+	});
+
+	$('input[name=payment_amount_paid]').blur(function(){
+		var payment = parseFloat($(this).val().replace('₱ ', '').replace(',', ''));
+		console.log(parseFloat($(this).val().replace('₱ ', '').replace(',', ''))-1);
 	});
 
 });
