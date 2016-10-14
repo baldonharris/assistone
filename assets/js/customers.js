@@ -76,14 +76,14 @@ $(document).ready(function(){
 					var duplicate_row = $('#loan_row_dummy').clone();
 					$.each(value, function(index, value){
 						if(index == 'amount_loan' || index == 'total_interest_amount' || index == 'balance'){
-							var options = new JsNumberFormatter.formatNumberOptions().specifyDecimalMask('00');
-							var new_value = JsNumberFormatter.formatNumber(parseFloat(value), options, true);
+							var new_value = $.number(parseFloat(value), 2);
 							if(new_value < 1){
 								new_value = "0"+new_value;
 							}
 							duplicate_row.find('#'+index).text(new_value);
 						}else if(index == 'id'){
 							duplicate_row.find('.view_loan_btn').attr('loan-id', value);
+							duplicate_row.attr({id: value});
 						}else if(index == 'interest_rate'){
 							duplicate_row.find('#'+index).text(value+" %");
 						}else{
@@ -91,7 +91,7 @@ $(document).ready(function(){
 						}
 					});
 					$('#loan_body').append(duplicate_row);
-					duplicate_row.removeAttr('class id').addClass('loan_row');
+					duplicate_row.removeAttr('class').addClass('loan_row');
 				});
 
 				$('#btn-update, .btn-delete').removeClass('disabled');

@@ -53,19 +53,20 @@
 		</div>
 	</div>
 
-	<script src="<?=base_url()?>assets/js/bootstrap.min.js"></script>
-	<script src="<?=base_url()?>assets/js/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-	<script src="<?=base_url()?>assets/js/jqueryform.js"></script>
-	<script src="<?=base_url()?>assets/js/input_mask/jquery.inputmask.js"></script>
-	<script src="<?=base_url()?>assets/js/autocomplete/jquery.autocomplete.js"></script>
-	<script type="text/javascript" src="<?=base_url()?>assets/js/moment/moment.min.js"></script>
-	<script type="text/javascript" src="<?=base_url()?>assets/js/datepicker/daterangepicker.js"></script>
-	<script type="text/javascript" src="<?=base_url()?>assets/js/notify/pnotify.custom.min.js"></script>
-	<script src="<?=base_url()?>assets/js/progressbar/bootstrap-progressbar.min.js"></script>
-	<script src="<?=base_url()?>assets/js/nicescroll/jquery.nicescroll.min.js"></script>
-	<script src="<?=base_url()?>assets/js/custom.js"></script>
-	<script src="<?=base_url()?>assets/js/bootstrap-editable.min.js"></script>
-	<?php for($x=0; $x<count($js); $x++) echo '<script src="'.base_url().'assets/js/'.$js[$x].'"></script>'; ?>
+	<script type="text/javascript" src="<?=base_url('assets/js/bootstrap.min.js')?>"></script>
+	<script type="text/javascript" src="<?=base_url('assets/js/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')?>"></script>
+	<script type="text/javascript" src="<?=base_url('assets/js/jqueryform.js')?>"></script>
+	<script type="text/javascript" src="<?=base_url('assets/js/input_mask/jquery.inputmask.js')?>"></script>
+	<script type="text/javascript" src="<?=base_url('assets/js/autocomplete/jquery.autocomplete.js')?>"></script>
+	<script type="text/javascript" src="<?=base_url('assets/js/moment/moment.min.js')?>"></script>
+	<script type="text/javascript" src="<?=base_url('assets/js/datepicker/daterangepicker.js')?>"></script>
+	<script type="text/javascript" src="<?=base_url('assets/js/notify/pnotify.custom.min.js')?>"></script>
+	<script type="text/javascript" src="<?=base_url('assets/js/progressbar/bootstrap-progressbar.min.js')?>"></script>
+	<script type="text/javascript" src="<?=base_url('assets/js/nicescroll/jquery.nicescroll.min.js')?>"></script>
+	<script type="text/javascript" src="<?=base_url('assets/js/custom.js')?>"></script>
+	<script type="text/javascript" src="<?=base_url('assets/js/bootstrap-editable.min.js')?>"></script>
+	<script type="text/javascript" src="<?=base_url('assets/js/jquery.number.min.js')?>"></script>
+	<?php for($x=0; $x<count($js); $x++) echo '<script type="text/javascript" src="'.base_url().'assets/js/'.$js[$x].'"></script>'; ?>
 	<script>NProgress.done();</script>
 	<!-- /footer content -->
 </body>

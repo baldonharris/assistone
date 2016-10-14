@@ -2,6 +2,7 @@ $(document).ready(function(){
 
 	var url_action_loan;
 	var data_serialize;
+	var mode;
 
 	$('input[name=number_of_terms]').maskMoney({precision: 0});
 	$('input[name=amount_loan], input[name=payment_amount_paid]').maskMoney({prefix: '₱ '});
@@ -15,19 +16,19 @@ $(document).ready(function(){
 		parentEl: '#addLoan .modal-body'
 	});
 
-	$('input[name="payment_actual_paid_date"]').daterangepicker({
-		singleDatePicker: true,
-		locale:{
-			format: 'YYYY-MM-DD'
-		},
-		parentEl: '#payment_form .modal-body'
-	});
-
 	$('.add-loan-btn').click(function(e){
+		mode = 0;
 		e.preventDefault();
 		$('#addLoan').modal('show');
 		url_action_loan = $('#form_loan').attr('add-url');
+		$('#form_loan').resetForm();
+	});
+
+	$('#loan_table').on('click', '.update-loan-btn', function(e){
 		mode = 1;
+		e.preventDefault();
+		$('#addLoan').modal('show');
+		url_action_loan = $('#form_loan').attr('update-url');
 		$('#form_loan').resetForm();
 	});
 
@@ -67,12 +68,14 @@ $(document).ready(function(){
 							$.each(data_serialize, function(index, value){
 								if(value.name == 'amount_loan'){
 									value.value = value.value.replace('₱ ', '');
+								}else if(value.name == 'interest_rate'){
+									value.value = $.number(parseFloat(value.value), 2)+' %';
 								}
 								duplicate_row.find('#'+value.name).text(value.value)
 							});
-							var options = new JsNumberFormatter.formatNumberOptions().specifyDecimalMask('00');
-							var new_interest_amount = JsNumberFormatter.formatNumber(parseFloat(response.data.total_interest_amount), options, true);
-							var new_balance = JsNumberFormatter.formatNumber(parseFloat(response.data.balance), options, true);
+		
+							var new_interest_amount = $.number(parseFloat(response.data.total_interest_amount), 2);
+							var new_balance = $.number(parseFloat(response.data.balance), 2);
 							
 							if(new_interest_amount < 1){
 								new_interest_amount = "0"+new_interest_amount;
@@ -129,80 +132,15 @@ $(document).ready(function(){
 	});
 
 	$('#addLoan').on('hidden.bs.modal', function(e){
+		$(this).find('#myModalLabel').text('');
 		$('.form-group').removeClass('has-error');
-		$('.errhandler').html('');
-		if(mode!=1) $('option[value='+customer_dup.id+']').unwrap();
 	});
 
-	$('#loan_table').on('click', '.view_loan_btn', function(){
-		$.post($(this).attr('get-payment'), {id:$(this).attr('loan-id')}, function(response){
-			var payments = JSON.parse(response);
-			var null_counter = 0;
-			$.each(payments.data, function(index, payment_value){
-				var duplicated_row = $('#view_loan_row_dummy').clone();
-				$.each(payment_value, function(index, value){
-					var new_value = value;
-					if(index=='due_amount' || index=='amount_paid' || index=='payment_balance' || index=='running_balance'){
-						var options = new JsNumberFormatter.formatNumberOptions().specifyDecimalMask('00');
-						var new_value = JsNumberFormatter.formatNumber(parseFloat(new_value), options, true);
-						if(new_value < 1){
-							new_value = '0'+new_value;
-						}
-					}
-					if(index=='id'){
-						duplicated_row.attr('payment-id', value);
-					}
-					if(index=='actual_paid_date' && null_counter==0){
-						if(!value){
-							$('#payment_id').val(payment_value.id);
-							duplicated_row.addClass('info');
-							null_counter++;
-						}
-					}
-					duplicated_row.find('#'+index).text(new_value);
-				});
-				duplicated_row.removeClass('hidden').addClass('view_loan_row');
-				$('#view_loan_body').append(duplicated_row);
-			});
-		});
-		$('#viewloan').modal('show');
-	});
-
-	$('#viewloan').on('hidden.bs.modal', function(e){
-		$('.view_loan_row').remove();
-	});
-
-	$('#viewloan').on('click', '.confirm_payment', function(e){
-
-		new PNotify({
-				title: 'Confirmation Needed',
-				text: 'Adding this payment cannot be undone. Are you sure?',
-				icon: 'glyphicon glyphicon-question-sign',
-				hide: false,
-				confirm: {
-				confirm: true
-			},
-			buttons: {
-				closer: false,
-				sticker: false
-			},
-			history: {
-				history: false
-			},
-			addclass: 'stack-modal',
-			stack: {'dir1': 'down', 'dir2': 'right', 'modal': true}
-		})
-		.get().on('pnotify.confirm', function(){
-			
-		}).on('pnotify.cancel', function(){
-			return false;
-		});
-
-	});
-
-	$('input[name=payment_amount_paid]').blur(function(){
-		var payment = parseFloat($(this).val().replace('₱ ', '').replace(',', ''));
-		console.log(payment);
+	$('#addLoan').on('show.bs.modal', function(relatedTarget){
+		$(this).find('#myModalLabel').text( (!mode) ? 'Add Loan' : 'Update Loan' );
+		if(mode == 1){
+			console.log(relatedTarget);
+		}
 	});
 
 });

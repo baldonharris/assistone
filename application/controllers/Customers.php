@@ -45,7 +45,7 @@ class Customers extends MY_Controller {
 			'page'			=>array('curr_page'=>$page, 'status'=>$status),
 			'data'			=>$data,
 			'css'			=>array('customers.css'),
-			'js'			=>array('numberformatter/jsnumberformatter.js', 'maskmoney/src/jquery.maskMoney.js', 'customers.js', 'loans.js')]);
+			'js'			=>array('maskmoney/src/jquery.maskMoney.js', 'customers.js', 'loans.js', 'payments.js')]);
 	}
 
 	public function search($page=0, $set_sortby=1, $set_orderby=2, $set_display=0){
@@ -64,7 +64,7 @@ class Customers extends MY_Controller {
 				'subheader'		=>'Listing',
 				'page'			=>array('curr_page'=>0, 'status'=>$status),
 				'data'			=>$data,
-				'js'			=>array('numberformatter/jsnumberformatter.js', 'maskmoney/src/jquery.maskMoney.js', 'customers.js', 'loans.js')]);
+				'js'			=>array('maskmoney/src/jquery.maskMoney.js', 'customers.js', 'loans.js', 'payments.js')]);
 		}
 	}
 

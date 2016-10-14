@@ -214,7 +214,10 @@
 										<td id="balance"></td>
 										<td class="button_more">
 											<center>
-												<button type="button" class="btn btn-default btn-xs btn-success view_loan_btn" get-payment="<?=base_url('payments/get_payment')?>">Payments</button>
+												<div class="btn-group btn-group-xs" role="group" aria-label="...">
+													<button type="button" class="btn btn-warning update-loan-btn" get-payment="<?=base_url('payments/get_payment')?>">Update</button>
+													<button type="button" class="btn btn-success view_loan_btn" get-payment="<?=base_url('payments/get_payment')?>">Payments</button>
+												</div>
 											</center>
 										</td>
 									</tr>
@@ -344,7 +347,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Add Loan</h4>
+				<h4 class="modal-title" id="myModalLabel"></h4>
 			</div>
 			<div class="modal-body">
 				<form id="form_loan" add-url="<?=base_url('loans/add_loan')?>" update-url="<?=base_url('customers/update_loan')?>" method="post" enctype="multipart/form-data">
@@ -397,12 +400,12 @@
 					<div class="col-md-12 col-sm-12">
 						<form id="payment_form">
 							<div class="form-group">
-								<label for="payment_actual_paid_date" class="control-label">Actual Paid Date</label>
-								<input type="text" class="form-control" name="payment_actual_paid_date" id="payment_actual_paid_date" placeholder="Actual Paid Date">
-							</div>
-							<div class="form-group">
 								<label for="payment_amount_paid" class="control-label">Amount Paid</label>
 								<input type="text" class="form-control" name="payment_amount_paid" id="payment_amount_paid" placeholder="Amount Paid">
+							</div>
+							<div class="form-group">
+								<label for="payment_actual_paid_date" class="control-label">Actual Paid Date</label>
+								<input type="text" class="form-control" name="payment_actual_paid_date" id="payment_actual_paid_date" placeholder="Actual Paid Date">
 							</div>
 							<div class="form-group">
 								<input type="hidden" name="id" id="payment_id" value=""/>
