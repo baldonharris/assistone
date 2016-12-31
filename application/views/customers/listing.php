@@ -398,7 +398,7 @@
 			<div class="modal-body">
 				<div class="row">
 					<div class="col-md-12 col-sm-12">
-						<form id="payment_form">
+						<form id="payment_form" add_payment="<?= base_url('payments/add_payment') ?>">
 							<div class="form-group">
 								<label for="payment_amount_paid" class="control-label">Amount Paid</label>
 								<input type="text" class="form-control" name="payment_amount_paid" id="payment_amount_paid" placeholder="Amount Paid">
