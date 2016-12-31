@@ -1,7 +1,9 @@
 #due_amount, #amount_paid, #payment_balance, #running_balance, #amount_loan, #interest_rate, #number_of_terms, #total_interest_amount, #balance{
-	text-align: right;
+    text-align: right;
 }
 
 th{
-	text-align: center;
+    text-align: center;
 }
+
+.payoff_div h1 {text-align: center;}

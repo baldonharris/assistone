@@ -25,6 +25,7 @@ $(document).ready(function(){
     });
 
     $('#loan_table').on('click', '.view_loan_btn', function(){
+        $('.payoff_div').hide();
         $.post($(this).attr('get-payment'), {id:$(this).attr('loan-id')}, function(response){
             var payments = JSON.parse(response);
             console.log(payments);
@@ -99,8 +100,6 @@ $(document).ready(function(){
         }).on('pnotify.cancel', function(){
             return false;
         });
-        
-        console.log("hello");
 
     });
 
@@ -131,6 +130,13 @@ $(document).ready(function(){
         calculated_next_payment.due_amount = (calculated_next_payment.due_amount >= 0 && calculated_next_payment.due_amount < 1) ? '0'+calculated_next_payment.due_amount : calculated_next_payment.due_amount;
         $('[payment-id='+next_payment.id+']').find('#due_amount').text(calculated_next_payment.due_amount);
         $('[payment-id='+next_payment.id+']').find('#running_balance').text(calculated_next_payment.running_balance);
+    });
+    
+    var opencounter = 0;
+    $('.payoff_div').hide();
+    
+    $('.modal-footer').on('click', '.payoff_information', function(){
+        $('.payoff_div').toggle();
     });
 
 });

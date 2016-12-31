@@ -9,6 +9,10 @@ class Loans extends MY_Controller {
         $this->load->model('m_loans');
         $this->load->model('m_payments');
     }
+    
+    public function calculate_loan($loan_amount, $number_of_terms){
+        
+    }
 
     public function add_loan(){
         $errors = $this->validate();
