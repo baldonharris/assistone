@@ -25,8 +25,10 @@ $(document).ready(function(){
     });
 
     $('#loan_table').on('click', '.view_loan_btn', function(){
-        $('.payoff_div').hide();
-        $.post($(this).attr('get-payment'), {id:$(this).attr('loan-id')}, function(response){
+        var loan_id = $(this).attr('loan-id');
+		$('.payoff_div').hide();
+		$('.payoff_information').attr('loan-id', loan_id);
+        $.post($(this).attr('get-payment'), {id:loan_id}, function(response){
             var payments = JSON.parse(response);
             console.log(payments);
             $.each(payments.data, function(index, payment_value){
@@ -136,7 +138,14 @@ $(document).ready(function(){
     $('.payoff_div').hide();
     
     $('.modal-footer').on('click', '.payoff_information', function(){
-        $('.payoff_div').toggle();
+		$('.payoff_div').toggle();
+		if($('.payoff_div').css('display') == 'block'){
+			$.post($('.payoff_information').attr('payoff_information_r'), {id:$('.payoff_information').attr('loan-id')}, function(response){
+				var payoff_information = JSON.parse(response);
+				console.log(payoff_information);
+				$('.payoff_div h1 span').text($.number(payoff_information.data.payoff_amount, 2));
+			});
+		}
     });
 
 });

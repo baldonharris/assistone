@@ -442,17 +442,15 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-                            <div class="row">
-                                <button type="button" class="btn btn-success pull-left confirm_payment">Confirm Payment</button>
-                                <button type="button" class="btn btn-warning pull-left payoff_information">Payoff Information</button>
-                                <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
-                            </div>
-                            <div class="row payoff_div">
-                                <hr/>
-                                <div>
-                                    <h1>₱1,000.00</h1>
-                                </div>
-                            </div>
+				<div class="row">
+					<button type="button" class="btn btn-success pull-left confirm_payment">Confirm Payment</button>
+					<button type="button" class="btn btn-warning pull-left payoff_information" loan-id payoff_information_r="<?= base_url('payments/payoff_information')?>">Payoff Information</button>
+					<button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+				</div>
+				<div class="row payoff_div">
+					<hr/>
+					<h1>₱<span></span></h1>
+				</div>
 			</div>
 		</div>
 	</div>

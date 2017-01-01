@@ -8,6 +8,12 @@ class MY_Controller extends CI_Controller {
 		if(!$this->session->userdata('username')) $this->load->view('login');
 	}
 	
+	public function print_array($my_array){
+		echo "<pre>";
+		print_r($my_array);
+		echo "</pre>";
+	}
+	
 	public function generate_page($page = NULL, $data = array()){
 		if(!isset($data['page'])) $data['page'] = array('curr_page'=>0);
 		if(!isset($data['set_sortby'])) $data['set_sortby'] = 1;
