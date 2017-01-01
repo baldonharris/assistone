@@ -87,14 +87,32 @@ class Payments extends MY_Controller {
         echo json_encode(array('status'=>1, 'data'=>$data));
     }
     
-    public function add_payment(){     
-        $data['actual_paid_date']   =   $this->input->post('payment_actual_paid_date');
-        $data['amount_paid']        =   str_replace(",", "", str_replace("₱ ", "", $this->input->post('payment_amount_paid')));
-        $data['payment_balance']    =   str_replace(",", "", $this->input->post('payment_payment_balance'));
-        $data['running_balance']    =   str_replace(",", "", $this->input->post('payment_running_balance'));
-        $data['id']                 =   $this->input->post('id');
-        $this->m_payments->update($data);
-        $this->m_payments->update(array('id'=>($data['id']+1),'running_balance'=>$data['running_balance']));
+    public function add_payment(){ 
+		$errors = $this->validate();
+		if(!empty($errors)){
+			$toReturn = array('status'=>0, 'data'=>$errors);
+		}else{
+			$data['actual_paid_date']   =   $this->input->post('payment_actual_paid_date');
+			$data['amount_paid']        =   str_replace(",", "", str_replace("₱ ", "", $this->input->post('payment_amount_paid')));
+			$data['payment_balance']    =   str_replace(",", "", $this->input->post('payment_payment_balance'));
+			$data['running_balance']    =   str_replace(",", "", $this->input->post('payment_running_balance'));
+			$data['id']                 =   $this->input->post('id');
+			$this->m_payments->update($data);
+			$this->m_payments->update(array('id'=>($data['id']+1),'running_balance'=>$data['running_balance']));	
+			
+			$toReturn = array('status'=>1, 'data'=>NULL);
+		}
+		echo json_encode($toReturn);
     }
+	
+	public function validate(){
+		$this->form_validation->set_rules('payment_actual_paid_date', 'Pay Date', 'required');
+		$this->form_validation->set_rules('payment_amount_paid', 'Amount Pay', 'required');
+	
+		if($this->form_validation->run() === FALSE){
+			return $this->form_validation->error_array();
+		}
+		return array();
+	}
 
 }

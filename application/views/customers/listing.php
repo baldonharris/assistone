@@ -1,6 +1,6 @@
 <div class="row" id="base_url" url="<?=base_url('customers/listing')?>" base-url="<?=base_url()?>">
 	<div class="col-md-7 col-sm-12 col-xs-12" style="padding-left:10px; padding-right: 10px;">
-		<div class="x_panel">
+		<div class="x_panel give-min-height">
 			<div class="x_title">
 				<h2>Customers</h2>
 				<ul class="nav navbar-right panel_toolbox">
@@ -93,7 +93,7 @@
 	</div>
 
 	<div class="col-md-5 col-sm-12 col-xs-12" style="padding-left: 10px; padding-right: 10px;">
-		<div class="x_panel">
+		<div class="x_panel give-min-height">
 			<div class="x_title">
 				<h2>Information</h2>
 				<ul class="nav navbar-right panel_toolbox">
@@ -118,9 +118,9 @@
 							<i class="fa fa-spinner fa-pulse fa-3x fa-fw hidden"></i><span class="sr-only">Loading...</span>
 							<h4><span class="customer_id">Please select customer...</span></h4>
 						</center>
-						<table class="table">
+						<table class="table cust_info">
 							<tr>
-								<td width="30%"><b>Firstname:</b></td>
+								<td><b>Firstname:</b></td>
 								<td id="firstname"></td>
 							</tr>
 							<tr>

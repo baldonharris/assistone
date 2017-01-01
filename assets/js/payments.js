@@ -96,8 +96,31 @@ $(document).ready(function(){
             stack: {'dir1': 'down', 'dir2': 'right', 'modal': true}
         })
         .get().on('pnotify.confirm', function(){
-            $.post($('#payment_form').attr('add_payment'), $('#payment_form').serialize(), function(data){
-                console.log("hi");
+            $.post($('#payment_form').attr('add_payment'), $('#payment_form').serialize(), function(response){
+				var data_response = JSON.parse(response);
+				if(data_response.status){
+					new PNotify({
+						title:'Success!',
+						text:'Payment successfully added!',
+						type:"success",
+						delay:3000,
+						animation:"fade",
+						mobile:{swipe_dismiss:true,styling:true},
+						buttons:{closer:false,sticker:false},
+						desktop: {desktop: true,fallback: true}
+					});
+				}else{
+					new PNotify({
+						title:'Oh no!',
+						text:'An error has occured!',
+						type:"error",
+						delay:3000,
+						animation:"fade",
+						mobile:{swipe_dismiss:true,styling:true},
+						buttons:{closer:false,sticker:false},
+						desktop: {desktop: true,fallback: true}
+					});
+				}
             });
         }).on('pnotify.cancel', function(){
             return false;
@@ -122,10 +145,10 @@ $(document).ready(function(){
         calculated_current_payment.running_balance = calculated_next_payment.running_balance = (calculated_current_payment.running_balance >= 0 && calculated_current_payment.running_balance < 1) ? '0'+calculated_current_payment.running_balance : calculated_current_payment.running_balance;
 
         $.each(calculated_current_payment, function(index, value){
-                $('[payment-id='+current_payment.id+']').find('#'+index).text(value);
-                if(index != 'amount_paid'){
-                        $('input[name=payment_'+index+']').val(value);
-                }
+			$('[payment-id='+current_payment.id+']').find('#'+index).text(value);
+			if(index != 'amount_paid'){
+				$('input[name=payment_'+index+']').val(value);
+			}
         });
 
         calculated_next_payment.due_amount = $.number((parseFloat(next_payment.due_amount)+parseFloat(calculated_current_payment.payment_balance)), 2);
@@ -142,7 +165,6 @@ $(document).ready(function(){
 		if($('.payoff_div').css('display') == 'block'){
 			$.post($('.payoff_information').attr('payoff_information_r'), {id:$('.payoff_information').attr('loan-id')}, function(response){
 				var payoff_information = JSON.parse(response);
-				console.log(payoff_information);
 				$('.payoff_div h1 span').text($.number(payoff_information.data.payoff_amount, 2));
 			});
 		}

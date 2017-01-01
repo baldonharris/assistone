@@ -25,6 +25,5 @@ class M_Payments extends CI_Model {
         unset($data['id']);
         $this->db->where('id', $id);
         $this->db->update('payments', $data);
-        echo $this->db->last_query();
     }
 }
