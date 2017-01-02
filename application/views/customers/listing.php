@@ -399,13 +399,34 @@
 				<div class="row">
 					<div class="col-md-12 col-sm-12">
 						<form id="payment_form" add_payment="<?= base_url('payments/add_payment') ?>">
+							<input type="hidden" name="payment-loan-id" value=""/>
 							<div class="form-group">
 								<label for="payment_amount_paid" class="control-label">Amount Paid</label>
 								<input type="text" class="form-control" name="payment_amount_paid" id="payment_amount_paid" placeholder="Amount Paid">
 							</div>
 							<div class="form-group">
+								<div class="radio">
+									<label>
+										<input type="radio" id="rad_due_amount" name="pay_amount" value="option1"> Due Amount
+									</label>
+									<label>
+										<input type="radio" id="rad_payoff" name="pay_amount" value="option1"> Payoff Information 
+									</label>
+								</div>
+							</div>
+							<div class="form-group">
 								<label for="payment_actual_paid_date" class="control-label">Actual Paid Date</label>
 								<input type="text" class="form-control" name="payment_actual_paid_date" id="payment_actual_paid_date" placeholder="Actual Paid Date">
+							</div>
+							<div class="form-group">
+								<div class="radio">
+									<label>
+										<input type="radio" id="rad_due_date" name="pay_date" value="option1"> Due Date
+									</label>
+									<label>
+										<input type="radio" id="rad_cur_date" name="pay_date" value="option1"> Current Date 
+									</label>
+								</div>
 							</div>
 							<div class="form-group">
 								<input type="hidden" name="id" id="payment_id" value=""/>

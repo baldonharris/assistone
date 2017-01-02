@@ -90,6 +90,7 @@ $(document).ready(function(){
                                     duplicate_row.find('#balance').text(new_balance);
                                     duplicate_row.find('.view_loan_btn').attr('loan-id', response.data.id);
                                     duplicate_row.removeAttr('class id').addClass('loan_row');
+									duplicate_row.attr('id', response.data.id);
                                     $('#addLoan').modal('hide');
                                     new PNotify({
                                         title:'Success!',

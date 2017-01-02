@@ -43,8 +43,8 @@ class Payments extends MY_Controller {
 		return $payments;
 	}
 	
-	public function payoff_information(){
-		$id = $this->input->post('id');
+	public function payoff_information($mode = 0, $passed_id = 0){
+		$id = (!$mode) ? $this->input->post('id') : $passed_id;
         $payments = $this->m_payments->get($id);
 		$loan_info = $this->m_loans->get(array('id'=>$id));
 		$total_payments_amount = 0;
@@ -70,7 +70,12 @@ class Payments extends MY_Controller {
 			'payoff_amount'		=> $total_payoff_information - $total_payments_amount
 		);
 		
-		echo json_encode(array('status'=>1, 'data'=>$final_payoff_information));
+		if(!$mode){
+			echo json_encode(array('status'=>1, 'data'=>$final_payoff_information));
+		}else{
+			return $final_payoff_information;
+		}
+		
     }
 
     public function get_payment(){
@@ -92,6 +97,8 @@ class Payments extends MY_Controller {
 		if(!empty($errors)){
 			$toReturn = array('status'=>0, 'data'=>$errors);
 		}else{
+			$loans_id = $this->input->post('payment-loan-id');
+			$payment_information = $this->payoff_information(1, $loans_id);
 			$data['actual_paid_date']   =   $this->input->post('payment_actual_paid_date');
 			$data['amount_paid']        =   str_replace(",", "", str_replace("₱ ", "", $this->input->post('payment_amount_paid')));
 			$data['payment_balance']    =   str_replace(",", "", $this->input->post('payment_payment_balance'));
@@ -99,8 +106,16 @@ class Payments extends MY_Controller {
 			$data['id']                 =   $this->input->post('id');
 			$this->m_payments->update($data);
 			$this->m_payments->update(array('id'=>($data['id']+1),'running_balance'=>$data['running_balance']));	
+
+			$this->m_loans->update(array('id'=>$loans_id, 'balance'=>$data['running_balance']));
+		
+			$data['loans_id'] = $loans_id;
+
+			if($data['amount_paid'] == $payment_information['payoff_amount']){
+				$this->m_loans->update(array('id'=>$loans_id, 'balance'=>0.00));
+			}
 			
-			$toReturn = array('status'=>1, 'data'=>NULL);
+			$toReturn = array('status'=>1, 'data'=>$data);
 		}
 		echo json_encode($toReturn);
     }

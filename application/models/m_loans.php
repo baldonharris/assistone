@@ -21,4 +21,11 @@ class M_Loans extends CI_Model {
             return $this->db->get_where('loans as l', $where)->result_array();
         }
     }
+	
+	public function update($data){
+		$id = $data['id'];
+		unset($data['id']);
+		$this->db->where('id', $id);
+		$this->db->update('loans', $data);
+	}
 }

@@ -43,9 +43,11 @@ class Loans extends MY_Controller {
                     'running_balance'   => (($x==0) ? $insert_loan['balance'] : 0.00)
                 ));
             }
-            $temp_first = $payments[0]['due_amount'];
-            $payments[0]['due_amount'] = $payments[($inputs['number_of_terms']-1)]['due_amount'];
-            $payments[($inputs['number_of_terms']-1)]['due_amount'] = $temp_first;
+			if($payments[0]['due_amount'] < $payments[($inputs['number_of_terms']-1)]['due_amount']){
+				$temp_first = $payments[0]['due_amount'];
+				$payments[0]['due_amount'] = $payments[($inputs['number_of_terms']-1)]['due_amount'];
+				$payments[($inputs['number_of_terms']-1)]['due_amount'] = $temp_first;
+			}
             $this->m_payments->add($payments);
             $toReturn = array('status'=>1, 'data'=>$insert_loan);
         }

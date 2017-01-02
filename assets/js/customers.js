@@ -38,6 +38,7 @@ $(document).ready(function(){
 				var customer = customer_details_and_loans.customer_detail;
 				var loans = customer_details_and_loans.loan_detail;
 				var customer_status;
+				console.log(customer_details_and_loans);
 				customer_dup = $.extend({}, customer[0]); // store to global for modal purposes.
 				$.each(customer[0], function(index, value){
 					var new_value = (value) ? value : '';
@@ -89,9 +90,14 @@ $(document).ready(function(){
 						}else{
 							duplicate_row.find('#'+index).text(value);
 						}
+						if(index == 'balance' && value == '0.00'){
+							duplicate_row.addClass('zerobalance');
+							duplicate_row.find('.view_loan_btn').addClass('disabled');
+							duplicate_row.find('.update-loan-btn').addClass('disabled');
+						}
 					});
 					$('#loan_body').append(duplicate_row);
-					duplicate_row.removeAttr('class').addClass('loan_row');
+					duplicate_row.removeClass('hidden').addClass('loan_row');
 				});
 
 				$('#btn-update, .btn-delete').removeClass('disabled');
@@ -213,6 +219,21 @@ $(document).ready(function(){
 		var setting_url = $('#form_setting').attr('action');
 		setting_url = setting_url+"/"+set_page+"/"+set_sortby+"/"+set_orderby+"/"+set_display;
 		window.location.href = setting_url;
+	});
+	
+	$('.btn-group').on('click', '.view_loan_btn', function(event){
+		console.log('hello');
+		if($('.view_loan_btn').hasClass('disabled')){
+			console.log('hi');
+			event.preventDefault();
+			return 0;
+		}
+	});
+	$('.btn-group').on('click', '.update-loan-btn', function(event){
+		if($('.update-loan-btn').hasClass('disabled')){
+			event.preventDefault();
+			return 0;
+		}
 	});
 
 });
