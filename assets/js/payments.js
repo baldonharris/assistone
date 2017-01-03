@@ -131,6 +131,8 @@ $(document).ready(function(){
 					console.log(data_response.data.running_balance);
 					if(data_response.data.running_balance == '00.00'){
 						$('#loan_body').find('#'+data_response.data.loans_id).addClass('zerobalance');
+						$('#loan_body').find('#'+data_response.data.loans_id).find('button').prop('disabled', true);
+						$('#viewloan').modal('hide');
 					}
                 }else{
                     new PNotify({

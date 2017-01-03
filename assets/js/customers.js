@@ -92,8 +92,7 @@ $(document).ready(function(){
 						}
 						if(index == 'balance' && value == '0.00'){
 							duplicate_row.addClass('zerobalance');
-							duplicate_row.find('.view_loan_btn').addClass('disabled');
-							duplicate_row.find('.update-loan-btn').addClass('disabled');
+							duplicate_row.find('button').prop('disabled', true);
 						}
 					});
 					$('#loan_body').append(duplicate_row);
