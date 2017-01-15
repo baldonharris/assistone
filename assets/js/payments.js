@@ -111,7 +111,20 @@ $(document).ready(function(){
             stack: {'dir1': 'down', 'dir2': 'right', 'modal': true}
         })
         .get().on('pnotify.confirm', function(){
-            $.post($('#payment_form').attr('add_payment'), $('#payment_form').serialize(), function(response){
+			var current_due_amount = $('#view_loan_body').find('.info').find('#due_amount').text();
+			var payment_form = $('#payment_form');
+			var payment_form_details = {
+				'payment-loan-id': payment_form.find('input[name=payment-loan-id]').val(),
+				'payment_amount_paid': payment_form.find('input[name=payment_amount_paid]').val(),
+				'pay_amount': payment_form.find('input[name=pay_amount]').val(),
+				'payment_actual_paid_date': payment_form.find('input[name=payment_actual_paid_date]').val(),
+				'pay_date': payment_form.find('input[name=pay_date]').val(),
+				'id': payment_form.find('input[name=id]').val(),
+				'payment_payment_balance': payment_form.find('input[name=payment_payment_balance]').val(),
+				'payment_running_balance': payment_form.find('input[name=payment_running_balance]').val(),
+				'current_due_amount': $('#view_loan_body').find('.info').find('#due_amount').text()
+			};
+            $.post($('#payment_form').attr('add_payment'), payment_form_details, function(response){
                 var data_response = JSON.parse(response);
                 if(data_response.status){
                     new PNotify({
@@ -128,12 +141,11 @@ $(document).ready(function(){
                     current_payment.removeClass('info').next().addClass('info');
                     $('#payment_form').resetForm();
 					$('#loan_body').find('#'+data_response.data.loans_id).find('#balance').text($.number(data_response.data.running_balance, 2));
-					console.log(data_response.data.running_balance);
 					if(data_response.data.running_balance == '00.00'){
 						$('#loan_body').find('#'+data_response.data.loans_id).addClass('zerobalance');
 						$('#loan_body').find('#'+data_response.data.loans_id).find('button').prop('disabled', true);
-						$('#viewloan').modal('hide');
 					}
+					$('#viewloan').modal('hide');
                 }else{
                     new PNotify({
                         title:'Oh no!',

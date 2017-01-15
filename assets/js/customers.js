@@ -38,7 +38,6 @@ $(document).ready(function(){
 				var customer = customer_details_and_loans.customer_detail;
 				var loans = customer_details_and_loans.loan_detail;
 				var customer_status;
-				console.log(customer_details_and_loans);
 				customer_dup = $.extend({}, customer[0]); // store to global for modal purposes.
 				$.each(customer[0], function(index, value){
 					var new_value = (value) ? value : '';
@@ -221,9 +220,7 @@ $(document).ready(function(){
 	});
 	
 	$('.btn-group').on('click', '.view_loan_btn', function(event){
-		console.log('hello');
 		if($('.view_loan_btn').hasClass('disabled')){
-			console.log('hi');
 			event.preventDefault();
 			return 0;
 		}

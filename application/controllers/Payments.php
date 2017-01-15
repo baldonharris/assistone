@@ -8,6 +8,7 @@ class Payments extends MY_Controller {
         if(!$this->session->userdata('username')) redirect(base_url());
 		$this->load->model('m_loans');
         $this->load->model('m_payments');
+		$this->load->model('m_penalties');
     }
 	
 	public function recalculate_payment($inputs, $payoff_information=0){
@@ -91,12 +92,19 @@ class Payments extends MY_Controller {
         
         echo json_encode(array('status'=>1, 'data'=>$data));
     }
+	
+	public function calculate_penalty($data){
+		$loan_details = $this->m_loans->get(array('id'=>$data['loans_id']));
+		$interest_rate_by_two = ($loan_details[0]['interest_rate']/2)/100;
+		return $data['penalty']*$interest_rate_by_two; 
+	}
     
     public function add_payment(){ 
 		$errors = $this->validate();
 		if(!empty($errors)){
 			$toReturn = array('status'=>0, 'data'=>$errors);
 		}else{
+			$current_due_amount = str_replace(",", "", $this->input->post('current_due_amount'));
 			$loans_id = $this->input->post('payment-loan-id');
 			$payment_information = $this->payoff_information(1, $loans_id);
 			$data['actual_paid_date']   =   $this->input->post('payment_actual_paid_date');
@@ -104,8 +112,26 @@ class Payments extends MY_Controller {
 			$data['payment_balance']    =   str_replace(",", "", $this->input->post('payment_payment_balance'));
 			$data['running_balance']    =   str_replace(",", "", $this->input->post('payment_running_balance'));
 			$data['id']                 =   $this->input->post('id');
+			
+			$init_penalty_amt = $current_due_amount - $data['amount_paid'];
+			
+			if($init_penalty_amt > 0){
+				$penalty = $this->calculate_penalty(array('loans_id'=>$loans_id, 'penalty'=>$init_penalty_amt));
+				$this->m_penalties->add(array(
+					'payments_id'	=>	($data['id']+1),
+					'date'			=>	$data['actual_paid_date'],
+					'description'	=>	"",
+					'amount'		=>	$penalty
+				));
+				$next_payment = $this->m_payments->get(($data['id']+1), 1)[0];
+				$this->m_payments->update(array(
+					'id'			=>	($data['id']+1),
+					'due_amount'	=>	($next_payment['due_amount']+($current_due_amount-$data['amount_paid'])+$penalty)
+				));
+			}
+			
+			$this->m_payments->update(array('id'=>($data['id']+1),'running_balance'=>$data['running_balance']));
 			$this->m_payments->update($data);
-			$this->m_payments->update(array('id'=>($data['id']+1),'running_balance'=>$data['running_balance']));	
 
 			$this->m_loans->update(array('id'=>$loans_id, 'balance'=>$data['running_balance']));
 		

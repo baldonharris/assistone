@@ -170,6 +170,9 @@
 					<li class="dropdown hidden-lg add-loan-btn">
 						<a href="#"><i class="fa fa-plus"></i></a>
 					</li>
+					<li class="dropdown">
+						<a href="#" id="forCustomerSettings"><i class="fa fa-wrench"></i></a>
+					</li>
 				</ul>
 				<div class="clearfix"></div>
 			</div>

@@ -16,8 +16,9 @@ class M_Payments extends CI_Model {
         return $insert_id;
     }
 
-    public function get($id){
-        return $this->db->get_where('payments', array('loans_id'=>$id))->result_array();
+    public function get($id, $mode = 0){
+		$data = (!$mode) ? $this->db->get_where('payments', array('loans_id'=>$id))->result_array() : $this->db->get_where('payments', array('id'=>$id))->result_array();
+        return $data;
     }
     
     public function update($data){
