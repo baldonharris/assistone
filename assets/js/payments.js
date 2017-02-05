@@ -144,8 +144,8 @@ $(document).ready(function(){
 					if(data_response.data.running_balance == '00.00'){
 						$('#loan_body').find('#'+data_response.data.loans_id).addClass('zerobalance');
 						$('#loan_body').find('#'+data_response.data.loans_id).find('button').prop('disabled', true);
+						$('#viewloan').modal('hide');
 					}
-					$('#viewloan').modal('hide');
                 }else{
                     new PNotify({
                         title:'Oh no!',
@@ -172,7 +172,7 @@ $(document).ready(function(){
 
     $('input[name=payment_amount_paid]').blur(function(){
         var next_due_amount = 0;
-
+		
 		current_balance = $('#loan_body').find('#'+$('input[name=payment-loan-id]').val()).find('#balance').text();
 		
         calculated_current_payment.amount_paid = parseFloat($(this).val().replace(/[₱ ]|[,]/g, ''));
@@ -195,7 +195,7 @@ $(document).ready(function(){
         $('[payment-id='+next_payment.id+']').find('#due_amount').text(calculated_next_payment.due_amount);
         $('[payment-id='+next_payment.id+']').find('#running_balance').text(calculated_next_payment.running_balance);
 		
-		$('[payment-id='+next_payment.id+']').nextAll().find('#due_amount').text(calculated_next_payment.due_amount);
+		//$('[payment-id='+next_payment.id+']').nextAll().find('#due_amount').text(calculated_next_payment.due_amount);
         $('[payment-id='+next_payment.id+']').nextAll().find('#running_balance').text(calculated_next_payment.running_balance);
 	});
     

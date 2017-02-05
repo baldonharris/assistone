@@ -1,12 +1,12 @@
-<div class="row" id="base_url" url="<?=base_url('customers/listing')?>" base-url="<?=base_url()?>">
+<div class="row" id="base_url" url="<?=base_url('investors/listing')?>" base-url="<?=base_url()?>">
 	<div class="col-md-7 col-sm-12 col-xs-12" style="padding-left:10px; padding-right: 10px;">
-		<div class="x_panel give-min-height">
+		<div class="x_panel give-min-height-inv">
 			<div class="x_title">
-				<h2>Customers</h2>
+				<h2>investors</h2>
 				<ul class="nav navbar-right panel_toolbox">
 					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
 					<li class="dropdown">
-						<a href="#" id="forCustomerSettings"><i class="fa fa-wrench"></i></a>
+						<a href="#" id="forinvestorsettings"><i class="fa fa-wrench"></i></a>
 					</li>
 					<li class="dropdown hidden-lg add-btn">
 						<a href="#"><i class="fa fa-plus"></i></a>
@@ -18,14 +18,14 @@
 				<div class="row">
 					<div class="col-lg-3 col-xs-12 col-sm-12 hidden-md hidden-sm hidden-xs">
 						<button type="button" class="btn btn-primary add-btn">
-							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Customer
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add investor
 						</button>
 					</div>
 					<div class="input-group col-lg-4 col-lg-offset-4 col-md-12 col-xs-12 col-sm-12 pull-right">
-						<form class="form-inline" method="post" action="<?=base_url('customers/search/'.$page['curr_page'].'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>">
+						<form class="form-inline" method="post" action="<?=base_url('investors/search/'.$page['curr_page'].'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>">
 							<div class="form-group top_search">
 								<div class="input-group">
-									<input type="text" name="search_" class="form-control" id="search_customer" placeholder="Search customer...">
+									<input type="text" name="search_" class="form-control" id="search_investor" placeholder="Search investor...">
 									<span class="input-group-btn">
 										<button class="btn btn-default" type="submit">Go!</button>
 									</span>
@@ -36,14 +36,14 @@
 					</div><!-- /input-group -->
 				</div>
 				<div class="row" id="curr_page" page="<?= $page['curr_page'] ?>">
-					<a id="dummy_list_item" href="#" customer_id="" class="hidden list-group-item customers"><table><td id="dummy-cust-id"></td><td>&nbsp;|&nbsp;</td><td id="dummy-cust-name"></td></table></a>
-					<div class="list-group" id="customer_list" get-url="<?=base_url('customers/get_customer')?>">
+					<a id="dummy_list_item" href="#" investor_id="" class="hidden list-group-item investors"><table><td id="dummy-cust-id"></td><td>&nbsp;|&nbsp;</td><td id="dummy-cust-name"></td></table></a>
+					<div class="list-group" id="investor_list" get-url="<?=base_url('investors/get_investor')?>">
 						<?php
-							foreach($data['customers'] as $customer){
-								if(!$customer['deleted_at']){
-									echo '<a href="#" customer_id="'.$customer['id'].'" class="list-group-item customers"><table><tr><td>'.$customer['customer_id'].'</td><td>&nbsp;|&nbsp;</td><td>'.$customer['firstname'].' '.$customer['lastname'].'</td></tr></table></a>';
+							foreach($data['investors'] as $investor){
+								if(!$investor['deleted_at']){
+									echo '<a href="#" investor_id="'.$investor['id'].'" class="list-group-item investors"><table><tr><td>'.$investor['investor_id'].'</td><td>&nbsp;|&nbsp;</td><td>'.$investor['firstname'].' '.$investor['lastname'].'</td></tr></table></a>';
 								}else{
-									echo '<a href="#" customer_id="'.$customer['id'].'" class="list-group-item customers list-group-item-danger"><table><tr><td>'.$customer['customer_id'].'</td><td>&nbsp;|&nbsp;</td><td>'.$customer['firstname'].' '.$customer['lastname'].'</td></tr></table></a>';
+									echo '<a href="#" investor_id="'.$investor['id'].'" class="list-group-item investors list-group-item-danger"><table><tr><td>'.$investor['investor_id'].'</td><td>&nbsp;|&nbsp;</td><td>'.$investor['firstname'].' '.$investor['lastname'].'</td></tr></table></a>';
 								}
 							}
 						?>
@@ -51,12 +51,12 @@
 				</div>
 				<div class="row">
 					<div class="col-md-3 col-sm-6 col-xs-6">
-						<span class="hidden" id="del-btn-url-holder" base-url="<?=base_url('customers/change_customer_status/'.$page['curr_page'].'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>"></span>
+						<span class="hidden" id="del-btn-url-holder" base-url="<?=base_url('investors/change_investor_status/'.$page['curr_page'].'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>"></span>
 						<div class="btn-group hidden-sm hidden-xs hidden-md" role="group" aria-label="...">
 							<button type="button" id="btn-update" class="disabled btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
 								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Upd
 							</button>
-							<a base-url="<?=base_url('customers/delete_customer/'.$page['curr_page'].'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>" href="#" class="disabled btn btn-dark btn-sm btn-delete">
+							<a base-url="<?=base_url('investors/delete_investor/'.$page['curr_page'].'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>" href="#" class="disabled btn btn-dark btn-sm btn-delete">
 								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Del
 							</a>
 						</div>
@@ -64,25 +64,25 @@
 							<button type="button" id="btn-update" class="disabled btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
 								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Upd
 							</button>
-							<a base-url="<?=base_url('customers/delete_customer/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>" href="#" class="disabled btn btn-dark btn-sm btn-delete">
+							<a base-url="<?=base_url('investors/delete_investor/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>" href="#" class="disabled btn btn-dark btn-sm btn-delete">
 								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Del
 							</a>
 						</div>
 					</div>
 					<div class="col-md-3 col-md-offset-5 col-sm-6 col-xs-6">
 						<div class="btn-group pull-right hidden-sm hidden-xs hidden-md" role="group" aria-label="...">
-							<a href="<?= base_url('customers/listing/'.($page['curr_page']-1).'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display) ?>" class="<?= ($page['status']['prev']==0) ? 'disabled' : '' ?> btn btn-default btn-sm">
+							<a href="<?= base_url('investors/listing/'.($page['curr_page']-1).'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display) ?>" class="<?= ($page['status']['prev']==0) ? 'disabled' : '' ?> btn btn-default btn-sm">
 								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Prev
 							</a>
-							<a href="<?= base_url('customers/listing/'.($page['curr_page']+1).'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display) ?>" class="<?= ($page['status']['next']==0) ? 'disabled' : '' ?> btn btn-default btn-sm">
+							<a href="<?= base_url('investors/listing/'.($page['curr_page']+1).'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display) ?>" class="<?= ($page['status']['next']==0) ? 'disabled' : '' ?> btn btn-default btn-sm">
 								Next <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> 
 							</a>
 						</div>
 						<div class="btn-group pull-right hidden-lg btn-group-xs" role="group" aria-label="...">
-							<a href="<?= base_url('customers/listing/'.($page['curr_page']-1)) ?>" class="<?= ($page['status']['prev']==0) ? 'disabled' : '' ?> btn btn-default btn-sm">
+							<a href="<?= base_url('investors/listing/'.($page['curr_page']-1)) ?>" class="<?= ($page['status']['prev']==0) ? 'disabled' : '' ?> btn btn-default btn-sm">
 								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 							</a>
-							<a href="<?= base_url('customers/listing/'.($page['curr_page']+1)) ?>" class="<?= ($page['status']['next']==0) ? 'disabled' : '' ?> btn btn-default btn-sm">
+							<a href="<?= base_url('investors/listing/'.($page['curr_page']+1)) ?>" class="<?= ($page['status']['next']==0) ? 'disabled' : '' ?> btn btn-default btn-sm">
 								<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> 
 							</a>
 						</div>
@@ -93,7 +93,7 @@
 	</div>
 
 	<div class="col-md-5 col-sm-12 col-xs-12" style="padding-left: 10px; padding-right: 10px;">
-		<div class="x_panel give-min-height">
+		<div class="x_panel">
 			<div class="x_title">
 				<h2>Information</h2>
 				<ul class="nav navbar-right panel_toolbox">
@@ -103,24 +103,14 @@
 			</div>
 			<div class="x_content">
 				<div class="row">
-					<div class="col-md-offset-3 col-md-6 col-xs-12 col-sm-12">
-						<div class="thumbnail">
-							<div class="image view view-first" style="height: 100%">
-								<img id="display_picture" style="width: 100%; height:100%; display: block;" source="<?=base_url('assets/images/')?>" alt="...">
-								<div class="mask">
-									<p>Please select customer...</p>
-								</div>
-							</div>
-						</div>
-					</div>
 					<div class="col-md-12">
 						<div class="loading-section">
 							<center>
 								<i class="fa fa-spinner fa-pulse fa-3x fa-fw hidden"></i><span class="sr-only">Loading...</span>
-								<h4><span class="customer_id">Please select customer...</span></h4>
+								<h4><span class="investor_id">Please select investor...</span></h4>
 							</center>
 						</div>
-						<table class="table cust_info">
+						<table class="inv_info">
 							<tr>
 								<td><b>Firstname:</b></td>
 								<td id="firstname"></td>
@@ -145,13 +135,35 @@
 								<td><b>Registered:</b></td>
 								<td id="registered"></td>
 							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>Investments</h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="loading-section">
+							<center>
+								<i class="fa fa-spinner fa-pulse fa-3x fa-fw hidden"></i><span class="sr-only">Loading...</span>
+								<h4><span class="investor_id">Please select investor...</span></h4>
+							</center>
+						</div>
+						<table class="inv_info">
 							<tr>
-								<td><b>Guarantor Name:</b></td>
-								<td id="guarantor_name"></td>
+								<td><b>Total Investment:</b></td>
+								<td>₱<span></span></td>
 							</tr>
 							<tr>
-								<td><b>Status:</b></td>
-								<td id="deleted_at"></td>
+								<td><b>Total Investment Return:</b></td>
+								<td>₱<span></span></td>
 							</tr>
 						</table>
 					</div>
@@ -169,11 +181,11 @@
 				<h2>Account Overview</h2>
 				<ul class="nav navbar-right panel_toolbox">
 					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-					<li class="dropdown hidden-lg add-loan-btn">
+					<li class="dropdown hidden-lg add-investment-btn">
 						<a href="#"><i class="fa fa-plus"></i></a>
 					</li>
 					<li class="dropdown">
-						<a href="#" id="forCustomerSettings"><i class="fa fa-wrench"></i></a>
+						<a href="#" id="forinvestorsettings"><i class="fa fa-wrench"></i></a>
 					</li>
 				</ul>
 				<div class="clearfix"></div>
@@ -181,8 +193,8 @@
 			<div class="x_content">
 				<div class="row">
 					<div class="col-lg-3 col-xs-12 col-sm-12 hidden-md hidden-sm hidden-xs">
-						<a href="#" class="btn btn-primary add-loan-btn btn-sm hidden">
-							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Loan
+						<a href="#" class="btn btn-primary add-investment-btn btn-sm hidden">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Investment
 						</a>
 					</div>
 				</div>
@@ -190,18 +202,18 @@
 					<div class="loading-section">
 						<center>
 							<i class="fa fa-spinner fa-pulse fa-3x fa-fw hidden"></i><span class="sr-only">Loading...</span>
-							<h4 class="customer_id"><span>Please select customer...</span></h4>
+							<h4 class="investor_id"><span>Please select investor...</span></h4>
 						</center>
 					</div>
 					<div id="account_overview" class="hidden">
 						<div class="table-responsive">
-							<table class="table table-bordered table-hover jambo_table" id="loan_table">
+							<table class="table table-bordered table-hover jambo_table" id="investment_table">
 								<thead class="headings">
 									<tr>
-										<th>Loan ID</th>
-										<th>Date of Application</th>
+										<th>investment ID</th>
+										<th>Date of Investment</th>
 										<th>Date of Release</th>
-										<th>Amount Loan</th>
+										<th>Amount investment</th>
 										<th>Interest Rate</th>
 										<th>No. of Payments</th>
 										<th>Total Interest Amount</th>
@@ -209,12 +221,12 @@
 										<th>Action</th>
 									</tr>
 								</thead>
-								<tbody id="loan_body">
-									<tr class="hidden" id="loan_row_dummy">
-										<th id="loan_id"></th>
-										<td id="date_of_application"></td>
+								<tbody id="investment_body">
+									<tr class="hidden" id="investment_row_dummy">
+										<th id="investment_id"></th>
+										<td id="date_of_investment"></td>
 										<td id="date_of_release"></td>
-										<td id="amount_loan"></td>
+										<td id="amount_investment"></td>
 										<td id="interest_rate"></td>
 										<td id="number_of_terms"></td>
 										<td id="total_interest_amount"></td>
@@ -222,8 +234,8 @@
 										<td class="button_more">
 											<center>
 												<div class="btn-group btn-group-xs" role="group" aria-label="...">
-													<button type="button" class="btn btn-warning update-loan-btn" get-payment="<?=base_url('payments/get_payment')?>">Update</button>
-													<button type="button" class="btn btn-success view_loan_btn" get-payment="<?=base_url('payments/get_payment')?>">Payments</button>
+													<button type="button" class="btn btn-warning update-investment-btn" get-payment="<?=base_url('payments/get_payment')?>">Update</button>
+													<button type="button" class="btn btn-success view_investment_btn" get-payment="<?=base_url('payments/get_payment')?>">Payments</button>
 												</div>
 											</center>
 										</td>
@@ -238,7 +250,7 @@
 	</div>
 </div>
 
-<div class="modal fade" id="customerSettings" tabindex="-1" role="dialog" aria-labelledby="customerSettings" aria-hidden="true">
+<div class="modal fade" id="investorsettings" tabindex="-1" role="dialog" aria-labelledby="investorsettings" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -246,12 +258,12 @@
 				<h4 class="modal-title" id="myModalLabel">Settings</h4>
 			</div>
 			<div class="modal-body">
-				<form id="form_setting" action="<?=base_url('customers/'.$this->uri->segment(2))?>" method="post">
+				<form id="form_setting" action="<?=base_url('investors/'.$this->uri->segment(2))?>" method="post">
 					<input type="hidden" name="set_page" value="<?=$page['curr_page']?>"/>
 					<div class="form-group">
 						<label for="sortby" class="control-label">Sort by:</label>
 						<select class="form-control" name="set_sortby">
-							<option value="1" <?= ($set_sortby==1) ? 'selected="selected"' : ''  ?>>Customer ID</option>
+							<option value="1" <?= ($set_sortby==1) ? 'selected="selected"' : ''  ?>>investor ID</option>
 							<option value="2" <?= ($set_sortby==2) ? 'selected="selected"' : ''  ?>>Firstname</option>
 							<option value="3" <?= ($set_sortby==3) ? 'selected="selected"' : ''  ?>>Lastname</option>
 						</select>
@@ -301,7 +313,7 @@
 				<h4 class="modal-title" id="myModalLabel">Modal title</h4>
 			</div>
 			<div class="modal-body">
-				<form id="form_customer" add-url="<?=base_url('customers/add_customer')?>" update-url="<?=base_url('customers/update_customer')?>" method="post" enctype="multipart/form-data">
+				<form id="form_investor" add-url="<?=base_url('investors/add_investor')?>" update-url="<?=base_url('investors/update_investor')?>" method="post" enctype="multipart/form-data">
 					<div class="form-group">
 						<label class="control-label" for="in_firstname">Firstname</label> <i><span class="control-label errhandler" errhandler="firstname"></span></i>
 						<input type="text" name="firstname" class="form-control" id="in_firstname" placeholder="Firstname">
@@ -322,22 +334,6 @@
 						<label class="control-label" for="in_address">Address</label> <i><span class="control-label errhandler" errhandler="address"></span></i>
 						<input type="text" name="address" class="form-control" id="in_address" placeholder="Address">
 					</div>
-					<div class="form-group">
-						<label class="control-label" for="in_guarantor">Guarantor</label>
-						<select class="form-control" id="in_guarantor" name="guarantor_customers_id">
-							<option value="0" selected="selected"></option>
-							<?php
-								foreach($data['guarantors'] as $customer){
-									echo '<option value="'.$customer['id'].'"><table><tr><td>'.$customer['customer_id'].'</td><td>&nbsp;|&nbsp;</td><td>'.$customer['firstname'].' '.$customer['lastname'].'</td></tr></table></option>';
-								}
-							?>
-						</select>
-					</div>
-					<div class="form-group">
-						<label class="control-label" for="dp">Display Picture</label> <i><span class="control-label errhandler" errhandler="dp"></span></i>
-						<input type="file" name="dp" id="dp">
-						<p class="help-block">Max dimension: 1024x768 px | Max filesize: 2MB | Accepts only: jpeg,png,jpg</p>
-					</div>
 					<input type="hidden" value="" name="id"/>
 			</div>
 			<div class="modal-footer">
@@ -349,7 +345,7 @@
 	</div>
 </div>
 
-<div class="modal fade" id="addLoan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="addinvestment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -357,19 +353,19 @@
 				<h4 class="modal-title" id="myModalLabel"></h4>
 			</div>
 			<div class="modal-body">
-				<form id="form_loan" add-url="<?=base_url('loans/add_loan')?>" update-url="<?=base_url('customers/update_loan')?>" method="post" enctype="multipart/form-data">
-					<input type="hidden" name="customer_id" value=""/>
+				<form id="form_investment" add-url="<?=base_url('investments/add_investment')?>" update-url="<?=base_url('investors/update_investment')?>" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="investor_id" value=""/>
 					<div class="form-group">
-						<label class="control-label" for="in_date_of_application">Date of Application</label> <i><span class="control-label errhandler" errhandler="date_of_application"></span></i>
-						<input type="text" name="date_of_application" class="form-control" id="in_date_of_application" placeholder="Date of Application">
+						<label class="control-label" for="in_date_of_application">Date of Investment</label> <i><span class="control-label errhandler" errhandler="date_of_application"></span></i>
+						<input type="text" name="date_of_application" class="form-control" id="in_date_of_application" placeholder="Date of Investment">
 					</div>
 					<div class="form-group">
 						<label class="control-label" for="in_date_of_release">Date of Release</label> <i><span class="control-label errhandler" errhandler="date_of_release"></span></i>
 						<input type="text" name="date_of_release" class="form-control" id="in_date_of_release" placeholder="Date of Release">
 					</div>
 					<div class="form-group">
-						<label class="control-label" for="in_amount_loan">Amount Loan</label> <i><span class="control-label errhandler" errhandler="amount_loan"></span></i>
-						<input type="text" name="amount_loan" class="form-control" id="in_amount_loan" placeholder="Amount Loan">
+						<label class="control-label" for="in_amount_investment">Amount investment</label> <i><span class="control-label errhandler" errhandler="amount_investment"></span></i>
+						<input type="text" name="amount_investment" class="form-control" id="in_amount_investment" placeholder="Amount investment">
 					</div>
 					<div class="form-group">
 						<label class="control-label" for="in_interest_rate">Interest Rate</label> <i><span class="control-label errhandler" errhandler="interest_rate"></span></i>
@@ -387,7 +383,7 @@
 					</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-success pull-left" id="save_loan">Save</button>
+				<button type="button" class="btn btn-success pull-left" id="save_investment">Save</button>
 				</form>
 				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 			</div>
@@ -395,7 +391,7 @@
 	</div>
 </div>
 
-<div class="modal fade" id="viewloan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="viewinvestment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -406,7 +402,7 @@
 				<div class="row">
 					<div class="col-md-12 col-sm-12">
 						<form id="payment_form" add_payment="<?= base_url('payments/add_payment') ?>">
-							<input type="hidden" name="payment-loan-id" value=""/>
+							<input type="hidden" name="payment-investment-id" value=""/>
 							<div class="form-group">
 								<label for="payment_amount_paid" class="control-label">Amount Paid</label>
 								<input type="text" class="form-control" name="payment_amount_paid" id="payment_amount_paid" placeholder="Amount Paid">
@@ -445,7 +441,7 @@
 					</div>
 				</div>
 				<div class="table-responsive">
-					<table class="table table-bordered table-hover jambo_table" id="view_loan_table">
+					<table class="table table-bordered table-hover jambo_table" id="view_investment_table">
 						<thead class="headings">
 							<tr>
 								<th width="15%">Due Date</th>
@@ -456,8 +452,8 @@
 								<th>Running Balance</th>
 							</tr>
 						</thead>
-						<tbody id="view_loan_body">
-							<tr class="hidden" id="view_loan_row_dummy">
+						<tbody id="view_investment_body">
+							<tr class="hidden" id="view_investment_row_dummy">
 								<th id="due_date"></th>
 								<td id="due_amount"></td>
 								<td id="actual_paid_date"></td>
@@ -472,7 +468,7 @@
 			<div class="modal-footer">
 				<div class="row">
 					<button type="button" class="btn btn-success pull-left confirm_payment">Confirm Payment</button>
-					<button type="button" class="btn btn-warning pull-left payoff_information" loan-id payoff_information_r="<?= base_url('payments/payoff_information')?>">Payoff Information</button>
+					<button type="button" class="btn btn-warning pull-left payoff_information" investment-id payoff_information_r="<?= base_url('payments/payoff_information')?>">Payoff Information</button>
 					<button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
 				</div>
 				<div class="row payoff_div">

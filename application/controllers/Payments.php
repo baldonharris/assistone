@@ -95,7 +95,7 @@ class Payments extends MY_Controller {
 	
 	public function calculate_penalty($data){
 		$loan_details = $this->m_loans->get(array('id'=>$data['loans_id']));
-		$interest_rate_by_two = ($loan_details[0]['interest_rate']/2)/100;
+		$interest_rate_by_two = ($loan_details[0]['interest_rate'])/100;
 		return $data['penalty']*$interest_rate_by_two; 
 	}
     
@@ -125,12 +125,14 @@ class Payments extends MY_Controller {
 				));
 				$next_payment = $this->m_payments->get(($data['id']+1), 1)[0];
 				$this->m_payments->update(array(
-					'id'			=>	($data['id']+1),
-					'due_amount'	=>	($next_payment['due_amount']+($current_due_amount-$data['amount_paid'])+$penalty)
+					'id'				=>	($data['id']+1),
+					'due_amount'		=>	($next_payment['due_amount']+($current_due_amount-$data['amount_paid'])+$penalty),
+					'running_balance'	=>	($data['running_balance']+$penalty)
 				));
 			}
 			
-			$this->m_payments->update(array('id'=>($data['id']+1),'running_balance'=>$data['running_balance']));
+			
+			/*$this->m_payments->update(array('id'=>($data['id']+1),'running_balance'=>$data['running_balance']));*/
 			$this->m_payments->update($data);
 
 			$this->m_loans->update(array('id'=>$loans_id, 'balance'=>$data['running_balance']));

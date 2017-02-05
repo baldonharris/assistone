@@ -1,25 +1,25 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Customers extends MY_Controller {
+class Investors extends MY_Controller {
 
-	private $filename = NULL;
-
-	public function __construct(){
-		parent::__construct();
-		if(!$this->session->userdata('username')) redirect(base_url());
-		$this->load->model('m_customers');
+    public function __construct(){
+        parent::__construct();
+        if(!$this->session->userdata('username')) redirect(base_url());
 		$this->load->model('m_loans');
-	}
-
+        $this->load->model('m_payments');
+		$this->load->model('m_penalties');
+		$this->load->model('m_investors');
+    }
+	
 	public function index(){
-		redirect(base_url('customers/listing'));
+		redirect(base_url('investors/listing'));
 	}
-
+	
 	public function listing($page=0, $set_sortby=1, $set_orderby=2, $set_display=0){
-		$next = $this->m_customers->get_next( ($page+1)*10, $set_sortby, $set_orderby, $set_display);
+		$next = $this->m_investors->get_next( ($page+1)*5, $set_sortby, $set_orderby, $set_display);
 		if($page!=0){
-			$prev = $this->m_customers->get_prev( ($page-1)*10, $set_sortby, $set_orderby, $set_display );
+			$prev = $this->m_investors->get_prev( ($page-1)*5, $set_sortby, $set_orderby, $set_display );
 			$status['prev'] = (!$prev) ? 0 : 1;
 		}else{
 			$status['prev'] = 0;
@@ -28,64 +28,50 @@ class Customers extends MY_Controller {
 		$status['next'] = (!$next) ? 0 : 1;
 
 		if($page == 0){
-			$data['customers'] = $this->m_customers->get_customers_names(0, 0, $set_sortby, $set_orderby, $set_display);
+			$data['investors'] = $this->m_investors->get_investors_names(0, 0, $set_sortby, $set_orderby, $set_display);
 		}else{
-			$data['customers'] = $this->m_customers->get_customers_names(10, ($page*10), $set_sortby, $set_orderby, $set_display);
+			$data['investors'] = $this->m_investors->get_investors_names(5, ($page*5), $set_sortby, $set_orderby, $set_display);
 		}
 
-		$data['guarantors'] = $this->m_customers->get_customers_names(0, 0, 1, 0, 0, 1);
+		$data['guarantors'] = $this->m_investors->get_investors_names(0, 0, 1, 0, 0, 1);
 		
-		$this->generate_page('customers/listing', [
-			'title'			=>'assistone | customers listing',
-			'header'		=>'Customers',
+		$this->generate_page('investors/listing', [
+			'title'			=>'assistone | investors listing',
+			'header'		=>'Investors',
 			'subheader'		=>'Listing',
 			'page'			=>array('curr_page'=>$page, 'status'=>$status),
 			'data'			=>$data,
-			'css'			=>array('customers.css'),
-			'js'			=>array('maskmoney/src/jquery.maskMoney.js', 'customers.js', 'loans.js', 'payments.js')]);
+			'css'			=>array('customers.css', 'investors.css'),
+			'js'			=>array('maskmoney/src/jquery.maskMoney.js', 'loans.js', 'payments.js', 'investors.js')]);
 	}
-
-	public function search($page=0, $set_sortby=1, $set_orderby=2, $set_display=0){
-		if(empty($this->input->post('search_'))){
-			redirect(base_url('customers/listing/0/'.$set_sortby.'/'.$set_orderby.'/'.$set_display));
-		}else{
-			$status['prev'] = $status['next'] = 0;
-			$data['customers'] = $this->m_customers->search($this->input->post('search_'));
-			$data['guarantors'] = $this->m_customers->get_customers_names(0, 0, 1, 0, 0, 1);
-			$this->generate_page('customers/listing', [
-				'set_sortby'	=>$set_sortby,
-				'set_orderby'	=>$set_orderby,
-				'set_display'	=>$set_display,
-				'title'			=>'assistone | customers listing',
-				'header'		=>'Customers',
-				'subheader'		=>'Listing',
-				'page'			=>array('curr_page'=>0, 'status'=>$status),
-				'data'			=>$data,
-				'js'			=>array('maskmoney/src/jquery.maskMoney.js', 'customers.js', 'loans.js', 'payments.js')]);
-		}
-	}
-
-	public function get_customer(){
+	
+	public function get_investor(){
 		$id = $this->input->post('id');
 		if(empty($id)){
 			echo json_encode(array(
-					'customer_detail'	=>	$this->m_customers->get(TRUE),
-					'loan_detail'		=>	$this->m_loans->get()
+					'investor_detail'	=>	$this->m_investors->get(TRUE),
 				));
 		}else{
 			echo json_encode(array(
-					'customer_detail'	=>	$this->m_customers->get(FALSE, ['c1.id'=>$id]),
-					'loan_detail'		=> $this->m_loans->get(['l.customer_id'=>$id])
+					'investor_detail'	=>	$this->m_investors->get(FALSE, ['c1.id'=>$id]),
 				));
 		}
 	}
-
-	public function change_customer_status($curr_page, $set_sortby, $set_orderby, $set_display, $id, $status){
-		$this->m_customers->change_status($id, $status);
-		redirect('customers/listing/'.$curr_page.'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display);
+	
+	public function add_investor(){
+		$errors = $this->validate();
+		if(!empty($errors)){
+			$toReturn = array('status'=>0, 'data'=>$errors);
+		}else{
+			$inputs = $this->format();
+			$added = $this->m_investors->add($inputs);
+			$added['name'] = $inputs['firstname']." ".$inputs['lastname'];
+			$toReturn = array('status'=>1, 'data'=>$added);
+		}	
+		echo json_encode($toReturn);
 	}
-
-	public function update_customer(){
+	
+	public function update_investor(){
 		$errors = $this->validate();
 		if(!empty($errors)){
 			$toReturn = array('status'=>0, 'data'=>$errors);
@@ -93,20 +79,7 @@ class Customers extends MY_Controller {
 			$inputs = $this->format();
 			$id = $inputs['id'];
 			unset($inputs['id']);
-			$added = $this->m_customers->update($id, $inputs);
-			$added['name'] = $inputs['firstname']." ".$inputs['lastname'];
-			$toReturn = array('status'=>1, 'data'=>$added);
-		}	
-		echo json_encode($toReturn);
-	}
-
-	public function add_customer(){
-		$errors = $this->validate();
-		if(!empty($errors)){
-			$toReturn = array('status'=>0, 'data'=>$errors);
-		}else{
-			$inputs = $this->format();
-			$added = $this->m_customers->add($inputs);
+			$added = $this->m_investors->update($id, $inputs);
 			$added['name'] = $inputs['firstname']." ".$inputs['lastname'];
 			$toReturn = array('status'=>1, 'data'=>$added);
 		}	
@@ -169,4 +142,5 @@ class Customers extends MY_Controller {
 		$file = $this->upload->data();
 		return $file['file_name'];
 	}
+
 }

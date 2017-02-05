@@ -1,21 +1,21 @@
 $(document).ready(function(){
 
-	var customer_id; // must set to zero if customer is deleted
+	var investor_id; // must set to zero if investor is deleted
 	var counter=0;
 	var mode;
-	var customer_dup;
+	var investor_dup;
 	var url_action;
-	var customers = [];
+	var investors = [];
 
-	$.post($('#base_url').attr('base-url')+'customers/get_customer', function(response){
-		var customer_detail = JSON.parse(response);
-		$.each(customer_detail.customer_detail, function(index, value){
-			if(customers.indexOf(value.complete_name) == -1 && value.complete_name != null){
-				customers.push(value.complete_name);				
+	$.post($('#base_url').attr('base-url')+'investors/get_investor', function(response){
+		var investor_detail = JSON.parse(response);
+		$.each(investor_detail.investor_detail, function(index, value){
+			if(investors.indexOf(value.complete_name) == -1 && value.complete_name != null){
+				investors.push(value.complete_name);				
 			}
 		});
-		$('#search_customer').autocomplete({
-			lookup: customers,
+		$('#search_investor').autocomplete({
+			lookup: investors,
 			width: 280
 		});
 	});
@@ -24,23 +24,23 @@ $(document).ready(function(){
 	$('#display_picture').attr('src', source+'/user.png');
 	$('[name=mobilenumber]').inputmask('9999 999 9999');
 
-	$('.list-group').on('click', '.customers', function(e){
+	$('.list-group').on('click', '.investors', function(e){
 		e.preventDefault();
 		$('.x_panel').removeClass('acc_overview_min_height');
-		if(customer_id != $(this).attr('customer_id')){
+		if(investor_id != $(this).attr('investor_id')){
 			$('.fa-spinner').removeClass('hidden');
-			customer_id = $(this).attr('customer_id');
-			$('.customers').removeClass('active');
-			$('[customer_id='+customer_id+']').addClass('active');
-			$('.loan_row').remove();
+			investor_id = $(this).attr('investor_id');
+			$('.investors').removeClass('active');
+			$('[investor_id='+investor_id+']').addClass('active');
+			$('.investment_row').remove();
 
-			$.post($('.list-group').attr('get-url'), {id:customer_id}, function(response){
-				var customer_details_and_loans = JSON.parse(response);
-				var customer = customer_details_and_loans.customer_detail;
-				var loans = customer_details_and_loans.loan_detail;
-				var customer_status;
-				customer_dup = $.extend({}, customer[0]); // store to global for modal purposes.
-				$.each(customer[0], function(index, value){
+			$.post($('.list-group').attr('get-url'), {id:investor_id}, function(response){
+				var investor_details_and_investments = JSON.parse(response);
+				var investor = investor_details_and_investments.investor_detail;
+				var investments = investor_details_and_investments.investment_detail;
+				var investor_status;
+				investor_dup = $.extend({}, investor[0]); // store to global for modal purposes.
+				$.each(investor[0], function(index, value){
 					var new_value = (value) ? value : '';
 					if(index=='display_picture'){
 						var source = $('#'+index).attr('source');
@@ -50,40 +50,40 @@ $(document).ready(function(){
 							$('#'+index).attr('src', source+'/'+value);
 						}
 					}else if(index=='deleted_at'){
-						customer_status = (new_value.length==0) ? 'Active' : 'Inactive';
-						$('#'+index).text(customer_status);
-					}else if(index=='customer_id'){
-						$('.mask p').text('Customer ID: '+new_value);
+						investor_status = (new_value.length==0) ? 'Active' : 'Inactive';
+						$('#'+index).text(investor_status);
+					}else if(index=='investor_id'){
+						$('.mask p').text('investor ID: '+new_value);
 					}else{
 						$('#'+index).text(new_value);
 					}
 				});
 				var action_url = $('#del-btn-url-holder').attr('base-url');
-				if(customer_status=='Active'){
+				if(investor_status=='Active'){
 					$('.btn-delete')
-						.attr('href', action_url+'/'+customer_id+'/'+0)
+						.attr('href', action_url+'/'+investor_id+'/'+0)
 						.removeClass('btn-success')
 						.addClass('btn-dark')
 						.html('<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Del');
 				}else{
 					$('.btn-delete')
-						.attr('href', action_url+'/'+customer_id+'/'+1)
+						.attr('href', action_url+'/'+investor_id+'/'+1)
 						.removeClass('btn-dark')
 						.addClass('btn-success')
 						.html('<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Und');
 				}
 				
-				$.each(loans, function(index, value){
-					var duplicate_row = $('#loan_row_dummy').clone();
+				/*$.each(investments, function(index, value){
+					var duplicate_row = $('#investment_row_dummy').clone();
 					$.each(value, function(index, value){
-						if(index == 'amount_loan' || index == 'total_interest_amount' || index == 'balance'){
+						if(index == 'amount_investment' || index == 'total_interest_amount' || index == 'balance'){
 							var new_value = $.number(parseFloat(value), 2);
 							if(new_value < 1){
 								new_value = "0"+new_value;
 							}
 							duplicate_row.find('#'+index).text(new_value);
 						}else if(index == 'id'){
-							duplicate_row.find('.view_loan_btn').attr('loan-id', value);
+							duplicate_row.find('.view_investment_btn').attr('investment-id', value);
 							duplicate_row.attr({id: value});
 						}else if(index == 'interest_rate'){
 							duplicate_row.find('#'+index).text(value+" %");
@@ -95,14 +95,14 @@ $(document).ready(function(){
 							duplicate_row.find('button').prop('disabled', true);
 						}
 					});
-					$('#loan_body').append(duplicate_row);
-					duplicate_row.removeClass('hidden').addClass('loan_row');
-				});
+					$('#investment_body').append(duplicate_row);
+					duplicate_row.removeClass('hidden').addClass('investment_row');
+				});*/
 
 				$('#btn-update, .btn-delete').removeClass('disabled');
-				$('#account_overview, .add-loan-btn').removeClass('hidden');
-				$('.customer_id, .fa-spinner').addClass('hidden');
-				$('input[name=customer_id]').val(customer_dup.id);
+				$('#account_overview, .add-investment-btn').removeClass('hidden');
+				$('.investor_id, .fa-spinner').addClass('hidden');
+				$('input[name=investor_id]').val(investor_dup.id);
 			});
 		}
 	});
@@ -110,41 +110,41 @@ $(document).ready(function(){
 	$('.add-btn').click(function(e){
 		e.preventDefault();
 		mode = 1;
-		url_action = $('#form_customer').attr('add-url');
+		url_action = $('#form_investor').attr('add-url');
 		$('.modal-body').find('form')[0].reset();
 		$('#myModal').modal('show');
 	});
 
 	$('#btn-update').click(function(e){
 		e.preventDefault();
-		url_action = $('#form_customer').attr('update-url');
+		url_action = $('#form_investor').attr('update-url');
 		mode = 0;
 	});
 
 	$('#myModal').on('show.bs.modal', function(e){
 		if(mode==1){
-			$('#myModal .modal-title').html('Add Customer');
+			$('#myModal .modal-title').html('Add investor');
 		}else{
-			$('.modal-title').html('Update Customer - '+$('#firstname').text()+' '+$('#lastname').text());
-			$.each(customer_dup, function(index, value){
+			$('.modal-title').html('Update investor - '+$('#firstname').text()+' '+$('#lastname').text());
+			$.each(investor_dup, function(index, value){
 				var new_value = (value) ? value : '';
 				if(index==='guarantor_id'){
-					$('[name=guarantor_customers_id]').val(new_value);
+					$('[name=guarantor_investors_id]').val(new_value);
 				}else{
 					$('[name='+index+']').val(new_value);
 				}
 			});
-			$('option[value='+customer_dup.id+']').wrap('<span/>');
+			$('option[value='+investor_dup.id+']').wrap('<span/>');
 		}
 	});
 
 	$('#myModal').on('hidden.bs.modal', function(e){
 		$('.form-group').removeClass('has-error');
 		$('.errhandler').html('');
-		if(mode!=1) $('option[value='+customer_dup.id+']').unwrap();
+		if(mode!=1) $('option[value='+investor_dup.id+']').unwrap();
 	});
 
-	$('#form_customer').submit(function(e){
+	$('#form_investor').submit(function(e){
 		e.preventDefault();
 		$(this).ajaxSubmit({url:url_action, success:function(responseText){
 			var response = JSON.parse(responseText);
@@ -152,7 +152,7 @@ $(document).ready(function(){
 				if(response.status){	// add success
 					new PNotify({
 						title:'Success!',
-						text:'Customer successfully added!',
+						text:'investor successfully added!',
 						type:"success",
 						delay:3000,
 						animation:"fade",
@@ -204,9 +204,9 @@ $(document).ready(function(){
 		}});
 	});
 
-	$('#forCustomerSettings').click(function(e){
+	$('#forinvestorsettings').click(function(e){
 		e.preventDefault();
-		$('#customerSettings').modal('show');
+		$('#investorsettings').modal('show');
 	});
 
 	$('#btn-setting').click(function(e){
@@ -220,14 +220,14 @@ $(document).ready(function(){
 		window.location.href = setting_url;
 	});
 	
-	$('.btn-group').on('click', '.view_loan_btn', function(event){
-		if($('.view_loan_btn').hasClass('disabled')){
+	$('.btn-group').on('click', '.view_investment_btn', function(event){
+		if($('.view_investment_btn').hasClass('disabled')){
 			event.preventDefault();
 			return 0;
 		}
 	});
-	$('.btn-group').on('click', '.update-loan-btn', function(event){
-		if($('.update-loan-btn').hasClass('disabled')){
+	$('.btn-group').on('click', '.update-investment-btn', function(event){
+		if($('.update-investment-btn').hasClass('disabled')){
 			event.preventDefault();
 			return 0;
 		}
