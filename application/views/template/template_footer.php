@@ -66,7 +66,9 @@
 	<script type="text/javascript" src="<?=base_url('assets/js/custom.js')?>"></script>
 	<script type="text/javascript" src="<?=base_url('assets/js/bootstrap-editable.min.js')?>"></script>
 	<script type="text/javascript" src="<?=base_url('assets/js/jquery.number.min.js')?>"></script>
-	<?php for($x=0; $x<count($js); $x++) echo '<script type="text/javascript" src="'.base_url().'assets/js/'.$js[$x].'"></script>'; ?>
+    <script type="text/javascript" src="<?=base_url('assets/js/maskmoney/src/jquery.maskMoney.js')?>"></script>
+	<?php for($x=0; $x<count($js); $x++) echo '<script type="text/javascript" src="'.base_url().'assets/js/customs/'.$js[$x].'"></script>'; ?>
+    <script type="text/javascript" src="<?=base_url('assets/js/customs/global.js')?>"></script>
 	<script>NProgress.done();</script>
 	<!-- /footer content -->
 </body>

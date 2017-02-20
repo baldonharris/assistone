@@ -42,7 +42,7 @@ class Investors extends MY_Controller {
 			'page'			=>array('curr_page'=>$page, 'status'=>$status),
 			'data'			=>$data,
 			'css'			=>array('customers.css', 'investors.css'),
-			'js'			=>array('maskmoney/src/jquery.maskMoney.js', 'loans.js', 'payments.js', 'investors.js')]);
+			'js'			=>array('loans.js', 'payments.js', 'investors.js')]);
 	}
 	
 	public function get_investor(){
