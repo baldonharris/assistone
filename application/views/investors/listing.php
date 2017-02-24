@@ -1,8 +1,8 @@
 <div class="row" id="base_url" url="<?=base_url('investors/listing')?>" base-url="<?=base_url()?>">
-	<div class="col-md-7 col-sm-12 col-xs-12" style="padding-left:10px; padding-right: 10px;">
+	<div class="col-md-6 col-sm-12 col-xs-12" style="padding-left:10px; padding-right: 10px;">
 		<div class="x_panel give-min-height-inv">
 			<div class="x_title">
-				<h2>investors</h2>
+				<h2>Investors</h2>
 				<ul class="nav navbar-right panel_toolbox">
 					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
 					<li class="dropdown">
@@ -92,7 +92,7 @@
 		</div>
 	</div>
 
-	<div class="col-md-5 col-sm-12 col-xs-12" style="padding-left: 10px; padding-right: 10px;">
+	<div class="col-md-6 col-sm-12 col-xs-12" style="padding-left: 10px; padding-right: 10px;">
 		<div class="x_panel">
 			<div class="x_title">
 				<h2>Information</h2>
@@ -145,6 +145,12 @@
 		<div class="x_panel">
 			<div class="x_title">
 				<h2>Investments</h2>
+                <ul class="nav navbar-right panel_toolbox">
+					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+					<li class="dropdown hidden-lg add-transaction-btn">
+						<a href="#"><i class="fa fa-plus"></i></a>
+					</li>
+				</ul>
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
@@ -159,29 +165,24 @@
 						<table class="inv_info">
 							<tr>
 								<td><b>Total Investment:</b></td>
-								<td>₱<span></span></td>
+								<td>₱<span id="investor-total-investment"></span></td>
 							</tr>
 							<tr>
 								<td><b>Total Investment Return:</b></td>
-								<td>₱<span></span></td>
+								<td>₱<span id="investor-total-investment-return"></span></td>
 							</tr>
 						</table>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
-</div>
-
-<div class="row">
-	<div class="col-md-12 col-sm-12 col-xs-12" style="padding-left: 10px; padding-right: 10px;">
-		<div class="x_panel acc_overview_min_height">
+        
+        <div class="x_panel acc_overview_min_height">
 			<div class="x_title">
-				<h2>Account Overview</h2>
+				<h2>Transactions</h2>
 				<ul class="nav navbar-right panel_toolbox">
 					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-					<li class="dropdown hidden-lg add-investment-btn">
+					<li class="dropdown hidden-lg add-transaction-btn">
 						<a href="#"><i class="fa fa-plus"></i></a>
 					</li>
 					<li class="dropdown">
@@ -193,8 +194,8 @@
 			<div class="x_content">
 				<div class="row">
 					<div class="col-lg-3 col-xs-12 col-sm-12 hidden-md hidden-sm hidden-xs">
-						<a href="#" class="btn btn-primary add-investment-btn btn-sm hidden">
-							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Investment
+						<a href="#" class="btn btn-primary add-transaction-btn btn-sm hidden">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Transaction
 						</a>
 					</div>
 				</div>
@@ -207,38 +208,23 @@
 					</div>
 					<div id="account_overview" class="hidden">
 						<div class="table-responsive">
-							<table class="table table-bordered table-hover jambo_table" id="investment_table">
+							<table class="table table-bordered table-hover jambo_table" id="transaction_table">
 								<thead class="headings">
 									<tr>
-										<th>investment ID</th>
-										<th>Date of Investment</th>
-										<th>Date of Release</th>
-										<th>Amount investment</th>
-										<th>Interest Rate</th>
-										<th>No. of Payments</th>
-										<th>Total Interest Amount</th>
-										<th>Balance</th>
-										<th>Action</th>
+										<th>Transaction ID</th>
+										<th>Date of Transaction</th>
+										<th>Invested Amount</th>
+										<th>Type</th>
 									</tr>
 								</thead>
-								<tbody id="investment_body">
-									<tr class="hidden" id="investment_row_dummy">
-										<th id="investment_id"></th>
-										<td id="date_of_investment"></td>
-										<td id="date_of_release"></td>
-										<td id="amount_investment"></td>
-										<td id="interest_rate"></td>
-										<td id="number_of_terms"></td>
-										<td id="total_interest_amount"></td>
-										<td id="balance"></td>
-										<td class="button_more">
-											<center>
-												<div class="btn-group btn-group-xs" role="group" aria-label="...">
-													<button type="button" class="btn btn-warning update-investment-btn" get-payment="<?=base_url('payments/get_payment')?>">Update</button>
-													<button type="button" class="btn btn-success view_investment_btn" get-payment="<?=base_url('payments/get_payment')?>">Payments</button>
-												</div>
-											</center>
-										</td>
+								<tbody id="transaction_body">
+									<tr class="hidden" id="transaction_row_dummy">
+										<th id="transaction_id"></th>
+										<td id="date_of_transaction"></td>
+										<td id="amount_transaction"></td>
+                                        <td id="type_transaction">
+                                            <span></span>
+                                        </td>
 									</tr>
 								</tbody>
 							</table>
@@ -247,6 +233,14 @@
 				</div>
 			</div>
 		</div>
+        
+	</div>
+
+</div>
+
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12" style="padding-left: 10px; padding-right: 10px;">
+		
 	</div>
 </div>
 
@@ -345,7 +339,7 @@
 	</div>
 </div>
 
-<div class="modal fade" id="addinvestment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="addTransaction" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -353,37 +347,26 @@
 				<h4 class="modal-title" id="myModalLabel"></h4>
 			</div>
 			<div class="modal-body">
-				<form id="form_investment" add-url="<?=base_url('investments/add_investment')?>" update-url="<?=base_url('investors/update_investment')?>" method="post" enctype="multipart/form-data">
+				<form id="form_transaction" add-url="<?=base_url('transactions/add_transaction')?>" update-url="<?=base_url('investors/update_transaction')?>" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="investor_id" value=""/>
-					<div class="form-group">
-						<label class="control-label" for="in_date_of_application">Date of Investment</label> <i><span class="control-label errhandler" errhandler="date_of_application"></span></i>
-						<input type="text" name="date_of_application" class="form-control" id="in_date_of_application" placeholder="Date of Investment">
+                    <div class="form-group">
+						<label class="control-label" for="in_type_transaction">Type of Transaction</label> <i><span class="control-label errhandler" errhandler="type_transaction"></span></i>
+                        <select class="form-control" name="type_transaction" id="in_type_transaction">
+                            <option value="I">Investment</option>
+                            <option value="W">Withdrawal</option>
+                        </select>
 					</div>
 					<div class="form-group">
-						<label class="control-label" for="in_date_of_release">Date of Release</label> <i><span class="control-label errhandler" errhandler="date_of_release"></span></i>
-						<input type="text" name="date_of_release" class="form-control" id="in_date_of_release" placeholder="Date of Release">
+						<label class="control-label" for="in_date_of_transaction">Date of Transaction</label> <i><span class="control-label errhandler" errhandler="date_of_transaction"></span></i>
+						<input type="text" name="date_of_transaction" class="form-control" id="in_date_of_transaction" placeholder="Date of Transaction">
 					</div>
 					<div class="form-group">
-						<label class="control-label" for="in_amount_investment">Amount investment</label> <i><span class="control-label errhandler" errhandler="amount_investment"></span></i>
-						<input type="text" name="amount_investment" class="form-control" id="in_amount_investment" placeholder="Amount investment">
-					</div>
-					<div class="form-group">
-						<label class="control-label" for="in_interest_rate">Interest Rate</label> <i><span class="control-label errhandler" errhandler="interest_rate"></span></i>
-						<select name="interest_rate" class="form-control" id="in_interest_rate">
-							<option value="1.0">1.0 %</option>
-							<option value="2.0">2.0 %</option>
-							<option value="3.0">3.0 %</option>
-							<option value="4.0">4.0 %</option>
-							<option value="5.0">5.0 %</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<label class="control-label" for="in_number_of_terms">Number of Payments</label> <i><span class="control-label errhandler" errhandler="number_of_terms"></span></i>
-						<input type="text" name="number_of_terms" class="form-control" id="in_number_of_terms" placeholder="Number of Payments">
+						<label class="control-label" for="in_amount_transaction">Amount Transaction</label> <i><span class="control-label errhandler" errhandler="amount_transaction"></span></i>
+						<input type="text" name="amount_transaction" class="form-control" id="in_amount_transaction" placeholder="Amount Transaction">
 					</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-success pull-left" id="save_investment">Save</button>
+				<button type="button" class="btn btn-success pull-left" id="save_transaction">Save</button>
 				</form>
 				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 			</div>
@@ -391,7 +374,7 @@
 	</div>
 </div>
 
-<div class="modal fade" id="viewinvestment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="viewtransaction" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -402,7 +385,7 @@
 				<div class="row">
 					<div class="col-md-12 col-sm-12">
 						<form id="payment_form" add_payment="<?= base_url('payments/add_payment') ?>">
-							<input type="hidden" name="payment-investment-id" value=""/>
+							<input type="hidden" name="payment-transaction-id" value=""/>
 							<div class="form-group">
 								<label for="payment_amount_paid" class="control-label">Amount Paid</label>
 								<input type="text" class="form-control" name="payment_amount_paid" id="payment_amount_paid" placeholder="Amount Paid">
@@ -441,7 +424,7 @@
 					</div>
 				</div>
 				<div class="table-responsive">
-					<table class="table table-bordered table-hover jambo_table" id="view_investment_table">
+					<table class="table table-bordered table-hover jambo_table" id="view_transaction_table">
 						<thead class="headings">
 							<tr>
 								<th width="15%">Due Date</th>
@@ -452,8 +435,8 @@
 								<th>Running Balance</th>
 							</tr>
 						</thead>
-						<tbody id="view_investment_body">
-							<tr class="hidden" id="view_investment_row_dummy">
+						<tbody id="view_transaction_body">
+							<tr class="hidden" id="view_transaction_row_dummy">
 								<th id="due_date"></th>
 								<td id="due_amount"></td>
 								<td id="actual_paid_date"></td>
@@ -468,7 +451,7 @@
 			<div class="modal-footer">
 				<div class="row">
 					<button type="button" class="btn btn-success pull-left confirm_payment">Confirm Payment</button>
-					<button type="button" class="btn btn-warning pull-left payoff_information" investment-id payoff_information_r="<?= base_url('payments/payoff_information')?>">Payoff Information</button>
+					<button type="button" class="btn btn-warning pull-left payoff_information" transaction-id payoff_information_r="<?= base_url('payments/payoff_information')?>">Payoff Information</button>
 					<button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
 				</div>
 				<div class="row payoff_div">

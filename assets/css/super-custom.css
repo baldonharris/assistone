@@ -1,3 +1,37 @@
 .nav-md, .nav-sm, .left_col, .navbar{
 	background-color: #304a63;
 }
+
+span.type-investment {
+    background: #1ABB9C;
+    width: 28px;
+    height: 28px;
+    color: #ffffff;
+    font-family: serif;
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 3px;
+    margin: auto;
+}
+
+span.type-withdrawal {
+    background: #73879C;
+    width: 28px;
+    height: 28px;
+    color: #ffffff;
+    font-family: serif;
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 3px;
+    margin: auto;
+}
+
+#investor-total-investment, #investor-total-investment-return {
+    margin-left: 10px;
+}
+
+.transaction_row td:nth-child(3) {
+    text-align: right;
+}

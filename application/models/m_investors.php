@@ -17,7 +17,7 @@ class M_Investors extends CI_Model {
 		}
 		$this->db->order_by($sort, $order);
 		$this->db->select('c1.id', FALSE);
-		return $this->db->get('investors as c1', 5, $page)->num_rows();
+		return $this->db->get('investors as c1', 10, $page)->num_rows();
 	}
 
 	public function get_prev($page, $set_sortby, $set_orderby, $set_display){
@@ -34,7 +34,7 @@ class M_Investors extends CI_Model {
 		}
 		$this->db->order_by($sort, $order);
 		$this->db->select('c1.id', FALSE);
-		return $this->db->get('investors as c1', 5, $page)->num_rows();
+		return $this->db->get('investors as c1', 10, $page)->num_rows();
 	}
 
 	public function get_investors_names($n=0, $start=0, $set_sortby, $set_orderby, $set_display, $guarantors=0){
@@ -52,7 +52,7 @@ class M_Investors extends CI_Model {
 		$this->db->order_by($sort, $order);
 		$this->db->select('c1.id, c1.investor_id, c1.firstname, c1.middlename, c1.lastname, c1.deleted_at', FALSE);
 		if($n==0 && $start==0){
-			return $this->db->get('investors as c1', ($guarantors) ? NULL : 5)->result_array();
+			return $this->db->get('investors as c1', ($guarantors) ? NULL : 10)->result_array();
 		}else{
 			return $this->db->get('investors as c1', $n, $start)->result_array();
 		}
@@ -79,7 +79,7 @@ class M_Investors extends CI_Model {
 		$this->db->or_like('c1.lastname', $where);
 		$this->db->or_like('c1.investor_id', $where);
 		$this->db->or_like('c1.complete_name', $where);
-		return $this->db->get('investors as c1', 5)->result_array();
+		return $this->db->get('investors as c1', 10)->result_array();
 	}
 
 	public function add($data){

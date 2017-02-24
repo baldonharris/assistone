@@ -10,6 +10,7 @@ class Investors extends MY_Controller {
         $this->load->model('m_payments');
 		$this->load->model('m_penalties');
 		$this->load->model('m_investors');
+        $this->load->model('m_transactions');
     }
 	
 	public function index(){
@@ -17,9 +18,9 @@ class Investors extends MY_Controller {
 	}
 	
 	public function listing($page=0, $set_sortby=1, $set_orderby=2, $set_display=0){
-		$next = $this->m_investors->get_next( ($page+1)*5, $set_sortby, $set_orderby, $set_display);
+		$next = $this->m_investors->get_next( ($page+1)*10, $set_sortby, $set_orderby, $set_display);
 		if($page!=0){
-			$prev = $this->m_investors->get_prev( ($page-1)*5, $set_sortby, $set_orderby, $set_display );
+			$prev = $this->m_investors->get_prev( ($page-1)*10, $set_sortby, $set_orderby, $set_display );
 			$status['prev'] = (!$prev) ? 0 : 1;
 		}else{
 			$status['prev'] = 0;
@@ -30,7 +31,7 @@ class Investors extends MY_Controller {
 		if($page == 0){
 			$data['investors'] = $this->m_investors->get_investors_names(0, 0, $set_sortby, $set_orderby, $set_display);
 		}else{
-			$data['investors'] = $this->m_investors->get_investors_names(5, ($page*5), $set_sortby, $set_orderby, $set_display);
+			$data['investors'] = $this->m_investors->get_investors_names(10, ($page*10), $set_sortby, $set_orderby, $set_display);
 		}
 
 		$data['guarantors'] = $this->m_investors->get_investors_names(0, 0, 1, 0, 0, 1);
@@ -42,19 +43,27 @@ class Investors extends MY_Controller {
 			'page'			=>array('curr_page'=>$page, 'status'=>$status),
 			'data'			=>$data,
 			'css'			=>array('customers.css', 'investors.css'),
-			'js'			=>array('loans.js', 'payments.js', 'investors.js')]);
+			'js'			=>array('loans.js', 'payments.js', 'investors.js', 'transactions.js')]);
 	}
 	
 	public function get_investor(){
 		$id = $this->input->post('id');
 		if(empty($id)){
-			echo json_encode(array(
-					'investor_detail'	=>	$this->m_investors->get(TRUE),
-				));
+            echo json_encode(array(
+                'investor_detail'	=>	$this->m_investors->get(TRUE),
+                'transaction_detail'=>  $this->m_transactions->get()
+            ));
 		}else{
+            $transaction_detail = $this->m_transactions->get(['l.investor_id'=>$id]);
+            $total_investment = 0;
+            for($x=0; $x<count($transaction_detail); $x++){
+                $total_investment += ($transaction_detail[$x]['type_transaction'] == 'I') ? $transaction_detail[$x]['amount_transaction'] : '';
+            }
 			echo json_encode(array(
-					'investor_detail'	=>	$this->m_investors->get(FALSE, ['c1.id'=>$id]),
-				));
+                'investor_detail'	=>	$this->m_investors->get(FALSE, ['c1.id'=>$id]),
+                'transaction_detail'=>  $transaction_detail,
+                'total_investment'  =>  $total_investment
+            ));
 		}
 	}
 	

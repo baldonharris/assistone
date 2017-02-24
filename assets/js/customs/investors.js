@@ -5,7 +5,7 @@ $(document).ready(function(){
 	var mode;
 	var investor_dup;
 	var url_action;
-	var investors = [];
+	var investors=[];
 
 	$.post($('#base_url').attr('base-url')+'investors/get_investor', function(response){
 		var investor_detail = JSON.parse(response);
@@ -32,14 +32,17 @@ $(document).ready(function(){
 			investor_id = $(this).attr('investor_id');
 			$('.investors').removeClass('active');
 			$('[investor_id='+investor_id+']').addClass('active');
-			$('.investment_row').remove();
-
+			$('.transaction_row').remove();
 			$.post($('.list-group').attr('get-url'), {id:investor_id}, function(response){
-				var investor_details_and_investments = JSON.parse(response);
-				var investor = investor_details_and_investments.investor_detail;
-				var investments = investor_details_and_investments.investment_detail;
+                console.log(JSON.parse(response));
+				var investor_details_and_transactions = JSON.parse(response);
+				var investor = investor_details_and_transactions.investor_detail;
+				var transactions = investor_details_and_transactions.transaction_detail;
+                var total_investment = investor_details_and_transactions.total_investment;
 				var investor_status;
 				investor_dup = $.extend({}, investor[0]); // store to global for modal purposes.
+                
+                /* investor info */
 				$.each(investor[0], function(index, value){
 					var new_value = (value) ? value : '';
 					if(index=='display_picture'){
@@ -73,34 +76,35 @@ $(document).ready(function(){
 						.html('<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Und');
 				}
 				
-				/*$.each(investments, function(index, value){
-					var duplicate_row = $('#investment_row_dummy').clone();
+                /* investor transactions */
+				$.each(transactions, function(index, value){
+					var duplicate_row = $('#transaction_row_dummy').clone();
 					$.each(value, function(index, value){
-						if(index == 'amount_investment' || index == 'total_interest_amount' || index == 'balance'){
+						if(index == 'amount_transaction'){
 							var new_value = $.number(parseFloat(value), 2);
 							if(new_value < 1){
 								new_value = "0"+new_value;
 							}
 							duplicate_row.find('#'+index).text(new_value);
 						}else if(index == 'id'){
-							duplicate_row.find('.view_investment_btn').attr('investment-id', value);
+							duplicate_row.find('.view_transaction_btn').attr('transaction-id', value);
 							duplicate_row.attr({id: value});
-						}else if(index == 'interest_rate'){
-							duplicate_row.find('#'+index).text(value+" %");
-						}else{
+						}else if(index == 'type_transaction'){
+                            duplicate_row.find('#'+index+' span').text(value).addClass( (value === 'W') ? 'type-withdrawal' : 'type-investment' );
+                        }else{
 							duplicate_row.find('#'+index).text(value);
 						}
-						if(index == 'balance' && value == '0.00'){
-							duplicate_row.addClass('zerobalance');
-							duplicate_row.find('button').prop('disabled', true);
-						}
 					});
-					$('#investment_body').append(duplicate_row);
-					duplicate_row.removeClass('hidden').addClass('investment_row');
-				});*/
+					$('#transaction_body').append(duplicate_row);
+					duplicate_row.removeClass('hidden').addClass('transaction_row');
+				});
+                
+                /* total investment */
+                $('#investor-total-investment').text($.number(parseFloat(total_investment), 2)).attr('total-investment', total_investment);
+                $('#investor-total-investment-return').text($.number(parseFloat(0), 2));
 
 				$('#btn-update, .btn-delete').removeClass('disabled');
-				$('#account_overview, .add-investment-btn').removeClass('hidden');
+				$('#account_overview, .add-transaction-btn').removeClass('hidden');
 				$('.investor_id, .fa-spinner').addClass('hidden');
 				$('input[name=investor_id]').val(investor_dup.id);
 			});
@@ -220,17 +224,20 @@ $(document).ready(function(){
 		window.location.href = setting_url;
 	});
 	
-	$('.btn-group').on('click', '.view_investment_btn', function(event){
-		if($('.view_investment_btn').hasClass('disabled')){
+	$('.btn-group').on('click', '.view_transaction_btn', function(event){
+		if($('.view_transaction_btn').hasClass('disabled')){
 			event.preventDefault();
 			return 0;
 		}
 	});
-	$('.btn-group').on('click', '.update-investment-btn', function(event){
-		if($('.update-investment-btn').hasClass('disabled')){
+    
+	$('.btn-group').on('click', '.update-transaction-btn', function(event){
+		if($('.update-transaction-btn').hasClass('disabled')){
 			event.preventDefault();
 			return 0;
 		}
 	});
+    
+    
 
 });
