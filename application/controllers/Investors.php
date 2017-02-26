@@ -64,7 +64,11 @@ class Investors extends MY_Controller {
             $return_detail = $this->m_returns->get(['r.investors_id'=>$id]);
             $total_return = 0;
             for($x=0; $x<count($return_detail); $x++){
-                $total_return += $return_detail[$x]['returns'];
+                if(!strcmp($return_detail[$x]['type_transaction'], "I")){
+                    $total_return += $return_detail[$x]['returns'];    
+                }else{
+                    $total_return -= $return_detail[$x]['returns'];
+                }
             }
             
 			echo json_encode(array(

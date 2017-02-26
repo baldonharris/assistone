@@ -15,7 +15,8 @@ class M_Returns extends CI_Model {
 
     public function get($where = NULL){ // $conditions = array('where'=>$where, 'join_loans'=>false, 'join_payments'=>false, 'join_investors'=>false
         $this->db->order_by('id', 'DESC');
-        $this->db->select('r.id, r.loans_id, r.payments_id, r.investors_id, r.transactions_id, r.returns');
+        $this->db->select('r.id, r.loans_id, r.payments_id, r.investors_id, r.transactions_id, r.returns, t.type_transaction');
+        $this->db->join('transactions as t', 't.id=r.transactions_id', 'left');
         if(!$where){
             return $this->db->get('returns as r')->result_array();
         }else{

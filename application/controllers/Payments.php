@@ -105,7 +105,7 @@ class Payments extends MY_Controller {
         $dummy_container = array();
         
         $loan_info = $this->m_loans->get(['id'=>$loans_id]);
-        $transactions_involved = $this->m_transactions->get('l.date_of_transaction <= "'.$loan_info[0]['date_of_release'].'" AND l.type_transaction="I"');
+        $transactions_involved = $this->m_transactions->get('l.date_of_transaction <= "'.$loan_info[0]['date_of_release'].'"');
         $total_investments = 0;
         $divided_interest_amount = ($loan_info[0]['total_interest_amount'] / $loan_info[0]['number_of_terms']);
         
