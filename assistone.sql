@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 20, 2017 at 05:08 PM
+-- Generation Time: Feb 26, 2017 at 07:54 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.30
 
@@ -123,17 +123,9 @@ CREATE TABLE `investors` (
 --
 
 INSERT INTO `investors` (`id`, `investor_id`, `firstname`, `middlename`, `lastname`, `mobilenumber`, `address`, `registered`, `deleted_at`, `display_picture`, `complete_name`) VALUES
-(1, '17-0001', 'Harris', 'Cabacog', 'Baldon', '0932 101 0135', 'Bunga Mar, Jagna, Bohol', '2017-01-18 03:10:16', NULL, 'img.jpg', '17-0001 | Harris Cabacog Baldon'),
-(2, '17-0002', 'Homer', 'Cabacog', 'Baldon', '8475 029 6771', 'Bohol', '2017-01-18 03:21:15', NULL, 'img.jpg', '17-0002 | Homer Cabacog Baldon'),
-(3, '17-0003', 'Asdasd', 'Asdasd', 'Asdasd', '1231 231 2312', 'Asdasdasd', '2017-01-19 08:40:02', NULL, 'img.jpg', '17-0003 | Asdasd Asdasd Asdasd'),
-(4, '17-0004', 'Asdasdasd', 'Asdasdasdasd', 'Asdasdasdasdasd', '1231 231 2312', 'Asdasdasdasdasd', '2017-01-19 08:40:12', NULL, 'img.jpg', '17-0004 | Asdasdasd Asdasdasdasd Asdasdasdasdasd'),
-(5, '17-0005', 'Asdasdasd', 'Asdasdasd', 'Asdasdasd', '1231 231 2312', 'Sdasdasdasd', '2017-01-19 08:41:08', NULL, 'img.jpg', '17-0005 | Asdasdasd Asdasdasd Asdasdasd'),
-(6, '17-0006', 'Dfgdfgdfg', 'Dfgdfg', 'Dfgdfg', '1231 231 2312', 'Dsfgdfgdfgdfg', '2017-01-19 08:41:15', NULL, 'img.jpg', '17-0006 | Dfgdfgdfg Dfgdfg Dfgdfg'),
-(7, '17-0007', 'Dfgdfgdfg', 'Dfgdfgdfg', 'Dfgdfgdfg', '2312 312 3123', 'Dfgdfgdfgdfg', '2017-01-19 08:41:23', NULL, 'img.jpg', '17-0007 | Dfgdfgdfg Dfgdfgdfg Dfgdfgdfg'),
-(8, '17-0008', 'Fdghfgh', 'Fghfghfgh', 'Fghfghfgh', '1231 231 2312', 'Dfghfghfgh', '2017-01-19 08:41:31', NULL, 'img.jpg', '17-0008 | Fdghfgh Fghfghfgh Fghfghfgh'),
-(9, '17-0009', 'Fghfghfgh', 'Fghfghfgh', 'Fghfghfgh', '1231 231 2312', 'Dfgdfgdfgdfgdfg', '2017-01-19 08:41:41', NULL, 'img.jpg', '17-0009 | Fghfghfgh Fghfghfgh Fghfghfgh'),
-(10, '17-0010', 'Dfgdfgdfg', 'Dfgdfgdfg', 'Dfgdfgdfg', '1231 231 2312', 'Dfgdfgdfgdfgdfg', '2017-01-19 08:41:48', NULL, 'img.jpg', '17-0010 | Dfgdfgdfg Dfgdfgdfg Dfgdfgdfg'),
-(11, '17-0011', 'Dfgdfgdfgdfg', 'Dfgdfgdfg', 'Dfgdfgdfg', '1231 231 2312', 'Dfgdfgdfg', '2017-01-19 08:41:56', NULL, 'img.jpg', '17-0011 | Dfgdfgdfgdfg Dfgdfgdfg Dfgdfgdfg');
+(1, '17-0001', 'Harris', 'Cabacog', 'Baldon', '0111 111 1111', 'Secret', '2017-02-26 05:16:48', NULL, 'img.jpg', '17-0001 | Harris Cabacog Baldon'),
+(2, '17-0002', 'Haydee', 'Cabacog', 'Baldon', '1111 111 1111', 'Secret', '2017-02-26 05:17:03', NULL, 'img.jpg', '17-0002 | Haydee Cabacog Baldon'),
+(3, '17-0003', 'Homer', 'Cabacog', 'Baldon', '1111 111 1111', 'Secret', '2017-02-26 05:17:20', NULL, 'img.jpg', '17-0003 | Homer Cabacog Baldon');
 
 -- --------------------------------------------------------
 
@@ -154,16 +146,6 @@ CREATE TABLE `loans` (
   `balance` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `loans`
---
-
-INSERT INTO `loans` (`id`, `customer_id`, `loan_id`, `date_of_application`, `date_of_release`, `amount_loan`, `interest_rate`, `number_of_terms`, `total_interest_amount`, `balance`) VALUES
-(1, 28, '17-28-0001', '2017-01-17', '2017-01-17', '1000.00', '2.00', 6, '60.00', '1060.00'),
-(2, 28, '17-28-0002', '2017-02-17', '2017-02-19', '8000.00', '1.00', 12, '480.00', '8480.00'),
-(3, 28, '17-28-0003', '2017-02-17', '2017-02-19', '8000.00', '2.00', 12, '960.00', '8960.00'),
-(4, 28, '17-28-0004', '2017-02-17', '2017-02-19', '8000.00', '3.00', 12, '1440.00', '9440.00');
-
 -- --------------------------------------------------------
 
 --
@@ -181,54 +163,6 @@ CREATE TABLE `payments` (
   `running_balance` decimal(10,2) NOT NULL DEFAULT '0.00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `payments`
---
-
-INSERT INTO `payments` (`id`, `loans_id`, `due_date`, `due_amount`, `actual_paid_date`, `amount_paid`, `payment_balance`, `running_balance`) VALUES
-(1, 1, '2017-01-31', '177.00', NULL, '0.00', '0.00', '1060.00'),
-(2, 1, '2017-02-15', '177.00', NULL, '0.00', '0.00', '0.00'),
-(3, 1, '2017-02-28', '177.00', NULL, '0.00', '0.00', '0.00'),
-(4, 1, '2017-03-15', '177.00', NULL, '0.00', '0.00', '0.00'),
-(5, 1, '2017-03-31', '177.00', NULL, '0.00', '0.00', '0.00'),
-(6, 1, '2017-04-15', '175.00', NULL, '0.00', '0.00', '0.00'),
-(7, 2, '2017-02-28', '707.00', NULL, '0.00', '0.00', '8480.00'),
-(8, 2, '2017-03-15', '707.00', NULL, '0.00', '0.00', '0.00'),
-(9, 2, '2017-03-31', '707.00', NULL, '0.00', '0.00', '0.00'),
-(10, 2, '2017-04-15', '707.00', NULL, '0.00', '0.00', '0.00'),
-(11, 2, '2017-04-30', '707.00', NULL, '0.00', '0.00', '0.00'),
-(12, 2, '2017-05-15', '707.00', NULL, '0.00', '0.00', '0.00'),
-(13, 2, '2017-05-31', '707.00', NULL, '0.00', '0.00', '0.00'),
-(14, 2, '2017-06-15', '707.00', NULL, '0.00', '0.00', '0.00'),
-(15, 2, '2017-06-30', '707.00', NULL, '0.00', '0.00', '0.00'),
-(16, 2, '2017-07-15', '707.00', NULL, '0.00', '0.00', '0.00'),
-(17, 2, '2017-07-31', '707.00', NULL, '0.00', '0.00', '0.00'),
-(18, 2, '2017-08-15', '703.00', NULL, '0.00', '0.00', '0.00'),
-(19, 3, '2017-02-28', '747.00', NULL, '0.00', '0.00', '8960.00'),
-(20, 3, '2017-03-15', '747.00', NULL, '0.00', '0.00', '0.00'),
-(21, 3, '2017-03-31', '747.00', NULL, '0.00', '0.00', '0.00'),
-(22, 3, '2017-04-15', '747.00', NULL, '0.00', '0.00', '0.00'),
-(23, 3, '2017-04-30', '747.00', NULL, '0.00', '0.00', '0.00'),
-(24, 3, '2017-05-15', '747.00', NULL, '0.00', '0.00', '0.00'),
-(25, 3, '2017-05-31', '747.00', NULL, '0.00', '0.00', '0.00'),
-(26, 3, '2017-06-15', '747.00', NULL, '0.00', '0.00', '0.00'),
-(27, 3, '2017-06-30', '747.00', NULL, '0.00', '0.00', '0.00'),
-(28, 3, '2017-07-15', '747.00', NULL, '0.00', '0.00', '0.00'),
-(29, 3, '2017-07-31', '747.00', NULL, '0.00', '0.00', '0.00'),
-(30, 3, '2017-08-15', '743.00', NULL, '0.00', '0.00', '0.00'),
-(31, 4, '2017-02-28', '787.00', NULL, '0.00', '0.00', '9440.00'),
-(32, 4, '2017-03-15', '787.00', NULL, '0.00', '0.00', '0.00'),
-(33, 4, '2017-03-31', '787.00', NULL, '0.00', '0.00', '0.00'),
-(34, 4, '2017-04-15', '787.00', NULL, '0.00', '0.00', '0.00'),
-(35, 4, '2017-04-30', '787.00', NULL, '0.00', '0.00', '0.00'),
-(36, 4, '2017-05-15', '787.00', NULL, '0.00', '0.00', '0.00'),
-(37, 4, '2017-05-31', '787.00', NULL, '0.00', '0.00', '0.00'),
-(38, 4, '2017-06-15', '787.00', NULL, '0.00', '0.00', '0.00'),
-(39, 4, '2017-06-30', '787.00', NULL, '0.00', '0.00', '0.00'),
-(40, 4, '2017-07-15', '787.00', NULL, '0.00', '0.00', '0.00'),
-(41, 4, '2017-07-31', '787.00', NULL, '0.00', '0.00', '0.00'),
-(42, 4, '2017-08-15', '783.00', NULL, '0.00', '0.00', '0.00');
-
 -- --------------------------------------------------------
 
 --
@@ -241,6 +175,36 @@ CREATE TABLE `penalties` (
   `date` date NOT NULL,
   `description` varchar(100) NOT NULL DEFAULT ' ',
   `amount` decimal(10,2) NOT NULL DEFAULT '0.00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `returns`
+--
+
+CREATE TABLE `returns` (
+  `id` int(11) NOT NULL,
+  `loans_id` int(11) NOT NULL,
+  `payments_id` int(11) NOT NULL,
+  `investors_id` int(11) NOT NULL,
+  `transactions_id` int(11) NOT NULL,
+  `returns` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transactions`
+--
+
+CREATE TABLE `transactions` (
+  `id` int(11) NOT NULL,
+  `transaction_id` varchar(10) NOT NULL,
+  `investor_id` int(11) NOT NULL,
+  `date_of_transaction` date NOT NULL,
+  `amount_transaction` decimal(10,2) NOT NULL,
+  `type_transaction` varchar(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -284,6 +248,18 @@ ALTER TABLE `penalties`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `returns`
+--
+ALTER TABLE `returns`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `transactions`
+--
+ALTER TABLE `transactions`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -301,21 +277,31 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `investors`
 --
 ALTER TABLE `investors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `loans`
 --
 ALTER TABLE `loans`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `penalties`
 --
 ALTER TABLE `penalties`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `returns`
+--
+ALTER TABLE `returns`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `transactions`
+--
+ALTER TABLE `transactions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
