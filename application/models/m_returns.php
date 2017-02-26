@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class M_Returns extends CI_Model {
 
     public function add($data){
-        if(count($data) > 1){
+        if(count($data) > 0){
             $this->db->insert_batch('returns', $data);
         }else{
             $this->db->insert('returns', $data);    
