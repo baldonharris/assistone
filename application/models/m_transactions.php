@@ -13,7 +13,7 @@ class M_Transactions extends CI_Model {
 
     public function get($where = NULL){
         $this->db->order_by('id', 'DESC');
-        $this->db->select('l.id, l.transaction_id, l.date_of_transaction, l.amount_transaction, l.type_transaction');
+        $this->db->select('l.id, l.transaction_id, l.investor_id, l.date_of_transaction, l.amount_transaction, l.type_transaction');
         if(!$where){
             return $this->db->get('transactions as l')->result_array();
         }else{

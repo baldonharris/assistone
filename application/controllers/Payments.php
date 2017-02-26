@@ -9,6 +9,8 @@ class Payments extends MY_Controller {
 		$this->load->model('m_loans');
         $this->load->model('m_payments');
 		$this->load->model('m_penalties');
+        $this->load->model('m_returns');
+        $this->load->model('m_transactions');
     }
 	
 	public function recalculate_payment($inputs, $payoff_information=0){
@@ -99,6 +101,31 @@ class Payments extends MY_Controller {
 		return $data['penalty']*$interest_rate_by_two; 
 	}
     
+    public function calculate_returns($loans_id, $payments_id){
+        $dummy_container = array();
+        
+        $loan_info = $this->m_loans->get(['id'=>$loans_id]);
+        $transactions_involved = $this->m_transactions->get('l.date_of_transaction <= "'.$loan_info[0]['date_of_release'].'" AND l.type_transaction="I"');
+        $total_investments = 0;
+        $divided_interest_amount = ($loan_info[0]['total_interest_amount'] / $loan_info[0]['number_of_terms']);
+        
+        foreach($transactions_involved as $transaction){
+            $total_investments += $transaction['amount_transaction'];
+        }
+        
+        foreach($transactions_involved as $transaction){
+            array_push($dummy_container, array(
+                'loans_id'          =>  $loans_id,
+                'payments_id'       =>  $payments_id,
+                'investors_id'      =>  $transaction['investor_id'],
+                'transactions_id'   =>  $transaction['id'],
+                'returns'           =>  ($transaction['amount_transaction']/$total_investments) * $divided_interest_amount
+            ));
+        }
+        
+        return $dummy_container;
+    }
+    
     public function add_payment(){ 
 		$errors = $this->validate();
 		if(!empty($errors)){
@@ -142,6 +169,11 @@ class Payments extends MY_Controller {
 			if($data['amount_paid'] == $payment_information['payoff_amount']){
 				$this->m_loans->update(array('id'=>$loans_id, 'balance'=>0.00));
 			}
+    
+            // returns here
+            $calculated_return = $this->calculate_returns($loans_id, $data['id']);
+            $this->m_returns->add($calculated_return);
+            
 			
 			$toReturn = array('status'=>1, 'data'=>$data);
 		}

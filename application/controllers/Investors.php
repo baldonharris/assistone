@@ -11,6 +11,7 @@ class Investors extends MY_Controller {
 		$this->load->model('m_penalties');
 		$this->load->model('m_investors');
         $this->load->model('m_transactions');
+        $this->load->model('m_returns');
     }
 	
 	public function index(){
@@ -51,7 +52,7 @@ class Investors extends MY_Controller {
 		if(empty($id)){
             echo json_encode(array(
                 'investor_detail'	=>	$this->m_investors->get(TRUE),
-                'transaction_detail'=>  $this->m_transactions->get()
+                'transaction_detail'=>  $this->m_transactions->get(),
             ));
 		}else{
             $transaction_detail = $this->m_transactions->get(['l.investor_id'=>$id]);
@@ -59,10 +60,18 @@ class Investors extends MY_Controller {
             for($x=0; $x<count($transaction_detail); $x++){
                 $total_investment += ($transaction_detail[$x]['type_transaction'] == 'I') ? $transaction_detail[$x]['amount_transaction'] : '';
             }
+            
+            $return_detail = $this->m_returns->get(['r.investors_id'=>$id]);
+            $total_return = 0;
+            for($x=0; $x<count($return_detail); $x++){
+                $total_return += $return_detail[$x]['returns'];
+            }
+            
 			echo json_encode(array(
-                'investor_detail'	=>	$this->m_investors->get(FALSE, ['c1.id'=>$id]),
-                'transaction_detail'=>  $transaction_detail,
-                'total_investment'  =>  $total_investment
+                'investor_detail'	      =>  $this->m_investors->get(FALSE, ['c1.id'=>$id]),
+                'transaction_detail'      =>  $transaction_detail,
+                'total_investment'        =>  $total_investment,
+                'total_investment_return' =>  $total_return
             ));
 		}
 	}

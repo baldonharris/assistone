@@ -39,6 +39,7 @@ $(document).ready(function(){
 				var investor = investor_details_and_transactions.investor_detail;
 				var transactions = investor_details_and_transactions.transaction_detail;
                 var total_investment = investor_details_and_transactions.total_investment;
+                var total_investment_return = investor_details_and_transactions.total_investment_return;
 				var investor_status;
 				investor_dup = $.extend({}, investor[0]); // store to global for modal purposes.
                 
@@ -101,7 +102,9 @@ $(document).ready(function(){
                 
                 /* total investment */
                 $('#investor-total-investment').text($.number(parseFloat(total_investment), 2)).attr('total-investment', total_investment);
-                $('#investor-total-investment-return').text($.number(parseFloat(0), 2));
+                
+                /* investment return */
+                $('#investor-total-investment-return').text($.number(parseFloat(total_investment_return), 2));
 
 				$('#btn-update, .btn-delete').removeClass('disabled');
 				$('#account_overview, .add-transaction-btn').removeClass('hidden');
