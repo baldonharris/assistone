@@ -78,9 +78,9 @@
 								<li class=""><a href="<?=base_url('investors/listing/')?>"><i class="fa fa-money"></i> Investors</a></li>
 								<li class=""><a><i class="fa fa-line-chart"></i> Reports <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none">
-										<li><a href="#">Next Collection</a></li>
-										<li><a href="#">Gross Profit</a></li>
-										<li><a href="#">Anual Report</a></li>
+										<li><a href="#">Collection Statement</a></li>
+										<li><a href="#">Interest Report</a></li>
+										<li><a href="#">Review Performance</a></li>
 										<li><a href="#">Investments</a></li>
 									</ul>
 								</li>

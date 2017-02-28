@@ -34,7 +34,6 @@ $(document).ready(function(){
 			$('[investor_id='+investor_id+']').addClass('active');
 			$('.transaction_row').remove();
 			$.post($('.list-group').attr('get-url'), {id:investor_id}, function(response){
-                console.log(JSON.parse(response));
 				var investor_details_and_transactions = JSON.parse(response);
 				var investor = investor_details_and_transactions.investor_detail;
 				var transactions = investor_details_and_transactions.transaction_detail;
@@ -78,6 +77,7 @@ $(document).ready(function(){
 				}
 				
                 /* investor transactions */
+                console.log(transactions);
 				$.each(transactions, function(index, value){
 					var duplicate_row = $('#transaction_row_dummy').clone();
 					$.each(value, function(index, value){
@@ -88,7 +88,7 @@ $(document).ready(function(){
 							}
 							duplicate_row.find('#'+index).text(new_value);
 						}else if(index == 'id'){
-							duplicate_row.find('.view_transaction_btn').attr('transaction-id', value);
+				            duplicate_row.find('.view_transaction_btn').attr('transaction-id', value);
 							duplicate_row.attr({id: value});
 						}else if(index == 'type_transaction'){
                             duplicate_row.find('#'+index+' span').text(value).addClass( (value === 'W') ? 'type-withdrawal' : 'type-investment' );
@@ -241,6 +241,37 @@ $(document).ready(function(){
 		}
 	});
     
+    $('#transaction_table').on('click', '.view_transaction_btn', function(event){
+        $('#view_transaction_details').modal('show', this);
+    });
     
+    $('#view_transaction_details').on('show.bs.modal', function(e){
+        var transaction_id = $(e.relatedTarget).closest('tr').find('#transaction_id').text();
+        $(this).find('.modal-title span').text(transaction_id);
+        $(this).find('.returns_row').remove();
+    });
+    
+    $('#view_transaction_details').on('shown.bs.modal', function(e){
+        var id = $(e.relatedTarget).attr('transaction-id');
+        var url = $('#base_url').attr('base-url')+'returns/get_returns';
+        $(this).find('.table').addClass('hidden');
+        $(this).find('.loading-section .fa-spinner').removeClass('hidden');
+        
+        $.post(url, {id:id}, function(response){
+            var data = JSON.parse(response);
+            $.each(data.data, function(index, value){
+                var sign = (value.type_transaction === 'W') ? '-' : '';
+                var new_row = $('#returns_body #returns_row_dummy').clone();
+                new_row.find('#return_loan_id').text(value.loan_id);
+                new_row.find('#return_percentage').text(parseFloat((value.percentage*100), 2)+'%');
+                new_row.find('#return_return').text(sign+($.number(parseFloat(value.returns), 2)));
+                new_row.removeClass('hidden').removeAttr('id').addClass('returns_row');
+                $('#returns_body').prepend(new_row);
+            });
+        });
+        
+        $(this).find('.loading-section .fa-spinner').addClass('hidden');
+        $(this).find('.table').removeClass('hidden');
+    });
 
 });

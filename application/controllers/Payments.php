@@ -119,7 +119,9 @@ class Payments extends MY_Controller {
                 'payments_id'       =>  $payments_id,
                 'investors_id'      =>  $transaction['investor_id'],
                 'transactions_id'   =>  $transaction['id'],
-                'returns'           =>  ($transaction['amount_transaction']/$total_investments) * $divided_interest_amount
+                'returns'           =>  (($transaction['amount_transaction']/$total_investments)-0.10) * $divided_interest_amount,
+                'percentage'        =>  $transaction['amount_transaction']/$total_investments,
+                'operation_fund'    =>  0.10 * $divided_interest_amount
             ));
         }
         

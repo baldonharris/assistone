@@ -215,6 +215,7 @@
 										<th>Date of Transaction</th>
 										<th>Invested Amount</th>
 										<th>Type</th>
+                                        <th>Investment Return</th>
 									</tr>
 								</thead>
 								<tbody id="transaction_body">
@@ -225,6 +226,7 @@
                                         <td id="type_transaction">
                                             <span></span>
                                         </td>
+                                        <td style="text-align:center;"><button type="button" class="btn btn-warning btn-xs view_transaction_btn">View</button></td>
 									</tr>
 								</tbody>
 							</table>
@@ -236,12 +238,6 @@
         
 	</div>
 
-</div>
-
-<div class="row">
-	<div class="col-md-12 col-sm-12 col-xs-12" style="padding-left: 10px; padding-right: 10px;">
-		
-	</div>
 </div>
 
 <div class="modal fade" id="investorsettings" tabindex="-1" role="dialog" aria-labelledby="investorsettings" aria-hidden="true">
@@ -374,90 +370,38 @@
 	</div>
 </div>
 
-<div class="modal fade" id="viewtransaction" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="view_transaction_details" tabindex="-1" role="dialog" aria-labelledby="investorsettings" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Payments</h4>
+                <h4 class="modal-title" id="myModalLabel">Transaction Detail: <span></span></h4>
 			</div>
 			<div class="modal-body">
-				<div class="row">
-					<div class="col-md-12 col-sm-12">
-						<form id="payment_form" add_payment="<?= base_url('payments/add_payment') ?>">
-							<input type="hidden" name="payment-transaction-id" value=""/>
-							<div class="form-group">
-								<label for="payment_amount_paid" class="control-label">Amount Paid</label>
-								<input type="text" class="form-control" name="payment_amount_paid" id="payment_amount_paid" placeholder="Amount Paid">
-							</div>
-							<div class="form-group">
-								<div class="radio">
-									<label>
-										<input type="radio" id="rad_due_amount" name="pay_amount" value="option1"> Due Amount
-									</label>
-									<label>
-										<input type="radio" id="rad_payoff" name="pay_amount" value="option1"> Payoff Amount 
-									</label>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="payment_actual_paid_date" class="control-label">Actual Paid Date</label>
-								<input type="text" class="form-control" name="payment_actual_paid_date" id="payment_actual_paid_date" placeholder="Actual Paid Date">
-							</div>
-							<div class="form-group">
-								<div class="radio">
-									<label>
-										<input type="radio" id="rad_due_date" name="pay_date" value="option1"> Due Date
-									</label>
-									<label>
-										<input type="radio" id="rad_cur_date" name="pay_date" value="option1"> Current Date 
-									</label>
-								</div>
-							</div>
-							<div class="form-group">
-								<input type="hidden" name="id" id="payment_id" value=""/>
-								<input type="hidden" name="payment_payment_balance" value=""/>
-								<input type="hidden" name="payment_running_balance" value=""/>
-								<button type="button" class="btn btn-success btn-block confirm_payment">Confirm Payment</button>
-							</div>
-						</form>
-					</div>
-				</div>
-				<div class="table-responsive">
-					<table class="table table-bordered table-hover jambo_table" id="view_transaction_table">
-						<thead class="headings">
-							<tr>
-								<th width="15%">Due Date</th>
-								<th>Due Amount</th>
-								<th>Actual Paid Date</th>
-								<th>Amount Paid</th>
-								<th>Payment Balance</th>
-								<th>Running Balance</th>
-							</tr>
-						</thead>
-						<tbody id="view_transaction_body">
-							<tr class="hidden" id="view_transaction_row_dummy">
-								<th id="due_date"></th>
-								<td id="due_amount"></td>
-								<td id="actual_paid_date"></td>
-								<td id="amount_paid"></td>
-								<td id="payment_balance"></td>
-								<td id="running_balance"></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+				<div class="loading-section">
+                    <center>
+                        <i class="fa fa-spinner fa-pulse fa-3x fa-fw hidden"></i><span class="sr-only">Loading...</span>
+                    </center>
+                </div>
+                <table class="table table-bordered table-hover jambo_table">
+                    <thead class="headings">
+                        <tr>
+                            <th>Loan ID</th>
+                            <th>Percentage</th>
+                            <th>Return</th>
+                        </tr>
+                    </thead>
+                    <tbody id="returns_body">
+                        <tr class="hidden" id="returns_row_dummy">
+                            <th id="return_loan_id"></th>
+                            <td id="return_percentage"></td>
+                            <td id="return_return" style="text-align:right;"></td>
+                        </tr>
+                    </tbody>
+                </table>
 			</div>
 			<div class="modal-footer">
-				<div class="row">
-					<button type="button" class="btn btn-success pull-left confirm_payment">Confirm Payment</button>
-					<button type="button" class="btn btn-warning pull-left payoff_information" transaction-id payoff_information_r="<?= base_url('payments/payoff_information')?>">Payoff Information</button>
-					<button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
-				</div>
-				<div class="row payoff_div">
-					<hr/>
-					<h1>₱<span></span></h1>
-				</div>
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>

@@ -22,6 +22,12 @@ class Transactions extends MY_Controller {
         }
         echo json_encode($toReturn);
     }
+    
+    public function get_transaction(){
+        $id = $this->input->post('id');
+        $data = $this->m_transactions->get(['l.id'=>$id]);
+        $this->print_array($data);
+    }
 
     private function format($mode = 0 /* 0=create, 1=update */){
         $inputs = $this->input->post();
