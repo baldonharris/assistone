@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 26, 2017 at 07:54 AM
+-- Generation Time: Feb 28, 2017 at 04:56 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.30
 
@@ -146,6 +146,13 @@ CREATE TABLE `loans` (
   `balance` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `loans`
+--
+
+INSERT INTO `loans` (`id`, `customer_id`, `loan_id`, `date_of_application`, `date_of_release`, `amount_loan`, `interest_rate`, `number_of_terms`, `total_interest_amount`, `balance`) VALUES
+(1, 28, '17-28-0001', '2017-02-28', '2017-02-28', '1000.00', '2.00', 6, '60.00', '-177.00');
+
 -- --------------------------------------------------------
 
 --
@@ -162,6 +169,18 @@ CREATE TABLE `payments` (
   `payment_balance` decimal(10,2) NOT NULL DEFAULT '0.00',
   `running_balance` decimal(10,2) NOT NULL DEFAULT '0.00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`id`, `loans_id`, `due_date`, `due_amount`, `actual_paid_date`, `amount_paid`, `payment_balance`, `running_balance`) VALUES
+(1, 1, '2017-03-15', '177.00', '2017-03-15', '177.00', '0.00', '883.00'),
+(2, 1, '2017-03-31', '177.00', '2017-04-05', '177.00', '0.00', '-177.00'),
+(3, 1, '2017-04-15', '177.00', '2017-04-15', '177.00', '0.00', '-177.00'),
+(4, 1, '2017-04-30', '177.00', NULL, '0.00', '0.00', '0.00'),
+(5, 1, '2017-05-15', '177.00', NULL, '0.00', '0.00', '0.00'),
+(6, 1, '2017-05-31', '175.00', NULL, '0.00', '0.00', '0.00');
 
 -- --------------------------------------------------------
 
@@ -189,8 +208,22 @@ CREATE TABLE `returns` (
   `payments_id` int(11) NOT NULL,
   `investors_id` int(11) NOT NULL,
   `transactions_id` int(11) NOT NULL,
-  `returns` decimal(10,2) NOT NULL
+  `returns` decimal(10,2) NOT NULL,
+  `percentage` decimal(10,2) NOT NULL,
+  `operation_fund` decimal(10,2) NOT NULL COMMENT '10% per transactions'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `returns`
+--
+
+INSERT INTO `returns` (`id`, `loans_id`, `payments_id`, `investors_id`, `transactions_id`, `returns`, `percentage`, `operation_fund`) VALUES
+(1, 1, 1, 3, 2, '10.00', '0.00', '0.00'),
+(2, 1, 1, 3, 1, '20.00', '0.00', '0.00'),
+(3, 1, 2, 3, 2, '3.33', '0.00', '0.00'),
+(4, 1, 2, 3, 1, '6.67', '0.00', '0.00'),
+(5, 1, 3, 3, 2, '2.33', '0.33', '1.00'),
+(6, 1, 3, 3, 1, '5.67', '0.67', '1.00');
 
 -- --------------------------------------------------------
 
@@ -206,6 +239,14 @@ CREATE TABLE `transactions` (
   `amount_transaction` decimal(10,2) NOT NULL,
   `type_transaction` varchar(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `transactions`
+--
+
+INSERT INTO `transactions` (`id`, `transaction_id`, `investor_id`, `date_of_transaction`, `amount_transaction`, `type_transaction`) VALUES
+(1, '17-3-0001', 3, '2017-02-26', '1000.00', 'I'),
+(2, '17-3-0002', 3, '2017-02-27', '500.00', 'W');
 
 --
 -- Indexes for dumped tables
@@ -282,12 +323,12 @@ ALTER TABLE `investors`
 -- AUTO_INCREMENT for table `loans`
 --
 ALTER TABLE `loans`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `penalties`
 --
@@ -297,12 +338,12 @@ ALTER TABLE `penalties`
 -- AUTO_INCREMENT for table `returns`
 --
 ALTER TABLE `returns`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
