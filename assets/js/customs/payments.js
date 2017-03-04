@@ -238,7 +238,7 @@ $(document).ready(function(){
                 $('[payment-id='+loan_body.find('tr.info').attr('payment-id')+']').find('#actual_paid_date').text(due_date);
             }else{
                 var d = new Date();
-                var strDate = d.getFullYear() + "-" + ( ((d.getMonth()+1) < 10) ? (''+d.getMonth()+1) : (d.getMonth()+1) ) + "-" + ( (d.getDate() < 10) ? ('0'+d.getDate()) : d.getDate() );
+                var strDate = d.getFullYear() + "-" + ( ((d.getMonth()+1) < 10) ? ("0"+(d.getMonth()+1)) : (d.getMonth()+1) ) + "-" + ( ((d.getDate()) < 10) ? ("0"+(d.getDate())) : (d.getDate()) );
                 $('#payment_actual_paid_date').val(strDate);
                 $('[payment-id='+loan_body.find('tr.info').attr('payment-id')+']').find('#actual_paid_date').text(strDate);
             }
