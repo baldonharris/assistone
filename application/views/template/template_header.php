@@ -18,6 +18,7 @@
 	<link href="<?=base_url()?>assets/fonts/css/font-awesome.min.css" rel="stylesheet">
 	<link href="<?=base_url()?>assets/css/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css"></head>
 	<link href="<?=base_url()?>assets/css/animate/animate.min.css" rel="stylesheet">
+    <link href="<?=base_url()?>assets/css/daterangepicker.css" rel="stylesheet">
 
 	<!-- Custom styling plus plugins -->
 	<link href="<?=base_url()?>assets/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" />
@@ -78,10 +79,10 @@
 								<li class=""><a href="<?=base_url('investors/listing/')?>"><i class="fa fa-money"></i> Investors</a></li>
 								<li class=""><a><i class="fa fa-line-chart"></i> Reports <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none">
-										<li><a href="#">Collection Statement</a></li>
-										<li><a href="#">Interest Report</a></li>
-										<li><a href="#">Review Performance</a></li>
-										<li><a href="#">Investments</a></li>
+										<li><a href="<?=base_url('reports/collection_statement')?>">Collection Statement</a></li>
+										<li><a href="<?=base_url('reports/interest_report')?>">Interest Report</a></li>
+										<li><a href="<?=base_url('reports/review_performance')?>">Review Performance</a></li>
+										<li><a href="<?=base_url('reports/investments')?>">Investments</a></li>
 									</ul>
 								</li>
 								<li class=""><a href="#"><i class="fa fa-gears"></i> Settings</a>
@@ -132,13 +133,14 @@
 
 
 			<!-- page content -->
-			<div class="right_col" role="main">
+			<div class="right_col" role="main" <?= ($this->uri->segment(1) == 'reports') ? 'ng-app="reportsModule"' : '' ?>>
 
 				<div class>
-
+                    <?php if($this->uri->segment(1) != 'reports'){ ?>
 					<div class="page-title">
 						<div class="title_left">
 							<h3><?= $header ?> <small><?= $subheader ?></small></h3>
 						</div>
 					</div>
+                    <?php } ?>
 					<div class="clearfix"></div>

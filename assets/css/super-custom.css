@@ -35,3 +35,16 @@ span.type-withdrawal {
 .transaction_row td:nth-child(3) {
     text-align: right;
 }
+
+.alert {
+    padding: 5px!important;
+}
+
+button[btn="in-loan-date-range"] {
+    margin-bottom: 0!important;
+}
+
+.add-bg {
+    background: #fff;
+    padding: 7px 10px;
+}
