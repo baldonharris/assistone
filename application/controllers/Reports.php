@@ -15,7 +15,7 @@ class Reports extends MY_Controller {
             'title'         =>  'assistone | interest report',
             'header'        =>  'Collection',
             'subheader'     =>  'Statement',
-            'js'            =>  $this->form_js_files(array('angular/collection_statement.js'))
+            'js'            =>  array('angular/collection_statement.js')
         ]);
     }
     
@@ -32,11 +32,6 @@ class Reports extends MY_Controller {
             }
         }
         echo json_encode(array('status'=>1, 'data'=>$data['data']));
-    }
-    
-    public function form_js_files($js = array()){
-        array_unshift($js, 'angular/reports.js');
-        return $js;
     }
 
 }

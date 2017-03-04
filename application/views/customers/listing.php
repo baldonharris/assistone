@@ -38,15 +38,13 @@
 				<div class="row" id="curr_page" page="<?= $page['curr_page'] ?>">
 					<a id="dummy_list_item" href="#" customer_id="" class="hidden list-group-item customers"><table><td id="dummy-cust-id"></td><td>&nbsp;|&nbsp;</td><td id="dummy-cust-name"></td></table></a>
 					<div class="list-group" id="customer_list" get-url="<?=base_url('customers/get_customer')?>">
-						<?php
-							foreach($data['customers'] as $customer){
-								if(!$customer['deleted_at']){
-									echo '<a href="#" customer_id="'.$customer['id'].'" class="list-group-item customers"><table><tr><td>'.$customer['customer_id'].'</td><td>&nbsp;|&nbsp;</td><td>'.$customer['firstname'].' '.$customer['lastname'].'</td></tr></table></a>';
-								}else{
-									echo '<a href="#" customer_id="'.$customer['id'].'" class="list-group-item customers list-group-item-danger"><table><tr><td>'.$customer['customer_id'].'</td><td>&nbsp;|&nbsp;</td><td>'.$customer['firstname'].' '.$customer['lastname'].'</td></tr></table></a>';
-								}
-							}
-						?>
+                        <?php foreach($data['customers'] as $customer){ ?>
+                            <?php if(!$customer['deleted_at']){ ?>
+                                <a href="#" customer_id="<?=$customer['id']?>" class="list-group-item customers"><table><tr><td><?=$customer['customer_id']?></td><td>&nbsp;|&nbsp;</td><td><?=$customer['firstname'].' '.$customer['lastname']?></td></tr></table></a>
+                            <?php }else{ ?>
+                                <a href="#" customer_id="<?=$customer['id']?>" class="list-group-item customers list-group-item-danger"><table><tr><td><?=$customer['customer_id']?></td><td>&nbsp;|&nbsp;</td><td><?=$customer['firstname'].' '.$customer['lastname']?></td></tr></table></a>
+                            <?php } ?>
+                        <?php } ?>
 					</div>
 				</div>
 				<div class="row">

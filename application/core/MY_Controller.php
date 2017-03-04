@@ -28,6 +28,7 @@ class MY_Controller extends CI_Controller {
 		if(!$page) $page = 'template/template_body';
 
 		$data['js'] = array_merge($data['js'], array('admin.js'));
+        array_unshift($data['js'], 'angular/assistone.js');
 		
 		$this->load->view('template/template_header', $data);
 		$this->load->view($page, $data);

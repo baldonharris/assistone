@@ -133,7 +133,7 @@
 
 
 			<!-- page content -->
-			<div class="right_col" role="main" <?= ($this->uri->segment(1) == 'reports') ? 'ng-app="reportsModule"' : '' ?>>
+			<div class="right_col" role="main" ng-app="assistOne">
 
 				<div class>
                     <?php if($this->uri->segment(1) != 'reports'){ ?>

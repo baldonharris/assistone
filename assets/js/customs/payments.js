@@ -5,6 +5,7 @@ $(document).ready(function(){
     var next_payment = {};
 	var confirm_payment = 0;
 	var current_balance = 0;
+    var clicked_view_loan_button;
 
     var calculated_current_payment = {
         amount_paid: 0,
@@ -27,11 +28,15 @@ $(document).ready(function(){
     });
 
     $('#loan_table').on('click', '.view_loan_btn', function(){
+        $('#viewloan').trigger('hidden.bs.modal');
+        $('#viewloan').trigger('shown.bs.modal');
+        clicked_view_loan_button = this;
         var loan_id = $(this).attr('loan-id');
 		$('.payoff_div').hide();
 		$('.payoff_information').attr('loan-id', loan_id);
         $.post($(this).attr('get-payment'), {id:loan_id}, function(response){
             var payments = JSON.parse(response);
+            console.log(payments);
 			var last_balance = 0;
 			$('input[name=payment-loan-id]').val(payments.data[0].loans_id);
             $.each(payments.data, function(index, payment_value){
@@ -146,6 +151,7 @@ $(document).ready(function(){
 						$('#loan_body').find('#'+data_response.data.loans_id).find('button').prop('disabled', true);
 						$('#viewloan').modal('hide');
 					}
+                    $(clicked_view_loan_button).trigger('click');
                 }else{
                     new PNotify({
                         title:'Oh no!',
@@ -173,16 +179,16 @@ $(document).ready(function(){
     $('input[name=payment_amount_paid]').blur(function(){
         var next_due_amount = 0;
 		
-		current_balance = $('#loan_body').find('#'+$('input[name=payment-loan-id]').val()).find('#balance').text();
+		current_balance = $('#loan_body').find('#'+$('input[name=payment-loan-id]').val()).find('#balance').text().replace(/[₱ ]|[,]/g, '');
 		
         calculated_current_payment.amount_paid = parseFloat($(this).val().replace(/[₱ ]|[,]/g, ''));
         calculated_current_payment.payment_balance = $.number((parseFloat(current_payment.due_amount) - parseFloat(calculated_current_payment.amount_paid)), 2);
-        calculated_current_payment.running_balance = $.number((parseFloat(current_payment.running_balance) - parseFloat(calculated_current_payment.amount_paid)), 2);
+        calculated_current_payment.running_balance = $.number((parseFloat(current_balance) - parseFloat(calculated_current_payment.amount_paid)), 2);
         calculated_current_payment.amount_paid = $.number(calculated_current_payment.amount_paid, 2);
 
         calculated_current_payment.payment_balance = (calculated_current_payment.payment_balance >= 0 && calculated_current_payment.payment_balance < 1) ? '0'+calculated_current_payment.payment_balance : calculated_current_payment.payment_balance;
         calculated_current_payment.running_balance = calculated_next_payment.running_balance = (calculated_current_payment.running_balance >= 0 && calculated_current_payment.running_balance < 1) ? '0'+calculated_current_payment.running_balance : calculated_current_payment.running_balance;
-
+        
         $.each(calculated_current_payment, function(index, value){
             $('[payment-id='+current_payment.id+']').find('#'+index).text(value);
             if(index !== 'amount_paid'){
@@ -195,7 +201,6 @@ $(document).ready(function(){
         $('[payment-id='+next_payment.id+']').find('#due_amount').text(calculated_next_payment.due_amount);
         $('[payment-id='+next_payment.id+']').find('#running_balance').text(calculated_next_payment.running_balance);
 		
-		//$('[payment-id='+next_payment.id+']').nextAll().find('#due_amount').text(calculated_next_payment.due_amount);
         $('[payment-id='+next_payment.id+']').nextAll().find('#running_balance').text(calculated_next_payment.running_balance);
 	});
     
@@ -214,6 +219,7 @@ $(document).ready(function(){
     $('.radio').on('click', 'input[name=pay_amount]', function(){
         var loan_body = $('#view_loan_body');
         var due_amount = loan_body.find('tr.info').find('#due_amount').text();
+        console.log(due_amount);
         if($('input[name=pay_amount]').is(':checked')){
             if($(this).attr('id') === 'rad_due_amount'){
                 $('#payment_amount_paid').val('₱ '+due_amount);
@@ -246,3 +252,4 @@ $(document).ready(function(){
     });
 
 });
+

@@ -106,7 +106,7 @@ $(document).ready(function(){
 			});
 		}
 	});
-
+    
 	$('.add-btn').click(function(e){
 		e.preventDefault();
 		mode = 1;

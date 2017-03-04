@@ -1,1 +1,0 @@
-var reports = angular.module('reportsModule', []);

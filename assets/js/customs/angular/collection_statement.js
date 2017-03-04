@@ -11,7 +11,7 @@ var getInitRangeDate = function(){
     return date_now+' - '+date_now;
 };
 
-reports.controller('collectionStatementController', function($scope, $http){
+assistone.controller('collectionStatementController', function($scope, $http){
     $scope.$watch('get_url', function(){
         $scope.get_url_catcher = $scope.get_url;
         $http({
