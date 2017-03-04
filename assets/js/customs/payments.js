@@ -36,7 +36,6 @@ $(document).ready(function(){
 		$('.payoff_information').attr('loan-id', loan_id);
         $.post($(this).attr('get-payment'), {id:loan_id}, function(response){
             var payments = JSON.parse(response);
-            console.log(payments);
 			var last_balance = 0;
 			$('input[name=payment-loan-id]').val(payments.data[0].loans_id);
             $.each(payments.data, function(index, payment_value){
@@ -219,7 +218,6 @@ $(document).ready(function(){
     $('.radio').on('click', 'input[name=pay_amount]', function(){
         var loan_body = $('#view_loan_body');
         var due_amount = loan_body.find('tr.info').find('#due_amount').text();
-        console.log(due_amount);
         if($('input[name=pay_amount]').is(':checked')){
             if($(this).attr('id') === 'rad_due_amount'){
                 $('#payment_amount_paid').val('₱ '+due_amount);
