@@ -7,7 +7,7 @@ class M_Loans extends CI_Model {
         unset($data['total_payments']);
         $this->db->insert('loans', $data);
         $id = $this->db->insert_id();
-        $loan_id = date('y').'-'.$data['customer_id'].'-'.str_pad($id, 4, "0", STR_PAD_LEFT);
+        $loan_id = date('y').'-'.(($data['customer_id'] < 10) ? '0'.$data['customer_id'] : $data['customer_id']).'-'.str_pad($id, 4, "0", STR_PAD_LEFT);
         $this->db->update('loans', ['loan_id'=>$loan_id], 'id='.$id);
         return array('id'=>$id, 'loan_id'=>$loan_id);
     }

@@ -25,7 +25,7 @@
             </thead>
             <tbody ng-init="get_url='<?=base_url('reports/get_collection_statement')?>'">
                 <tr ng-repeat="report in collection_statement">
-                    <td>{{ report.loan_id }}</td>
+                    <td style="font-weight:bold;">{{ report.loan_id }}</td>
                     <td>{{ report.customer_name }}</td>
                     <td>{{ report.date_of_release }}</td>
                     <td style="text-align:right;">{{ report.amount_loan | currency:"" }}</td>

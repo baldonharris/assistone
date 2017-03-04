@@ -22,7 +22,6 @@ $(document).ready(function(){
             $('#addTransaction').modal('show');
             url_action_transaction = $('#form_transaction').attr('add-url');
             $('#form_transaction').resetForm();
-            console.log(url_action_transaction);
 	});
 
 	$('#transaction_table').on('click', '.update-transaction-btn', function(e){
@@ -71,7 +70,7 @@ $(document).ready(function(){
                                     $.each(data_serialize, function(index, value){
                                         if(value.name == 'amount_transaction'){
                                             value.value = value.value.replace('₱ ', '');
-                                            amount_transaction = value.value.replace(',', '');
+                                            amount_transaction = value.value.replace(/[₱ ]|[,]/g, '');
                                         }
                                         if(value.name == 'type_transaction'){
                                             duplicate_row.find('#'+value.name+' span').text(value.value).addClass( (value.value === 'W') ? 'type-withdrawal' : 'type-investment' );
@@ -88,7 +87,7 @@ $(document).ready(function(){
 									duplicate_row.attr('id', response.data.id);
                                     
                                     if(type_transaction == 'I'){
-                                        var current_total_investment = parseFloat($('#investor-total-investment').attr('total-investment'));
+                                        var current_total_investment = parseFloat($('#investor-total-investment').text().replace(/[₱ ]|[,]/g, ''));
                                         var add_investment = parseFloat(amount_transaction);
                                         var new_total_investment = parseFloat(current_total_investment+add_investment);
                                         $('#investor-total-investment').text($.number(new_total_investment, 2)).attr('total-investment', new_total_investment);

@@ -1,6 +1,7 @@
 .inv_info {width: 100%;}
 .inv_info tbody tr td {line-height: 30px;font-size:15px;}
 .inv_info tbody tr td:first-child {width: 33%;}
+.inv_info tbody tr td span {width: 100px;display: inline-block;text-align: right;}
 .inv_info tbody tr:nth-child(7) td, .inv_info tbody tr:nth-child(8) td {font-size: 24px;}
 .inv_info tbody tr:nth-child(8) td:first-child {width: 48%;}
 
