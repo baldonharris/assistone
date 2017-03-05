@@ -56,7 +56,9 @@ assistone.controller('collectionStatementController', function($scope, $http){
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function(response){
-            $scope.collection_statement = response.data.data;
+            $scope.collection_statement = response.data.data.data;
+            console.log(response);
+            $scope.total_amounts = response.data.data.sub_detail;
         });
     };
 });

@@ -23,6 +23,8 @@ class Reports extends MY_Controller {
         $due_date = $this->input->post('due_date');
         $hey = ($due_date) ? 'p.due_date="'.$due_date.'"' : NULL;
         $data = $this->m_reports->get_collection_statement( ($due_date) ? 'p.due_date="'.$due_date.'"' : NULL );
+        $data['sub_detail']['total_paid_amount'] = 0;
+        $data['sub_detail']['total_due_amount'] = 0;
         for($x=0; $x<count($data['data']); $x++){
             $data['data'][$x]['total_paid_amount'] = 0;
             for($y=0; $y<count($data['raw_data']); $y++){
@@ -35,8 +37,11 @@ class Reports extends MY_Controller {
                     }
                 }
             }
+            $data['sub_detail']['total_paid_amount'] += $data['data'][$x]['amount_paid'];
+            $data['sub_detail']['total_due_amount'] += $data['data'][$x]['due_amount'];
         }
-        echo json_encode(array('status'=>1, 'data'=>$data['data']));
+        unset($data['raw_data']);
+        echo json_encode(array('status'=>1, 'data'=>$data));
     }
 
 }

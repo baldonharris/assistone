@@ -50,6 +50,11 @@
                     <td style="text-align:right;">{{ report.due_amount | currency:"" }}</td>
                     <td style="text-align:right;">{{ report.amount_paid | currency:"" }}</td>
                 </tr>
+                <tr>
+                    <td style="font-weight:bold;" colspan="6">Total</td>
+                    <td style="text-align:right;font-weight:bold;">{{ total_amounts.total_due_amount | currency:"" }}</td>
+                    <td style="text-align:right;font-weight:bold;">{{ total_amounts.total_paid_amount | currency:"" }}</td>
+                </tr>
             </tbody>
         </table>
     </div>
