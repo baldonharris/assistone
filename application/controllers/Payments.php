@@ -85,13 +85,14 @@ class Payments extends MY_Controller {
         $id = $this->input->post('id');
         $data = $this->m_payments->get($id);
         $check_index = 0;
-        for($x=0; $x<count($data); $x++){
-            if($data[$x]['amount_paid'] == 0){
-                $check_index = $x++;
-                break;
+        if($id != NULL){
+            for($x=0; $x<count($data); $x++){
+                if($data[$x]['amount_paid'] == 0){
+                    $check_index = $x++;
+                    break;
+                }
             }
         }
-        
         echo json_encode(array('status'=>1, 'data'=>$data));
     }
 	
