@@ -48,3 +48,11 @@ button[btn="in-loan-date-range"] {
     background: #fff;
     padding: 7px 10px;
 }
+
+.print_mode {
+    display: none;
+}
+
+@media print {
+    .print_mode {display: block!important;}
+}

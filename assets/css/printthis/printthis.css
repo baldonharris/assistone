@@ -1,0 +1,28 @@
+th {
+    font-size: 11px;
+}
+
+td {
+    font-size: 11px;
+}
+
+table {
+    margin-top: 10px!important;
+    width: 100%!important;
+}
+
+#assist {
+    color: #304a63!important;
+}
+
+#one {
+    color: #fb8200!important;
+}
+
+#blank_space {
+    border-bottom: 1px solid #000!important;
+}
+
+.print_mode {
+    display: block!important;
+}

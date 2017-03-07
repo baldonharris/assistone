@@ -4,6 +4,15 @@ $(document).ready(function(){
     }, function(start, end, label) {
       console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
     });
+    
+    $('#printBtn').click(function(){
+        $('#printDiv').printThis({
+            importCSS: true,
+            loadCSS: 'assistone/assets/css/printthis/printthis.css',
+            pageTitle: '&nbsp;',
+            printContainer: false
+        });
+    });
 });
 
 var getInitRangeDate = function(){
@@ -25,6 +34,7 @@ assistone.controller('collectionStatementController', function($scope, $http){
     });
     
     $scope.loans = function(){
+        $scope.notice_loading = true;
         $scope.selected_due_date = null;
         if(typeof $scope.model_due_date_option === 'object'){ // this condition is for model_due_date_option. at init, this var is undefined.
             $scope.selected_due_date = $scope.model_due_date_option.due_date;
@@ -56,9 +66,14 @@ assistone.controller('collectionStatementController', function($scope, $http){
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function(response){
-            $scope.collection_statement = response.data.data.data;
-            console.log(response);
-            $scope.total_amounts = response.data.data.sub_detail;
+            if(response.data.data.data.length > 0){
+                $scope.notice_no_data = false;
+                $scope.collection_statement = response.data.data.data;
+                $scope.total_amounts = response.data.data.sub_detail;    
+            }else{
+                $scope.notice_no_data = true;   
+            }
         });
+        $scope.notice_loading = false;
     };
 });
