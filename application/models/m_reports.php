@@ -15,18 +15,16 @@ class M_Reports extends CI_Model {
     }
 
     public function get_collection_statement($where = NULL){
-        $this->db->order_by('l.id', 'DESC');
-        $this->db->select("l.id, l.loan_id as loan_id, concat(c.firstname,' ',c.lastname) as customer_name, l.date_of_release, l.amount_loan, l.balance as current_balance, p.amount_paid");
+        $this->db->order_by('p.id', 'ASC');
+        $this->db->select("l.id, p.id as payment_id, l.loan_id as loan_id, concat(c.firstname,' ',c.lastname) as customer_name, l.date_of_release, l.amount_loan, l.balance as current_balance, p.amount_paid");
         $this->db->join('customers as c', 'c.id=l.customer_id', 'left');
         $this->db->join('payments as p', 'p.loans_id=l.id', 'left');
-        // $this->db->group_by('p.loans_id');
         if(!$where){
             $data = $this->db->get('loans as l')->result_array();
         }else{
             $data = $this->db->get_where('loans as l', $where)->result_array();
         }
         return array('data'=>$data, 'raw_data'=>$this->get_raw_collection_statement($where));
-        // <td style="text-align:right;">{{ report.total_amount_paid | currency:"" }}</td>
     }
     
 }

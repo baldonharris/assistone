@@ -12,7 +12,7 @@ class Reports extends MY_Controller {
     public function collection_statement(){
         $id = $this->input->post('id');
         $this->generate_page('reports/collection_statement', [
-            'title'         =>  'assistone | interest report',
+            'title'         =>  'assistone | collection statement',
             'header'        =>  'Collection',
             'subheader'     =>  'Statement',
             'js'            =>  array('angular/collection_statement.js')
@@ -29,11 +29,13 @@ class Reports extends MY_Controller {
             $data['data'][$x]['total_paid_amount'] = 0;
             for($y=0; $y<count($data['raw_data']); $y++){
                 if($data['data'][$x]['id'] == $data['raw_data'][$y]['loan_id']){
-                    if(empty($data['raw_data'][$y]['payment_actual_paid_date'])){
+                    $data['data'][$x]['total_paid_amount'] += $data['raw_data'][$y]['amount_paid'];
+                    if($data['raw_data'][$y]['payment_actual_paid_date'] === $due_date){
                         $data['data'][$x] = array_merge($data['data'][$x], array('due_amount'=>$data['raw_data'][$y]['payment_due_amount']));
+                        $data['data'][$x] = array_merge($data['data'][$x], array('amount_paid'=>$data['raw_data'][$y]['amount_paid']));
                         break;
                     }else{
-                        $data['data'][$x]['total_paid_amount'] += $data['raw_data'][$y]['amount_paid'];
+                        $data['data'][$x] = array_merge($data['data'][$x], array('due_amount'=>$data['raw_data'][$y]['payment_due_amount']));
                     }
                 }
             }
