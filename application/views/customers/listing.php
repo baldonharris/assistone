@@ -40,26 +40,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-3 col-sm-6 col-xs-6">
-						<span class="hidden" id="del-btn-url-holder" base-url="<?=base_url('customers/change_customer_status/'.$page['curr_page'].'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>"></span>
-						<div class="btn-group hidden-sm hidden-xs hidden-md" role="group" aria-label="...">
-							<button type="button" id="btn-update" class="disabled btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
-								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Upd
-							</button>
-							<a base-url="<?=base_url('customers/delete_customer/'.$page['curr_page'].'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>" href="#" class="disabled btn btn-dark btn-sm btn-delete">
-								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Del
-							</a>
-						</div>
-						<div class="btn-group hidden-lg btn-group-xs" role="group" aria-label="...">
-							<button type="button" id="btn-update" class="disabled btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
-								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Upd
-							</button>
-							<a base-url="<?=base_url('customers/delete_customer/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>" href="#" class="disabled btn btn-dark btn-sm btn-delete">
-								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Del
-							</a>
-						</div>
-					</div>
-					<div class="col-md-3 col-md-offset-6 col-sm-6 col-xs-6">
+					<div class="col-md-3 col-md-offset-9 col-sm-offset-6 col-sm-6 col-xs-offset-6 col-xs-6">
 						<div class="btn-group pull-right hidden-sm hidden-xs hidden-md" role="group" aria-label="...">
 							<a href="<?= base_url('customers/listing/'.($page['curr_page']-1).'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display) ?>" class="<?= ($page['status']['prev']==0) ? 'disabled' : '' ?> btn btn-default btn-sm">
 								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Prev
