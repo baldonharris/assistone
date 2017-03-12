@@ -30,11 +30,12 @@ $(document).ready(function(){
 		if(customer_id != $(this).attr('customer_id')){
 			$('.fa-spinner').removeClass('hidden');
 			customer_id = $(this).attr('customer_id');
+            loan_status = $(this).attr('status');
 			$('.customers').removeClass('active');
 			$('[customer_id='+customer_id+']').addClass('active');
 			$('.loan_row').remove();
 
-			$.post($('.list-group').attr('get-url'), {id:customer_id}, function(response){
+			$.post($('.list-group').attr('get-url'), {id:customer_id, status:loan_status}, function(response){
 				var customer_details_and_loans = JSON.parse(response);
 				var customer = customer_details_and_loans.customer_detail;
 				var loans = customer_details_and_loans.loan_detail;
@@ -219,18 +220,4 @@ $(document).ready(function(){
 		setting_url = setting_url+"/"+set_page+"/"+set_sortby+"/"+set_orderby+"/"+set_display;
 		window.location.href = setting_url;
 	});
-	
-	$('.btn-group').on('click', '.view_loan_btn', function(event){
-		if($('.view_loan_btn').hasClass('disabled')){
-			event.preventDefault();
-			return 0;
-		}
-	});
-	$('.btn-group').on('click', '.update-loan-btn', function(event){
-		if($('.update-loan-btn').hasClass('disabled')){
-			event.preventDefault();
-			return 0;
-		}
-	});
-
 });

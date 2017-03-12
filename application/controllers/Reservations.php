@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Customers extends MY_Controller {
+class Reservations extends MY_Controller {
 
 	private $filename = NULL;
 
@@ -13,7 +13,7 @@ class Customers extends MY_Controller {
 	}
 
 	public function index(){
-		redirect(base_url('customers/listing'));
+		redirect(base_url('reservations/listing'));
 	}
 
 	public function listing($page=0, $set_sortby=1, $set_orderby=2, $set_display=0){
@@ -35,12 +35,12 @@ class Customers extends MY_Controller {
 
 		$data['guarantors'] = $this->m_customers->get_customers_names(0, 0, 1, 0, 0, 1);
 		
-		$this->generate_page('customers/listing', [
+		$this->generate_page('reservations/listing', [
             'set_sortby'	=>$set_sortby,
             'set_orderby'	=>$set_orderby,
             'set_display'	=>$set_display,
-			'title'			=>'assistone | customers listing',
-			'header'		=>'Loans',
+			'title'			=>'assistone | reservations listing',
+			'header'		=>'Loan Reservations',
 			'subheader'		=>'Listing',
 			'page'			=>array('curr_page'=>$page, 'status'=>$status),
 			'data'			=>$data,
@@ -50,16 +50,16 @@ class Customers extends MY_Controller {
 
 	public function search($page=0, $set_sortby=1, $set_orderby=2, $set_display=0){
 		if(empty($this->input->post('search_'))){
-			redirect(base_url('customers/listing/0/'.$set_sortby.'/'.$set_orderby.'/'.$set_display));
+			redirect(base_url('reservations/listing/0/'.$set_sortby.'/'.$set_orderby.'/'.$set_display));
 		}else{
 			$status['prev'] = $status['next'] = 0;
 			$data['customers'] = $this->m_customers->search($this->input->post('search_'));
 			$data['guarantors'] = $this->m_customers->get_customers_names(0, 0, 1, 0, 0, 1);
-			$this->generate_page('customers/listing', [
+			$this->generate_page('reservations/listing', [
 				'set_sortby'	=>$set_sortby,
 				'set_orderby'	=>$set_orderby,
 				'set_display'	=>$set_display,
-				'title'			=>'assistone | customers listing',
+				'title'			=>'assistone | reservations listing',
 				'header'		=>'Customers',
 				'subheader'		=>'Listing',
 				'page'			=>array('curr_page'=>0, 'status'=>$status),
@@ -86,7 +86,7 @@ class Customers extends MY_Controller {
 
 	public function change_customer_status($curr_page, $set_sortby, $set_orderby, $set_display, $id, $status){
 		$this->m_customers->change_status($id, $status);
-		redirect('customers/listing/'.$curr_page.'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display);
+		redirect('reservations/listing/'.$curr_page.'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display);
 	}
 
 	public function update_customer(){

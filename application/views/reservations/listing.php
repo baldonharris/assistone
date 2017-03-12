@@ -8,33 +8,41 @@
 					<li class="dropdown">
 						<a href="#" id="forCustomerSettings"><i class="fa fa-wrench"></i></a>
 					</li>
+					<li class="dropdown hidden-lg add-btn">
+						<a href="#"><i class="fa fa-plus"></i></a>
+					</li>
 				</ul>
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
-                <div class="row">
-                    <div class="input-group pull-right">
-                        <form class="form-inline" method="post" action="<?=base_url('customers/search/'.$page['curr_page'].'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>">
-                            <div class="form-group top_search">
-                                <div class="input-group">
-                                    <input type="text" name="search_" class="form-control" id="search_customer" placeholder="Search customer...">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" type="submit">Go!</button>
-                                    </span>
-                                </div>
-                            </div>
-                            <input type="submit" class="hidden"/>
-                        </form>
-                    </div><!-- /input-group -->
-                </div>
+				<div class="row">
+					<div class="col-lg-3 col-xs-12 col-sm-12 hidden-md hidden-sm hidden-xs">
+						<button type="button" class="btn btn-primary add-btn">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Customer
+						</button>
+					</div>
+					<div class="input-group pull-right">
+						<form class="form-inline" method="post" action="<?=base_url('customers/search/'.$page['curr_page'].'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>">
+							<div class="form-group top_search">
+								<div class="input-group">
+									<input type="text" name="search_" class="form-control" id="search_customer" placeholder="Search customer...">
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="submit">Go!</button>
+									</span>
+								</div>
+							</div>
+							<input type="submit" class="hidden"/>
+						</form>
+					</div><!-- /input-group -->
+				</div>
 				<div class="row" id="curr_page" page="<?= $page['curr_page'] ?>">
-					<a id="dummy_list_item" href="#" status="approved" customer_id="" class="hidden list-group-item customers"><table><td id="dummy-cust-id"></td><td>&nbsp;|&nbsp;</td><td id="dummy-cust-name"></td></table></a>
+					<a id="dummy_list_item" href="#" status="reserved" customer_id="" class="hidden list-group-item customers"><table><td id="dummy-cust-id"></td><td>&nbsp;|&nbsp;</td><td id="dummy-cust-name"></td></table></a>
 					<div class="list-group" id="customer_list" get-url="<?=base_url('customers/get_customer')?>">
                         <?php foreach($data['customers'] as $customer){ ?>
                             <?php if(!$customer['deleted_at']){ ?>
-                                <a href="#" status="approved" customer_id="<?=$customer['id']?>" class="list-group-item customers"><table><tr><td><?=$customer['customer_id']?></td><td>&nbsp;|&nbsp;</td><td><?=$customer['firstname'].' '.$customer['lastname']?></td></tr></table></a>
+                                <a href="#" status="reserved" customer_id="<?=$customer['id']?>" class="list-group-item customers"><table><tr><td><?=$customer['customer_id']?></td><td>&nbsp;|&nbsp;</td><td><?=$customer['firstname'].' '.$customer['lastname']?></td></tr></table></a>
                             <?php }else{ ?>
-                                <a href="#" status="approved" customer_id="<?=$customer['id']?>" class="list-group-item customers list-group-item-danger"><table><tr><td><?=$customer['customer_id']?></td><td>&nbsp;|&nbsp;</td><td><?=$customer['firstname'].' '.$customer['lastname']?></td></tr></table></a>
+                                <a href="#" status="reserved" customer_id="<?=$customer['id']?>" class="list-group-item customers list-group-item-danger"><table><tr><td><?=$customer['customer_id']?></td><td>&nbsp;|&nbsp;</td><td><?=$customer['firstname'].' '.$customer['lastname']?></td></tr></table></a>
                             <?php } ?>
                         <?php } ?>
 					</div>
@@ -159,10 +167,23 @@
 				<h2>Account Overview</h2>
 				<ul class="nav navbar-right panel_toolbox">
 					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+					<li class="dropdown hidden-lg add-loan-btn">
+						<a href="#"><i class="fa fa-plus"></i></a>
+					</li>
+					<li class="dropdown">
+						<a href="#" id="forCustomerSettings"><i class="fa fa-wrench"></i></a>
+					</li>
 				</ul>
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
+				<div class="row">
+					<div class="col-lg-3 col-xs-12 col-sm-12 hidden-md hidden-sm hidden-xs">
+						<a href="#" class="btn btn-primary add-loan-btn btn-sm hidden">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Loan
+						</a>
+					</div>
+				</div>
 				<div class="row" style="padding-top:1%">
 					<div class="loading-section">
 						<center>
@@ -198,7 +219,8 @@
 										<td id="balance"></td>
 										<td class="button_more" style="text-align:center;">
                                             <div class="btn-group btn-group-xs" role="group" aria-label="...">
-                                                <button type="button" class="btn btn-success view_loan_btn" get-payment="<?=base_url('payments/get_payment')?>">Payments</button>
+                                                <button type="button" class="btn btn-warning update-loan-btn" get-payment="<?=base_url('payments/get_payment')?>">Update</button>
+                                                <button type="button" class="btn btn-danger update-loan-btn">Approve</button>
                                             </div>
 										</td>
 									</tr>
@@ -262,6 +284,110 @@
 			<div class="modal-footer">
 				<button type="button" id="btn-setting" class="btn btn-success btn-block">Go!</button>
 				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+			</div>
+			<div class="modal-body">
+				<form id="form_customer" add-url="<?=base_url('customers/add_customer')?>" update-url="<?=base_url('customers/update_customer')?>" method="post" enctype="multipart/form-data">
+					<div class="form-group">
+						<label class="control-label" for="in_firstname">Firstname</label> <i><span class="control-label errhandler" errhandler="firstname"></span></i>
+						<input type="text" name="firstname" class="form-control" id="in_firstname" placeholder="Firstname">
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="in_middlename">Middlename</label> <i><span class="control-label errhandler" errhandler="middlename"></span></i>
+						<input type="text" name="middlename" class="form-control" id="in_middlename" placeholder="Middlename">
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="in_lastname">Lastname</label> <i><span class="control-label errhandler" errhandler="lastname"></span></i>
+						<input type="text" name="lastname" class="form-control" id="in_lastname" placeholder="Lastname">
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="in_mobilenumber">Mobile Number</label> <i><span class="control-label errhandler" errhandler="mobilenumber"></span></i>
+						<input type="text" name="mobilenumber" class="form-control" id="in_mobilenumber" placeholder="Mobile Number">
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="in_address">Address</label> <i><span class="control-label errhandler" errhandler="address"></span></i>
+						<input type="text" name="address" class="form-control" id="in_address" placeholder="Address">
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="in_guarantor">Guarantor</label>
+						<select class="form-control" id="in_guarantor" name="guarantor_customers_id">
+							<option value="0" selected="selected"></option>
+							<?php
+								foreach($data['guarantors'] as $customer){
+									echo '<option value="'.$customer['id'].'"><table><tr><td>'.$customer['customer_id'].'</td><td>&nbsp;|&nbsp;</td><td>'.$customer['firstname'].' '.$customer['lastname'].'</td></tr></table></option>';
+								}
+							?>
+						</select>
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="dp">Display Picture</label> <i><span class="control-label errhandler" errhandler="dp"></span></i>
+						<input type="file" name="dp" id="dp">
+						<p class="help-block">Max dimension: 1024x768 px | Max filesize: 2MB | Accepts only: jpeg,png,jpg</p>
+					</div>
+					<input type="hidden" value="" name="id"/>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-success pull-left">Save</button>
+				</form>
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="addLoan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel"></h4>
+			</div>
+			<div class="modal-body">
+				<form id="form_loan" add-url="<?=base_url('loans/add_loan')?>" update-url="<?=base_url('loans/update_loan')?>" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="customer_id" value=""/>
+                    <input type="hidden" name="id" value="" id="in_id"/>
+                    <input type="hidden" name="status" id="in_status"/>
+					<div class="form-group">
+						<label class="control-label" for="in_date_of_application">Date of Application</label> <i><span class="control-label errhandler" errhandler="date_of_application"></span></i>
+						<input type="text" name="date_of_application" class="form-control" id="in_date_of_application" placeholder="Date of Application">
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="in_date_of_release">Date of Release</label> <i><span class="control-label errhandler" errhandler="date_of_release"></span></i>
+						<input type="text" name="date_of_release" class="form-control" id="in_date_of_release" placeholder="Date of Release">
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="in_amount_loan">Amount Loan</label> <i><span class="control-label errhandler" errhandler="amount_loan"></span></i>
+						<input type="text" name="amount_loan" class="form-control" id="in_amount_loan" placeholder="Amount Loan">
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="in_interest_rate">Interest Rate</label> <i><span class="control-label errhandler" errhandler="interest_rate"></span></i>
+						<select name="interest_rate" class="form-control" id="in_interest_rate">
+							<option value="1.0">1.0 %</option>
+							<option value="2.0">2.0 %</option>
+							<option value="3.0">3.0 %</option>
+							<option value="4.0">4.0 %</option>
+							<option value="5.0">5.0 %</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="in_number_of_terms">Number of Payments</label> <i><span class="control-label errhandler" errhandler="number_of_terms"></span></i>
+						<input type="text" name="number_of_terms" class="form-control" id="in_number_of_terms" placeholder="Number of Payments">
+					</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success pull-left" id="save_loan">Save</button>
+				</form>
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>

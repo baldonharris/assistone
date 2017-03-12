@@ -75,7 +75,8 @@
 						<div class="menu_section">
 							<h3 <?= $this->uri->segment(0) ?>>&nbsp;</h3>
 							<ul class="nav side-menu">
-								<li class=""><a href="<?=base_url('customers/listing/'.$page['curr_page'].'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>"><i class="fa fa-chain"></i> Main</a></li>
+                                <li class=""><a href="<?=base_url('reservations/listing/'.$page['curr_page'].'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>"><i class="fa fa-ticket"></i> Loan Reservations</a></li>
+								<li class=""><a href="<?=base_url('customers/listing/'.$page['curr_page'].'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>"><i class="fa fa-chain"></i> Loans</a></li>
 								<li class=""><a href="<?=base_url('investors/listing/')?>"><i class="fa fa-money"></i> Investors</a></li>
 								<li class=""><a><i class="fa fa-line-chart"></i> Reports <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none">
@@ -85,7 +86,7 @@
 										<li><a href="<?=base_url('reports/investments')?>">Investments</a></li>
 									</ul>
 								</li>
-								<li class=""><a href="#"><i class="fa fa-gears"></i> Settings</a>
+								<li class=""><a href="<?=base_url('admin')?>"><i class="fa fa-gears"></i> Admin Center</a>
 								</li>
 								<!-- <li><a><i class="fa fa-edit"></i> Loans <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none">
