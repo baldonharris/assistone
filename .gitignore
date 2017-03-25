@@ -2,3 +2,4 @@ application/config/database.php
 application/config/database.php
 assets/images/
 /nbproject/private/
+.idea/
