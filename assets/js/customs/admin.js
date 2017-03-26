@@ -31,16 +31,7 @@ $(document).ready(function(){
 			var response = JSON.parse(responseText);
 			if(mode == 1){	// add
 				if(response.status){
-					new PNotify({
-						title:'Success!',
-						text:'Admin successfully added!',
-						type:"success",
-						delay:3000,
-						animation:"fade",
-						mobile:{swipe_dismiss:true,styling:true},
-						buttons:{closer:false,sticker:false},
-						desktop: {desktop: true,fallback: true}
-					});
+					pnotify('Success', 'Admin successfully added!', 'success');
 					$('#add_admin').modal('hide');
 				}else{
 					$('.form-group').removeClass('has-error');
@@ -48,30 +39,12 @@ $(document).ready(function(){
 					$.each(response.data, function(index, value){
 						$('[errhandler='+index+']').html(value);
 						$('[name='+index+']').parent().addClass('has-error');
-					})
-					new PNotify({
-						title:'Oh no!',
-						text:'An error has occured!',
-						type:"error",
-						delay:3000,
-						animation:"fade",
-						mobile:{swipe_dismiss:true,styling:true},
-						buttons:{closer:false,sticker:false},
-						desktop: {desktop: true,fallback: true}
 					});
+					pnotify('Oh no!', 'An error has occured', 'error');
 				}
 			}else{			// update
 				if(response.status){
-					new PNotify({
-						title:'Success!',
-						text:'Admin successfully updated! Please logout to see changes.',
-						type:"success",
-						delay:3000,
-						animation:"fade",
-						mobile:{swipe_dismiss:true,styling:true},
-						buttons:{closer:false,sticker:false},
-						desktop: {desktop: true,fallback: true}
-					});
+					pnotify('Success!', 'Admin successfully updated! Please logout to see changes.', 'success');
 					$('#add_admin').modal('hide');
 				}else{
 					$('.form-group').removeClass('has-error');
@@ -79,17 +52,8 @@ $(document).ready(function(){
 					$.each(response.data, function(index, value){
 						$('[errhandler='+index+']').html(value);
 						$('[name='+index+']').parent().addClass('has-error');
-					})
-					new PNotify({
-						title:'Oh no!',
-						text:'An error has occured!',
-						type:"error",
-						delay:3000,
-						animation:"fade",
-						mobile:{swipe_dismiss:true,styling:true},
-						buttons:{closer:false,sticker:false},
-						desktop: {desktop: true,fallback: true}
 					});
+					pnotify('Oh no!', 'An error has occured!', 'error');
 				}
 			}
 		}});

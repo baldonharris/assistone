@@ -100,16 +100,7 @@ $(document).ready(function(){
                                     $('#loan_body').prepend(passed_row);
                                     
                                     $('#addLoan').modal('hide');
-                                    new PNotify({
-                                        title:'Success!',
-                                        text:'Loan successfully added!',
-                                        type:"success",
-                                        delay:3000,
-                                        animation:"fade",
-                                        mobile:{swipe_dismiss:true,styling:true},
-                                        buttons:{closer:false,sticker:false},
-                                        desktop: {desktop: true,fallback: true}
-                                    });
+                                    pnotify('Success', 'Loan successfully added!', 'success');
                                     $('#form_loan').resetForm();
                                 }else{						// failed
                                     $('.form-group').removeClass('has-error');
@@ -118,16 +109,7 @@ $(document).ready(function(){
                                         $('[errhandler='+index+']').html(value);
                                         $('[name='+index+']').parent().addClass('has-error');
                                     });
-                                    new PNotify({
-                                        title:'Oh no!',
-                                        text:'An error has occured!',
-                                        type:"error",
-                                        delay:3000,
-                                        animation:"fade",
-                                        mobile:{swipe_dismiss:true,styling:true},
-                                        buttons:{closer:false,sticker:false},
-                                        desktop: {desktop: true,fallback: true}
-                                    });
+                                    pnotify('Oh no!', 'An error has occured!', 'error');
                                 }
                             }else{			// update
                                 if(response.status === 1){
@@ -139,16 +121,7 @@ $(document).ready(function(){
                                         modify_loan_row(relatedRow, response);
                                     }
                                     $('#addLoan').modal('hide');
-                                    new PNotify({
-                                        title:'Success!',
-                                        text:'Loan successfully updated!',
-                                        type:"success",
-                                        delay:3000,
-                                        animation:"fade",
-                                        mobile:{swipe_dismiss:true,styling:true},
-                                        buttons:{closer:false,sticker:false},
-                                        desktop: {desktop: true,fallback: true}
-                                    });
+                                    pnotify('Success', 'Loan successfully updated!', 'success');
                                     $('#form_loan').resetForm();
                                 }else{
                                     $('.form-group').removeClass('has-error');
@@ -157,16 +130,7 @@ $(document).ready(function(){
                                         $('[errhandler='+index+']').html(value);
                                         $('[name='+index+']').parent().addClass('has-error');
                                     });
-                                    new PNotify({
-                                        title:'Oh no!',
-                                        text:'An error has occured!',
-                                        type:"error",
-                                        delay:3000,
-                                        animation:"fade",
-                                        mobile:{swipe_dismiss:true,styling:true},
-                                        buttons:{closer:false,sticker:false},
-                                        desktop: {desktop: true,fallback: true}
-                                    });
+                                    pnotify('Oh no!', 'An error has occured!', 'error');
                                 }
                             }
                         }

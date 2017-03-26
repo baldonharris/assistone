@@ -94,16 +94,7 @@ $(document).ready(function(){
                                     }
                                     
                                     $('#addTransaction').modal('hide');
-                                    new PNotify({
-                                        title:'Success!',
-                                        text:'Transaction successfully added!',
-                                        type:"success",
-                                        delay:3000,
-                                        animation:"fade",
-                                        mobile:{swipe_dismiss:true,styling:true},
-                                        buttons:{closer:false,sticker:false},
-                                        desktop: {desktop: true,fallback: true}
-                                    });
+                                    pnotify('Success!', 'Transaction successfully added!', 'success');
                                     $('#form_transaction').resetForm();
                                 }else{						// failed
                                     $('.form-group').removeClass('has-error');
@@ -112,16 +103,7 @@ $(document).ready(function(){
                                         $('[errhandler='+index+']').html(value);
                                         $('[name='+index+']').parent().addClass('has-error');
                                     });
-                                    new PNotify({
-                                        title:'Oh no!',
-                                        text:'An error has occured!',
-                                        type:"error",
-                                        delay:3000,
-                                        animation:"fade",
-                                        mobile:{swipe_dismiss:true,styling:true},
-                                        buttons:{closer:false,sticker:false},
-                                        desktop: {desktop: true,fallback: true}
-                                    });
+                                    pnotify('Oh no!', 'An error has occured!', 'error');
                                 }
                             }else{			// update
 

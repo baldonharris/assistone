@@ -157,16 +157,7 @@ $(document).ready(function(){
 			var response = JSON.parse(responseText);
 			if(mode==1){	// add
 				if(response.status){	// add success
-					new PNotify({
-						title:'Success!',
-						text:'investor successfully added!',
-						type:"success",
-						delay:3000,
-						animation:"fade",
-						mobile:{swipe_dismiss:true,styling:true},
-						buttons:{closer:false,sticker:false},
-						desktop: {desktop: true,fallback: true}
-					});
+					pnotify('Success', 'Investor successfully added!', 'success');
 					location.reload();
 				}else{						// add fail
 					$('.form-group').removeClass('has-error');
@@ -174,17 +165,8 @@ $(document).ready(function(){
 					$.each(response.data, function(index, value){
 						$('[errhandler='+index+']').html(value);
 						$('[name='+index+']').parent().addClass('has-error');
-					})
-					new PNotify({
-						title:'Oh no!',
-						text:'An error has occured!',
-						type:"error",
-						delay:3000,
-						animation:"fade",
-						mobile:{swipe_dismiss:true,styling:true},
-						buttons:{closer:false,sticker:false},
-						desktop: {desktop: true,fallback: true}
 					});
+					pnotify('Oh no!', 'An error has occured!', 'error');
 				}
 			}else{			// update
 				if(response.status){	// update success
@@ -195,17 +177,8 @@ $(document).ready(function(){
 					$.each(response.data, function(index, value){
 						$('[errhandler='+index+']').html(value);
 						$('[name='+index+']').parent().addClass('has-error');
-					})
-					new PNotify({
-						title:'Oh no!',
-						text:'An error has occured!',
-						type:"error",
-						delay:3000,
-						animation:"fade",
-						mobile:{swipe_dismiss:true,styling:true},
-						buttons:{closer:false,sticker:false},
-						desktop: {desktop: true,fallback: true}
 					});
+					pnotify('Oh no!', 'An error has occured!', 'error');
 				}
 			}
 		}});

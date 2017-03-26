@@ -131,16 +131,7 @@ $(document).ready(function(){
             $.post($('#payment_form').attr('add_payment'), payment_form_details, function(response){
                 var data_response = JSON.parse(response);
                 if(data_response.status){
-                    new PNotify({
-                        title:'Success!',
-                        text:'Payment successfully added!',
-                        type:"success",
-                        delay:3000,
-                        animation:"fade",
-                        mobile:{swipe_dismiss:true,styling:true},
-                        buttons:{closer:false,sticker:false},
-                        desktop: {desktop: true,fallback: true}
-                    });
+                    pnotify('Success!', 'Payment successfully added!', 'success');
                     var current_payment = $('#view_loan_body').find('tr.info');
                     current_payment.removeClass('info').next().addClass('info');
                     $('#payment_form').resetForm();
@@ -152,16 +143,7 @@ $(document).ready(function(){
 					}
                     $(clicked_view_loan_button).trigger('click');
                 }else{
-                    new PNotify({
-                        title:'Oh no!',
-                        text:'An error has occured!',
-                        type:"error",
-                        delay:3000,
-                        animation:"fade",
-                        mobile:{swipe_dismiss:true,styling:true},
-                        buttons:{closer:false,sticker:false},
-                        desktop: {desktop: true,fallback: true}
-                    });
+                    pnotify('Oh no!', 'An error has occured!', 'error');
                 }
             });
         }).on('pnotify.cancel', function(){
