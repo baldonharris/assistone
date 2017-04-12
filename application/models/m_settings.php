@@ -27,4 +27,5 @@ class M_Settings extends CI_Model {
 		$this->db->where('id', $id);
 		$this->db->update('transactions', $data);
 	}
+    
 }

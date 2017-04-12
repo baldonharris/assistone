@@ -37,7 +37,7 @@
                         <form name="subject_form" ng-submit="push_percentages()">
                             <tr ng-repeat="percentage in master_percentages track by $index">
                                 <td>
-                                    <input ng-model="percentage.bucket" type="text" class="form-control" id="Subject">
+                                    <input ng-model="percentage.bucket_name" type="text" class="form-control" id="Subject">
                                 </td>
                                 <td>
                                     <input ng-model="percentage.percentage" type="text" class="form-control" id="Percentage" ng-pattern="/^(?:\d*\.)\d+$/" step="0.01">
@@ -47,7 +47,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="3"><button type="submit" class="btn btn-success btn-block">Save</button></td>
+                                <td colspan="3"><button type="submit" class="btn btn-success btn-block" ng-click="save_bucket()">Save</button></td>
                             </tr>
                         </form>
                     </tbody>
