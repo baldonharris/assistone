@@ -28,6 +28,31 @@ span.type-withdrawal {
     margin: auto;
 }
 
+span.active {
+    background: #26B99A;
+    color: #ffffff;
+    font-size: 12px;
+    display: block;
+    text-align: center;
+    border-radius: 3px;
+    margin: auto;
+}
+
+span.inactive {
+    background: #d9534f;
+    color: #ffffff;
+    font-size: 12px;
+    display: block;
+    text-align: center;
+    border-radius: 3px;
+    margin: auto;
+}
+
+.remove-padding {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
 #investor-total-investment, #investor-total-investment-return {
     margin-left: 10px;
 }

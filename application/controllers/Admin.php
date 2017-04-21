@@ -21,14 +21,11 @@ class Admin extends MY_Controller {
     }
     
     public function save_bucket(){
-        echo date("Y-m-d");
         $input_ef_date = $this->input->post('effectivity_date');
         $input_buckets = $this->input->post('buckets');
         $exploded_ed = explode("-", $input_ef_date);
         $now_date = date("Y-m-d");
-        $this->print_array($exploded_ed);
         $ed = date("Y-m-d", mktime(0, 0, 0, $exploded_ed[1], $exploded_ed[2], $exploded_ed[0]));
-        $this->print_array($this->input->post());
         
         if(strtotime($ed) == strtotime($now_date)){
             $this->m_effectivities->update(array('status'=>'inactive'), 'active');
@@ -43,7 +40,23 @@ class Admin extends MY_Controller {
         
         $added_buckets = $this->m_buckets->add_batch($input_buckets);
         
-        /* stopped here */
+        $this->get_effectivities();
+    }
+    
+    public function get_effectivities(){
+        $effectivities = $this->m_effectivities->get();
+        $final_effectivities = array();
+        
+        for($x=0; $x<count($effectivities); $x++){
+            $buckets = $this->m_buckets->get(array('effectivities_id'=>$effectivities[$x]['id']));
+            $effectivities[$x] = array_merge($effectivities[$x],
+                                             [
+                                                 'total_buckets'=>count($buckets),
+                                                 'buckets'=>$buckets,
+                                             ]);
+        }
+        
+        echo json_encode($effectivities);
     }
 
 }
