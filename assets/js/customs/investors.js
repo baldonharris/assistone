@@ -77,7 +77,6 @@ $(document).ready(function(){
 				}
 				
                 /* investor transactions */
-                console.log(transactions);
 				$.each(transactions, function(index, value){
 					var duplicate_row = $('#transaction_row_dummy').clone();
 					$.each(value, function(index, value){
@@ -236,7 +235,7 @@ $(document).ready(function(){
                 var sign = (value.type_transaction === 'W') ? '-' : '';
                 var new_row = $('#returns_body #returns_row_dummy').clone();
                 new_row.find('#return_loan_id').text(value.loan_id);
-                new_row.find('#return_percentage').text(parseFloat((value.percentage*100), 2)+'%');
+                new_row.find('#return_percentage').text((value.percentage*100).toFixed(2)+'%');
                 new_row.find('#return_return').text(sign+($.number(parseFloat(value.returns), 2)));
                 new_row.removeClass('hidden').removeAttr('id').addClass('returns_row');
                 $('#returns_body').prepend(new_row);
