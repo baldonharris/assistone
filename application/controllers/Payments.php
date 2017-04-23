@@ -11,6 +11,8 @@ class Payments extends MY_Controller {
 		$this->load->model('m_penalties');
         $this->load->model('m_returns');
         $this->load->model('m_transactions');
+        $this->load->model('m_buckets');
+        $this->load->model('m_effectivities');
     }
 	
 	public function recalculate_payment($inputs, $payoff_information=0){
@@ -105,8 +107,13 @@ class Payments extends MY_Controller {
     public function calculate_returns($loans_id, $payments_id){
         $dummy_container = array();
         
+        /* get things ready */
+        
         $loan_info = $this->m_loans->get(['id'=>$loans_id]);
         $transactions_involved = $this->m_transactions->get('l.date_of_transaction <= "'.$loan_info[0]['date_of_release'].'"');
+        $effectivity = $this->m_effectivities->get(['status'=>'active'])[0];
+        $buckets = $this->m_buckets->get(['effectivities_id'=>$effectivity['id']]);
+        
         $total_investments = 0;
         $divided_interest_amount = ($loan_info[0]['total_interest_amount'] / $loan_info[0]['number_of_terms']);
         
@@ -114,16 +121,32 @@ class Payments extends MY_Controller {
             $total_investments += $transaction['amount_transaction'];
         }
         
-        foreach($transactions_involved as $transaction){
-            array_push($dummy_container, array(
-                'loans_id'          =>  $loans_id,
-                'payments_id'       =>  $payments_id,
-                'investors_id'      =>  $transaction['investor_id'],
-                'transactions_id'   =>  $transaction['id'],
-                'returns'           =>  (($transaction['amount_transaction']/$total_investments)-0.10) * $divided_interest_amount,
-                'percentage'        =>  $transaction['amount_transaction']/$total_investments,
-                'operation_fund'    =>  0.10 * $divided_interest_amount
-            ));
+        foreach($buckets as $bucket){
+            $planned_return = ($bucket['percentage']/100) * $divided_interest_amount;
+            if($bucket['bucket_name'] != 'Investors'){
+                array_push($dummy_container, array(
+                    'loans_id'          =>  $loans_id,
+                    'payments_id'       =>  $payments_id,
+                    'investors_id'      =>  0,
+                    'transactions_id'   =>  0,
+                    'buckets_id'        =>  $bucket['id'],
+                    'percentage'        =>  $bucket['percentage']/100,
+                    'returns'           =>  $planned_return
+                ));
+            }else{
+                foreach($transactions_involved as $transaction){
+                    $transaction_percentage = ($transaction['amount_transaction']/$total_investments);
+                    array_push($dummy_container, array(
+                        'loans_id'          =>  $loans_id,
+                        'payments_id'       =>  $payments_id,
+                        'investors_id'      =>  $transaction['investor_id'],
+                        'transactions_id'   =>  $transaction['id'],
+                        'buckets_id'        =>  $bucket['id'],
+                        'percentage'        =>  $transaction_percentage,
+                        'returns'           =>  $transaction_percentage * $planned_return
+                    ));
+                };
+            }
         }
         
         return $dummy_container;
@@ -160,9 +183,6 @@ class Payments extends MY_Controller {
 					'running_balance'	=>	($data['running_balance']+$penalty)
 				));
 			}
-			
-			
-			/*$this->m_payments->update(array('id'=>($data['id']+1),'running_balance'=>$data['running_balance']));*/
 			$this->m_payments->update($data);
 
 			$this->m_loans->update(array('id'=>$loans_id, 'balance'=>$data['running_balance']));
