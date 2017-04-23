@@ -13,8 +13,17 @@ function isEmpty(value) {
 }
 
 assistone.controller('adminController', function ($scope, $http) {
-    $scope.master_percentages = [];
-    $scope.zero_master_percentages = true;
+    $scope.master_percentages = [
+        {
+            percentage: '',
+            bucket_name: 'Investors'
+        },
+        {
+            percentage: '',
+            bucket_name: 'Operations Fund'
+        }
+    ];
+    $scope.zero_master_percentages = false;
     $scope.buckets = [];
     $scope.effectivity_date_set = '';
 
@@ -105,11 +114,14 @@ assistone.controller('adminController', function ($scope, $http) {
     $scope.get_buckets = function (index) {
         $('#view_buckets_modal').modal('show');
         $scope.buckets = angular.copy($scope.effectivities[index].buckets, $scope.buckets);
-        console.log($scope.effectivities[index]);
         $scope.effectivity_date_set = $scope.effectivities[index].effectivity_date;
     };
 
     $scope.launch_modal = function () {
         $('#add_effectivity_modal').modal('show');
+    };
+
+    $scope.check_bucket_index = function (index) {
+        return (index === 0 || index === 1) ? false : true;
     };
 });

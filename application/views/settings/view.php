@@ -88,13 +88,13 @@
                             <form name="subject_form" ng-submit="push_percentages()">
                                 <tr ng-repeat="percentage in master_percentages track by $index">
                                     <td>
-                                        <input ng-model="percentage.bucket_name" type="text" class="form-control" id="Subject">
+                                        <input ng-model="percentage.bucket_name" type="text" class="form-control" id="Subject" ng-disabled="!check_bucket_index($index)">
                                     </td>
                                     <td>
                                         <input ng-model="percentage.percentage" type="text" class="form-control" id="Percentage" ng-pattern="/^(?:\d*\.)\d+$/" step="0.01">
                                     </td>
                                     <td style="text-align:center;">
-                                        <button ng-click="remove_percentage($index)" class="btn btn-danger"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                        <button ng-click="remove_percentage($index)" class="btn btn-danger" ng-show="check_bucket_index($index)"><i class="fa fa-minus" aria-hidden="true"></i></button>
                                     </td>
                                 </tr>
                             </form>
