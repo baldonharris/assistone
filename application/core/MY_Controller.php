@@ -6,7 +6,21 @@ class MY_Controller extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		if(!$this->session->userdata('username')) $this->load->view('login');
+        $this->load->model('m_effectivities');
+        
+        if(!$this->session->userdata('init')){
+            $this->init_effectivities();
+            $this->session->set_userdata(array('init'=>true));
+        }
 	}
+    
+    private function init_effectivities(){
+        $effectivity = $this->m_effectivities->get(['effectivity_date'=>date('Y-m-d'), 'status'=>'inactive']);
+        if(count($effectivity) != 0){
+            $this->m_effectivities->update(['status'=>'inactive'], 'active');
+            $this->m_effectivities->update(['status'=>'active'], NULL, ['id'=>$effectivity[0]['id']]);
+        }
+    }
 	
 	public function print_array($my_array){
 		echo "<pre>";

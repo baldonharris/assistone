@@ -9,8 +9,12 @@ class M_Effectivities extends CI_Model {
 		return array('id'=>$id);
 	}
     
-    public function update($data, $old_status){
-        $this->db->where('status', $old_status);
+    public function update($data, $old_status, $where = NULL){
+        if(!$where){
+            $this->db->where('status', $old_status);
+        }else{
+            $this->db->where($where);
+        }
         $this->db->update('effectivities', $data);
     }
     
