@@ -22,6 +22,7 @@
 
 	<!-- Custom styling plus plugins -->
 	<link href="<?=base_url()?>assets/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="<?=base_url()?>assets/css/angular-chart.css" rel="stylesheet"/>
 	<link href="<?=base_url()?>assets/css/custom.min.css" rel="stylesheet">
 	<link href="<?=base_url()?>assets/css/super-custom.css" rel="stylesheet"/>
 
@@ -75,6 +76,7 @@
 						<div class="menu_section">
 							<h3 <?= $this->uri->segment(0) ?>>&nbsp;</h3>
 							<ul class="nav side-menu">
+                                <li class=""><a href="<?=base_url('home')?>"><i class="fa fa-home"></i> Home</a></li>
                                 <li class=""><a href="<?=base_url('reservations/listing/'.$page['curr_page'].'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>"><i class="fa fa-ticket"></i> Loan Reservations</a></li>
 								<li class=""><a href="<?=base_url('customers/listing/'.$page['curr_page'].'/'.$set_sortby.'/'.$set_orderby.'/'.$set_display)?>"><i class="fa fa-chain"></i> Loans</a></li>
 								<li class=""><a href="<?=base_url('investors/listing/')?>"><i class="fa fa-money"></i> Investors</a></li>
@@ -88,14 +90,6 @@
 								</li>
 								<li class=""><a href="<?=base_url('admin')?>"><i class="fa fa-gears"></i> Admin Center</a>
 								</li>
-								<!-- <li><a><i class="fa fa-edit"></i> Loans <span class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu" style="display: none">
-										<li><a href="empty.html">Menu2.1</a>
-										</li>
-										<li><a href="empty.html">Meny2.2s</a>
-										</li>
-									</ul>
-								</li> -->
 							</ul>
 						</div>
 					</div>

@@ -16,13 +16,18 @@ class M_Payments extends CI_Model {
         return $insert_id;
     }
 
-    public function get($id, $mode = 0){
-		if($id != NULL){
-            $data = (!$mode) ? $this->db->get_where('payments', array('loans_id'=>$id))->result_array() : $this->db->get_where('payments', array('id'=>$id))->result_array();
+    public function get($id, $mode = 0, $dynamic = NULL, $where = NULL){
+		if(!$dynamic){
+            if($id != NULL){
+                $data = (!$mode) ? $this->db->get_where('payments', array('loans_id'=>$id))->result_array() : $this->db->get_where('payments', array('id'=>$id))->result_array();
+            }else{
+                $this->db->order_by('id', 'ASC');
+                $this->db->select('distinct(due_date)');
+                $data = $this->db->get('payments')->result_array();
+            }
         }else{
             $this->db->order_by('id', 'ASC');
-            $this->db->select('distinct(due_date)');
-            $data = $this->db->get('payments')->result_array();
+            $data = $this->db->get_where('payments', $where)->result_array();
         }
         return $data;
     }

@@ -1,1 +1,1 @@
-var assistone = angular.module('assistOne', []);
+var assistone = angular.module('assistOne', ['chart.js']);

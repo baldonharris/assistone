@@ -11,9 +11,15 @@ class M_Transactions extends CI_Model {
         return array('id'=>$id, 'transaction_id'=>$transaction_id);
     }
 
-    public function get($where = NULL){
-        $this->db->order_by('id', 'DESC');
-        $this->db->select('l.id, l.transaction_id, l.investor_id, l.date_of_transaction, l.amount_transaction, l.type_transaction');
+    public function get($where = NULL, $summary_group_by = NULL){
+        if(!$summary_group_by){
+            $this->db->order_by('id', 'DESC');
+            $this->db->select('l.id, l.transaction_id, l.investor_id, l.date_of_transaction, l.amount_transaction, l.type_transaction');   
+        }else{
+            $this->db->select($summary_group_by.'(l.date_of_transaction) as transaction_'.strtolower($summary_group_by).', SUM(amount_transaction) as transaction_amount');
+            $this->db->group_by($summary_group_by.'(l.date_of_transaction)');
+        }
+        
         if(!$where){
             return $this->db->get('transactions as l')->result_array();
         }else{

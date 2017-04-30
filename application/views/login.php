@@ -27,7 +27,7 @@
 							<br/>
 							assist<span style="color:#fb8200">one</span>
 						</h1>
-						<form class="form-horizontal" id="login_form" baseurl="<?= base_url() ?>" action="<?=base_url('account/login')?>" method="post">
+						<form class="form-horizontal" id="login_form" baseurl="<?= base_url('home') ?>" action="<?=base_url('account/login')?>" method="post">
 							<div class="form-group">
 								<div class="col-sm-12 col-xs-12">
 									<input type="text" name="username" class="form-control" placeholder="Username" required="" />

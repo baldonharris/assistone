@@ -69,6 +69,8 @@
     <script type="text/javascript" src="<?=base_url('assets/js/maskmoney/src/jquery.maskMoney.js')?>"></script>
     <script type="text/javascript" src="<?=base_url('assets/js/printthis/printThis.js')?>"></script>
     <script type="text/javascript" src="<?=base_url('assets/js/angularjs/angular.min.js')?>"></script>
+    <script type="text/javascript" src="<?=base_url('assets/js/ChartJS/Chart.js')?>"></script>
+    <script type="text/javascript" src="<?=base_url('assets/js/ChartJS/angular-chart.js')?>"></script>
 	<?php for($x=0; $x<count($js); $x++) echo '<script type="text/javascript" src="'.base_url().'assets/js/customs/'.$js[$x].'"></script>'; ?>
     <script type="text/javascript" src="<?=base_url('assets/js/customs/global.js')?>"></script>
 	<script>NProgress.done();</script>

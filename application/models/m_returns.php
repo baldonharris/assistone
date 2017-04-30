@@ -13,11 +13,17 @@ class M_Returns extends CI_Model {
         return array('id'=>$id);
     }
 
-    public function get($where = NULL){ // $conditions = array('where'=>$where, 'join_loans'=>false, 'join_payments'=>false, 'join_investors'=>false
-        $this->db->order_by('r.id', 'ASC');
-        $this->db->select('r.id, r.loans_id, r.payments_id, r.investors_id, r.transactions_id, r.returns, r.percentage, t.type_transaction, l.loan_id');
+    public function get($where = NULL, $summary_group_by = NULL){
+        if(!$summary_group_by){
+            $this->db->order_by('r.id', 'ASC');
+            $this->db->select('r.id, r.loans_id, r.payments_id, r.investors_id, r.transactions_id, r.returns, r.percentage, t.type_transaction, l.loan_id');
+        }else{
+            $this->db->select($summary_group_by.'(p.actual_paid_date) as '.strtolower($summary_group_by).', SUM(r.returns) as amount');
+            $this->db->group_by($summary_group_by.'(p.actual_paid_date)');
+        }
         $this->db->join('transactions as t', 't.id=r.transactions_id', 'left');
         $this->db->join('loans as l', 'l.id=r.loans_id', 'left');
+        $this->db->join('payments as p', 'p.id=r.payments_id');
         if(!$where){
             return $this->db->get('returns as r')->result_array();
         }else{
