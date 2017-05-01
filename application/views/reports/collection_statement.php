@@ -1,4 +1,4 @@
-<div ng-controller="collectionStatementController" ng-init="base_url='<?=base_url()?>'">
+<div ng-controller="collectionStatementController" ng-init="base_url='<?=base_url()?>'" ng-cloak>
     <div class="row x_title">
         <div class="col-md-10">
             <h3><?=$header?> <small><?=$subheader?></small></h3>

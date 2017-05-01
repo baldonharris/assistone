@@ -1,4 +1,4 @@
-<div ng-controller="adminController" class="row" ng-init="base_url='<?=base_url()?>'">
+<div ng-controller="adminController" class="row" ng-init="base_url='<?=base_url()?>'" ng-cloak>
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left:10px; padding-right: 10px;">
 		<div class="x_panel give-min-height-inv">
 			<div class="x_title">
