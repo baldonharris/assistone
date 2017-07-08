@@ -103,8 +103,8 @@ INSERT INTO `customers` (`id`, `customer_id`, `firstname`, `middlename`, `lastna
 
 CREATE TABLE `effectivities` (
   `id` int(11) NOT NULL,
-  `effectivity_date` datetime NOT NULL,
-  `submitted_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `effectivity_date` timestamp NULL DEFAULT NULL,
+  `submitted_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` enum('active','inactive') NOT NULL DEFAULT 'inactive'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
