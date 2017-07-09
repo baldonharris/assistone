@@ -84,25 +84,34 @@ class Home extends MY_Controller {
     
     /* <Widget Functions> */
     
-    private function get_total_loan_reservation_amount(){
-        $current_loan_reservations = $this->m_loans->get(['status'=>'reserved', 'date_of_application >='=>date('Y-m-d')]);
-        $expired_loan_reservations = $this->m_loans->get(['status'=>'reserved', 'date_of_application <'=>date('Y-m-d')]);
+    private function get_total_loan_reservations($get = 'all'){  // expired = 'all' || 'current' || 'expired'
+        $current_param = ['status'=>'reserved', 'date_of_application >='=>date('Y-m-d')];
+        $expired_param = ['status'=>'reserved', 'date_of_application <'=>date('Y-m-d')];
         
-        $total_current_reservation_amount = 0;
-        $total_expired_reservation_amount = 0;
+        $current_loan_reservations = $this->m_loans->get($current_param);
+        $expired_loan_reservations = $this->m_loans->get($expired_param);
         
-        for($x=0; $x<count($current_loan_reservations); $x++){
-            $total_current_reservation_amount += $current_loan_reservations[$x]['amount_loan'];
+        $data = ($get=='current') ? $current_loan_reservations : $expired_loan_reservations;
+        
+        if($get == 'all'){
+            $total_current_reservation_amount = 0;
+            $total_expired_reservation_amount = 0;
+
+            for($x=0; $x<count($current_loan_reservations); $x++){
+                $total_current_reservation_amount += $current_loan_reservations[$x]['amount_loan'];
+            }
+
+            for($x=0; $x<count($expired_loan_reservations); $x++){
+                $total_expired_reservation_amount += $expired_loan_reservations[$x]['amount_loan'];
+            }
+            
+            $data = [
+                'current_loan_reservation_amount'   =>  number_format($total_current_reservation_amount),
+                'expired_loan_reservation_amount'   =>  number_format($total_expired_reservation_amount)
+            ];
         }
         
-        for($x=0; $x<count($expired_loan_reservations); $x++){
-            $total_expired_reservation_amount += $expired_loan_reservations[$x]['amount_loan'];
-        }
-        
-        return [
-            'current_loan_reservation_amount'   =>  number_format($total_current_reservation_amount),
-            'expired_loan_reservation_amount'   =>  number_format($total_expired_reservation_amount)
-        ];
+        return $data;
     }
     
     private function get_cash_on_hand(){
@@ -185,12 +194,14 @@ class Home extends MY_Controller {
     
     /* </Graph Functions> */
     
+    public function get_loan_reservation($get){
+        echo json_encode($this->get_total_loan_reservations($get));
+    }
+    
     public function init_data(){
-        $total_reservation_amount = $this->get_total_loan_reservation_amount();
-        
         echo json_encode(
             array_merge(
-                $this->get_total_loan_reservation_amount(),
+                $this->get_total_loan_reservations(),
                 $this->get_cash_on_hand(),
                 $this->generate_graph_data(NULL, 'Month')
             )
@@ -199,7 +210,6 @@ class Home extends MY_Controller {
 
 	public function index()
 	{
-        $total_reservation_amount = $this->get_total_loan_reservation_amount();
 		$this->generate_page('home/index', [
             'js'    =>  ['angular/home.js']
         ]);
