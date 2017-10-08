@@ -7,6 +7,7 @@ class MY_Controller extends CI_Controller {
 		parent::__construct();
 		if(!$this->session->userdata('username')) $this->load->view('login');
         $this->load->model('m_effectivities');
+        $this->load->helper(['debug']);
         
         if(!$this->session->userdata('init')){
             $this->init_effectivities();
@@ -21,12 +22,6 @@ class MY_Controller extends CI_Controller {
             $this->m_effectivities->update(['status'=>'active'], NULL, ['id'=>$effectivity[0]['id']]);
         }
     }
-	
-	public function print_array($my_array){
-		echo "<pre>";
-		print_r($my_array);
-		echo "</pre>";
-	}
 	
 	public function generate_page($page = NULL, $data = array()){
 		if(!isset($data['page'])) $data['page'] = array('curr_page'=>0);

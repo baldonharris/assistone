@@ -80,7 +80,6 @@ class Payments extends MY_Controller {
 		}else{
 			return $final_payoff_information;
 		}
-		
     }
 
     public function get_payment(){
@@ -109,10 +108,10 @@ class Payments extends MY_Controller {
         
         /* get things ready */
         
-        $loan_info = $this->m_loans->get(['id'=>$loans_id]);
-        $transactions_involved = $this->m_transactions->get('l.date_of_transaction <= "'.$loan_info[0]['date_of_release'].'"');
-        $effectivity = $this->m_effectivities->get(['status'=>'active'])[0];
-        $buckets = $this->m_buckets->get(['effectivities_id'=>$effectivity['id']]);
+        $loan_info              = $this->m_loans->get(['id'=>$loans_id]);
+        $transactions_involved  = $this->m_transactions->get('l.date_of_transaction <= "'.$loan_info[0]['date_of_release'].'"');
+        $effectivity            = $this->m_effectivities->get(['status'=>'active'])[0];
+        $buckets                = $this->m_buckets->get(['effectivities_id'=>$effectivity['id']]);
         
         $total_investments = 0;
         $divided_interest_amount = ($loan_info[0]['total_interest_amount'] / $loan_info[0]['number_of_terms']);
@@ -196,7 +195,6 @@ class Payments extends MY_Controller {
             // returns here
             $calculated_return = $this->calculate_returns($loans_id, $data['id']);
             $this->m_returns->add($calculated_return);
-            
 			
 			$toReturn = array('status'=>1, 'data'=>$data);
 		}

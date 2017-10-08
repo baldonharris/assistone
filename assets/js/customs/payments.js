@@ -142,6 +142,7 @@ $(document).ready(function(){
 						$('#viewloan').modal('hide');
 					}
                     $(clicked_view_loan_button).trigger('click');
+					$('#viewloan').modal('hide');
                 }else{
                     pnotify('Oh no!', 'An error has occured!', 'error');
                 }
