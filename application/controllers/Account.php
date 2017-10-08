@@ -8,6 +8,7 @@ class Account extends MY_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('m_account');
+		$this->load->helper(['debug']);
 	}
 
 	public function update_admin(){

@@ -55,22 +55,36 @@
 				PNotify.prototype.options.styling = "bootstrap3";
 				$('#login_form').submit(function(event){
 					event.preventDefault();
-					$.post($(this).attr('action'), $(this).serialize(), function(response){
-						if(parseInt(response)){
-							window.location.href = $('#login_form').attr('baseurl');
-						}else{
-							new PNotify({
-								title:'Oh no!',
-								text:'Invalid username or password.',
-								type:"error",
-								delay:3000,
-								animation:"fade",
-								mobile:{swipe_dismiss:true,styling:true},
-								buttons:{closer:false,sticker:false},
-								desktop: {desktop: true,fallback: true}
-							});
-						}
-					});
+					var ajaxCall = $.post($(this).attr('action'), $(this).serialize());
+					ajaxCall.done(function (response) {
+                        if(parseInt(response)){
+                            window.location.href = $('#login_form').attr('baseurl');
+                        }else{
+                            new PNotify({
+                                title:'Oh no!',
+                                text:'Invalid username or password.',
+                                type:"error",
+                                delay:3000,
+                                animation:"fade",
+                                mobile:{swipe_dismiss:true,styling:true},
+                                buttons:{closer:false,sticker:false},
+                                desktop: {desktop: true,fallback: true}
+                            });
+                        }
+                    });
+
+					ajaxCall.fail(function () {
+                        new PNotify({
+                            title:'Oh no!',
+                            text:'Internal server error. Please contact administrator.',
+                            type:"error",
+                            delay:3000,
+                            animation:"fade",
+                            mobile:{swipe_dismiss:true,styling:true},
+                            buttons:{closer:false,sticker:false},
+                            desktop: {desktop: true,fallback: true}
+                        });
+                    });
 				});
 			});
 		</script>
