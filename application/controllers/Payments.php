@@ -103,7 +103,7 @@ class Payments extends MY_Controller {
 		return $data['penalty']*$interest_rate_by_two; 
 	}
     
-    public function calculate_returns($loans_id, $payments_id){
+    public function calculate_returns($loans_id, $payments_id, $amt_pd){
         $dummy_container = array();
         
         /* get things ready */
@@ -112,12 +112,33 @@ class Payments extends MY_Controller {
         $transactions_involved  = $this->m_transactions->get('l.date_of_transaction <= "'.$loan_info[0]['date_of_release'].'"');
         $effectivity            = $this->m_effectivities->get(['status'=>'active'])[0];
         $buckets                = $this->m_buckets->get(['effectivities_id'=>$effectivity['id']]);
+        $returns_involved       = $this->m_returns->get();
         
         $total_investments = 0;
+        $total_returns = 0;
         $divided_interest_amount = ($loan_info[0]['total_interest_amount'] / $loan_info[0]['number_of_terms']);
+        $total_investor_returns = [];
         
         foreach($transactions_involved as $transaction){
             $total_investments += $transaction['amount_transaction'];
+        }
+        
+        foreach ($returns_invovled as $return) {
+            $total_returns += $return['returns'];
+            
+            if ($return['investors_id'] == 0) {
+                $wInterest = $this->m_buckets->get(['id'=>$return['buckets_id']])[0]['interest_flag'];
+                
+                $ID = $wInterest == 1 ? 'b_' . $return['buckets_id'] : 0;
+            } else {
+                $ID = 'i_' . $return['investors_id'];
+            }
+            
+            if (!isset($total_investor_returns[$ID])) {
+                $total_investor_returns[$ID] = $return['returns'];
+            } else {
+                $total_investor_returns[$ID] += $return['returns'];
+            }
         }
         
         foreach($buckets as $bucket){
@@ -134,7 +155,7 @@ class Payments extends MY_Controller {
                 ));
             }else{
                 foreach($transactions_involved as $transaction){
-                    $transaction_percentage = ($transaction['amount_transaction']/$total_investments);
+                    $transaction_percentage = ($transaction['amount_transaction']/($total_investments+$total_returns));
                     array_push($dummy_container, array(
                         'loans_id'          =>  $loans_id,
                         'payments_id'       =>  $payments_id,
@@ -193,7 +214,7 @@ class Payments extends MY_Controller {
 			}
     
             // returns here
-            $calculated_return = $this->calculate_returns($loans_id, $data['id']);
+            $calculated_return = $this->calculate_returns($loans_id, $data['id'], $data['amount_paid']);
             $this->m_returns->add($calculated_return);
 			
 			$toReturn = array('status'=>1, 'data'=>$data);
