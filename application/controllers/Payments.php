@@ -156,14 +156,14 @@ class Payments extends MY_Controller {
 		if(!empty($errors)){
 			$toReturn = array('status'=>0, 'data'=>$errors);
 		}else{
-			$current_due_amount = str_replace(",", "", $this->input->post('current_due_amount'));
-			$loans_id = $this->input->post('payment-loan-id');
-			$payment_information = $this->payoff_information(1, $loans_id);
-			$data['actual_paid_date']   =   $this->input->post('payment_actual_paid_date');
-			$data['amount_paid']        =   str_replace(",", "", str_replace("₱ ", "", $this->input->post('payment_amount_paid')));
-			$data['payment_balance']    =   str_replace(",", "", $this->input->post('payment_payment_balance'));
-			$data['running_balance']    =   str_replace(",", "", $this->input->post('payment_running_balance'));
-			$data['id']                 =   $this->input->post('id');
+			$current_due_amount         = str_replace(",", "", $this->input->post('current_due_amount'));
+			$loans_id                   = $this->input->post('payment-loan-id');
+			$payment_information        = $this->payoff_information(1, $loans_id);
+			$data['actual_paid_date']   = $this->input->post('payment_actual_paid_date');
+			$data['amount_paid']        = str_replace(",", "", str_replace("₱ ", "", $this->input->post('payment_amount_paid')));
+			$data['payment_balance']    = str_replace(",", "", $this->input->post('payment_payment_balance'));
+			$data['running_balance']    = str_replace(",", "", $this->input->post('payment_running_balance'));
+			$data['id']                 = $this->input->post('id');
 			
 			$init_penalty_amt = $current_due_amount - $data['amount_paid'];
 			
@@ -183,7 +183,6 @@ class Payments extends MY_Controller {
 				));
 			}
 			$this->m_payments->update($data);
-
 			$this->m_loans->update(array('id'=>$loans_id, 'balance'=>$data['running_balance']));
 		
 			$data['loans_id'] = $loans_id;

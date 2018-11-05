@@ -88,6 +88,7 @@
 										<li><a href="<?=base_url('reports/investments')?>">Investments</a></li>
 									</ul>
 								</li>
+                                <li class=""><a href="<?=base_url('funds')?>"><i class="fa fa-list"></i> Fund Management</a>
 								<li class=""><a href="<?=base_url('admin')?>"><i class="fa fa-gears"></i> Admin Center</a>
 								</li>
 							</ul>

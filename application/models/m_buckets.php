@@ -13,8 +13,8 @@ class M_Buckets extends CI_Model {
         return $this->db->insert_batch('buckets', $data);
     }
     
-    public function get($where){
-        $this->db->order_by('b.id', 'DESC');
+    public function get($where = [], $order = 'DESC'){
+        $this->db->order_by('b.id', $order);
         $this->db->select('b.id, b.bucket_name, b.percentage, b.effectivities_id');
         if(!$where){
             return $this->db->get('buckets as b')->result_array();

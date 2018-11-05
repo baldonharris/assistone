@@ -7,7 +7,7 @@ class MY_Controller extends CI_Controller {
 		parent::__construct();
 		if(!$this->session->userdata('username')) $this->load->view('login');
         $this->load->model('m_effectivities');
-        $this->load->helper(['debug']);
+        $this->load->helper(['debug', 'general']);
         
         if(!$this->session->userdata('init')){
             $this->init_effectivities();
