@@ -1,0 +1,11 @@
+div.panel {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.submitting {
+    background-image: url(../images/loading.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 34px;
+}

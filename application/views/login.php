@@ -14,10 +14,11 @@
 
 		<link href="<?=base_url('assets/css/pnotify.custom.min.css')?>" media="all" rel="stylesheet" type="text/css" />
 		<link href="assets/css/custom.min.css" rel="stylesheet">
+        <link href="assets/css/login.css" rel="stylesheet">
 
 		<script src="assets/js/jquery.min.js"></script>
 	</head>
-	<body style="background:#F7F7F7;">
+	<body style="height: 100vh; background-size: cover;">
 		<div class="container">
 			<div class="col-md-4 col-md-offset-4 col-xs-12 col-sm-12" style="margin-top:5%">
 				<div class="panel panel-default">
@@ -40,26 +41,47 @@
 							</div>
 							<div class="form-group">
 								<div class="col-sm-12 col-xs-12">
-									<button type="submit" class="btn btn-default submit btn-block btn-warning">Log in</button>
+									<button type="submit" class="btn btn-default submit btn-block btn-warning">
+                                        <span>Log in</span>
+                                    </button>
 								</div>
 							</div>
 						</form>
 					</div>
 				</div>
-				<p style="text-align:center"><small>©2016 All Rights Reserved.</small></p>
+				<p style="text-align:center"><small>©<?= date('Y'); ?> All Rights Reserved.</small></p>
 			</div>
 		</div>
 		<script type="text/javascript" src="<?=base_url()?>assets/js/notify/pnotify.custom.min.js"></script>
+		<script type="text/javascript" src="<?=base_url()?>assets/js/jquery.easybg.js"></script>
 		<script>
 			$(document).ready(function(){
 				PNotify.prototype.options.styling = "bootstrap3";
+
+                $('body').easybg({
+                    images : [
+                        "<?= base_url('assets/img/bg1.jpg') ?>",
+                        "<?= base_url('assets/img/bg2.jpg') ?>",
+                        "<?= base_url('assets/img/bg3.jpg') ?>"
+                    ],
+                    interval : 15000,
+                });
+
 				$('#login_form').submit(function(event){
 					event.preventDefault();
+
+					var $submitBtn = $($(this).find('button[type=submit]'));
+
+					$submitBtn.find('span').addClass('hidden');
+					$submitBtn.addClass('submitting');
+
 					var ajaxCall = $.post($(this).attr('action'), $(this).serialize());
 					ajaxCall.done(function (response) {
                         if(parseInt(response)){
                             window.location.href = $('#login_form').attr('baseurl');
                         }else{
+                            $submitBtn.find('span').removeClass('hidden');
+                            $submitBtn.removeClass('submitting');
                             new PNotify({
                                 title:'Oh no!',
                                 text:'Invalid username or password.',
@@ -74,6 +96,8 @@
                     });
 
 					ajaxCall.fail(function () {
+                        $submitBtn.find('span').removeClass('hidden');
+                        $submitBtn.removeClass('submitting');
                         new PNotify({
                             title:'Oh no!',
                             text:'Internal server error. Please contact administrator.',
