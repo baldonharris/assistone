@@ -1,5 +1,6 @@
-application/config/database.php
-application/config/database.php
 assets/images/
+ciguide/
 /nbproject/private/
 .idea/
+
+application/config/config.php
