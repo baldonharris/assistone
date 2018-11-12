@@ -65,6 +65,7 @@
                         "<?= base_url('assets/img/bg3.jpg') ?>"
                     ],
                     interval : 15000,
+                    changeMode : 'random'
                 });
 
 				$('#login_form').submit(function(event){
