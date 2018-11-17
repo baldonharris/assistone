@@ -39,7 +39,7 @@ $(document).ready(function(){
 				var customer_details_and_loans = JSON.parse(response);
 				var customer = customer_details_and_loans.customer_detail;
 				var loans = customer_details_and_loans.loan_detail;
-				var customer_status;
+				var customer_status = 'Active';
 				customer_dup = $.extend({}, customer[0]); // store to global for modal purposes.
 				$.each(customer[0], function(index, value){
 					var new_value = (value) ? value : '';
@@ -93,7 +93,7 @@ $(document).ready(function(){
 						}
 						if(index == 'balance' && value == '0.00'){
 							duplicate_row.addClass('zerobalance');
-							duplicate_row.find('button').prop('disabled', true);
+							// duplicate_row.find('button').prop('disabled', true);
 						}
 					});
 					$('#loan_body').append(duplicate_row);

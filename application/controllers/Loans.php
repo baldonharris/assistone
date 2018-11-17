@@ -68,7 +68,7 @@ class Loans extends MY_Controller {
                 'loans_id'          => $inputs['id'],
                 'due_date'          => $base_date,
                 'due_amount'        => (($x==($inputs['number_of_terms']-1)) ? $due_amount_error : $due_amount),
-                'running_balance'   => (($x==0) ? $inputs['balance'] : 0.00)
+                'running_balance'   => $inputs['balance']
             ));
         }
         if($payments[0]['due_amount'] < $payments[($inputs['number_of_terms']-1)]['due_amount']){
