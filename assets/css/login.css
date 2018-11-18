@@ -9,3 +9,22 @@ div.panel {
     background-size: contain;
     height: 34px;
 }
+
+.container {
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.container > div {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 20%;
+}
+
+p {
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+}

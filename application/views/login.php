@@ -11,6 +11,7 @@
 
 		<link href="assets/css/bootstrap.min.css" rel="stylesheet">
 		<link href="assets/fonts/css/font-awesome.min.css" rel="stylesheet">
+		<link href="assets/css/animate/animate.min.css" rel="stylesheet">
 
 		<link href="<?=base_url('assets/css/pnotify.custom.min.css')?>" media="all" rel="stylesheet" type="text/css" />
 		<link href="assets/css/custom.min.css" rel="stylesheet">
@@ -20,36 +21,36 @@
 	</head>
 	<body style="height: 100vh; background-size: cover;">
 		<div class="container">
-			<div class="col-md-4 col-md-offset-4 col-xs-12 col-sm-12" style="margin-top:5%">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<h1 style="text-align:center">
-							<img src="<?=base_url('assets/img/assistone/logo.png')?>"/>
-							<br/>
-							assist<span style="color:#fb8200">one</span>
-						</h1>
-						<form class="form-horizontal" id="login_form" baseurl="<?= base_url('home') ?>" action="<?=base_url('account/login')?>" method="post">
-							<div class="form-group">
-								<div class="col-sm-12 col-xs-12">
-									<input type="text" name="username" class="form-control" placeholder="Username" required="" />
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-sm-12 col-xs-12">
-									<input type="password" name="password" class="form-control" placeholder="Password" required="" />
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-sm-12 col-xs-12">
-									<button type="submit" class="btn btn-default submit btn-block btn-warning">
+			<div class="col-md-3 col-xs-12 col-sm-12">
+                <div class="panel panel-default animated slideInDown">
+                    <div class="panel-body">
+                        <h1 style="text-align:center">
+                            <img src="<?=base_url('assets/img/assistone/logo.png')?>"/>
+                            <br/>
+                            assist<span style="color:#fb8200">one</span>
+                        </h1>
+                        <form class="form-horizontal" id="login_form" baseurl="<?= base_url('home') ?>" action="<?=base_url('account/login')?>" method="post">
+                            <div class="form-group">
+                                <div class="col-sm-12 col-xs-12">
+                                    <input type="text" name="username" class="form-control" placeholder="Username" required="" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12 col-xs-12">
+                                    <input type="password" name="password" class="form-control" placeholder="Password" required="" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12 col-xs-12">
+                                    <button type="submit" class="btn btn-default submit btn-block btn-warning">
                                         <span>Log in</span>
                                     </button>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-				<p style="text-align:center"><small>©<?= date('Y'); ?> All Rights Reserved.</small></p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <p class="animated fadeInLeft" style="text-align:center"><small>© <?= date('Y'); ?> All Rights Reserved.</small></p>
 			</div>
 		</div>
 		<script type="text/javascript" src="<?=base_url()?>assets/js/notify/pnotify.custom.min.js"></script>

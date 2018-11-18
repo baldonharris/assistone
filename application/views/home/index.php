@@ -1,5 +1,5 @@
 <div ng-controller="homeController" ng-init="base_url='<?= base_url() ?>'">    
-    <div class="row">
+    <div class="row animated fadeIn">
         <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
@@ -16,17 +16,17 @@
                                 </canvas>
                             </div>
                             <div class="tiles">
-                                <div class="col-md-4 col-sm-4 col-xs-4 tile">
+                                <div class="col-md-4 col-sm-12 col-xs-12 tile">
                                     <span><i class="fa fa-money"></i> Total Current Reservations</span>
                                     <h2>₱ <span ng-bind="current_loan_reservation_amount"></span></h2>
                                     <button class="btn btn-xs btn-primary" ng-click="reservations('current')">View Details</button>
                                 </div>
-                                <div class="col-md-4 col-sm-4 col-xs-4 tile">
+                                <div class="col-md-4 col-sm-12 col-xs-12 tile">
                                     <span><i class="fa fa-money"></i> Total Expired Reservations</span>
                                     <h2>₱ <span ng-bind="expired_loan_reservation_amount"></span></span></h2>
                                     <button class="btn btn-xs btn-primary" ng-click="reservations('expired')">View Details</button>
                                 </div>
-                                <div class="col-md-4 col-sm-4 col-xs-4 tile">
+                                <div class="col-md-4 col-sm-12 col-xs-12 tile">
                                     <span><i class="fa fa-money"></i> Cash On Hand</span>
                                     <h2>₱ <span ng-bind="total_cash_on_hand"></span></span></h2>
                                     <button class="btn btn-xs btn-primary">View Details</button>
